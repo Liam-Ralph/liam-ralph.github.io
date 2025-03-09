@@ -1,0 +1,310 @@
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
+   :root {
+
+    /* Colors */
+
+    --darkest-blue: #000712;
+    --dark-blue: #001429;
+    --medium-blue: #001F3D;
+    --light-blue: #2C4F70;
+
+    --yellow: #FFC200;
+    --black: #000000;
+    --off-white: #C0C0C0;
+    --medium-grey: #8C8C8C;
+
+    /* Fonts */
+
+    --serif: "Garamond", "Times New Roman", "serif";
+    --sans-serif: "Arial", "sans-serif";
+
+}
+
+
+/* ==========================================================================
+   Global Elements
+   ========================================================================== */
+
+body {
+    /* Position */
+    margin: 0px;
+    /* Display */
+    background-color: var(--darkest-blue);
+}
+
+a {
+    /* Text */
+    text-decoration: none;
+}
+
+
+/* ==========================================================================
+   IDs
+   ========================================================================== */
+
+/* First Header */
+#first-header {
+    /* Position */
+    z-index: 2;
+    /* Display */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 50px;
+    /* Text */
+    text-align: center;
+}
+#first-header-released {
+    /* Position */
+    top: 10px;
+    right: 10px;
+}
+#first-header-version {
+    /* Position */
+    top: 28px;
+    right: 10px;
+}
+#first-header-github-logo {
+    /* Position */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    /* Display */
+    width: 30px;
+}
+#first-header-profile {
+    /* Position */
+    top: 10px;
+    left: 50px;
+    /* Text */
+    text-decoration: underline;
+}
+#first-header-source {
+    /* Position */
+    top: 28px;
+    left: 50px;
+    /* Text */
+    text-decoration: underline;
+}
+
+/* Second Header */
+#second-header {
+    /* Position */
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+    /* Display */
+    display: table;
+    width: 500px;
+    height: 50px;
+    padding-left: calc(50% - 250px);
+    padding-right: calc(50% - 250px);
+    border: solid;
+    border-width: 0 0 2px 0;
+    border-color: var(--off-white);
+    background-color: var(--darkest-blue);
+}
+#page-button {
+    /* Text */
+    color: var(--off-white)
+}
+
+/* Sidebar */
+#sidebar {
+    /* Position */
+    position: fixed;
+    top: 52px;
+    z-index: 1;
+    /* Display */
+    overflow: scroll;
+    width: calc(200px);
+    height: calc(100vh - 152px);
+    padding: 50px;
+    border: solid;
+    border-width: 0 2px 0 0;
+    border-color: var(--off-white);
+    background-color: var(--dark-blue);
+}
+#sidebar-title {
+    /* Display */
+    margin: 25px 0 15px 0;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 32px;
+    color: var(--medium-grey);
+}
+
+/* Content */
+#content-body {
+    /* Display */
+    width: calc(100vw - 402px);
+    padding: 50px 50px 0 50px;
+    margin-left: 302px;
+    /* Text */
+    text-align: center;
+}
+#page-title{
+    /* Display */
+    margin: 0px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 48px;
+    color: var(--medium-grey);
+}
+#page-description{
+    /* Display */
+    margin: 20px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 28px;
+    color: var(--medium-grey);
+}
+
+/* Footer */
+#footer {
+    /* Display */
+    width: calc(100% + 100px);
+    margin: 50px 0px 0px -50px;
+    background-color: var(--black);
+}
+#credit-title {
+    /* Display */
+    margin: 0px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 32px;
+    color: var(--medium-grey);
+}
+#first-footer-line {
+    padding: 50px 25px 0px 25px;
+}
+#second-footer-line {
+    padding: 25px 25px 0px 25px;
+}
+#third-footer-line {
+    padding: 25px 25px 50px 25px;
+}
+#fourth-footer-line {
+    padding: 25px 25px 50px 25px;
+}
+
+
+/* ==========================================================================
+   Classes
+   ========================================================================== */
+
+/* General */
+.logo-medium {
+    /* Display */
+    width: 50px;
+    height: 50px;
+}
+.name-title {
+    /* Display */
+    margin: 0 0 0 20px;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 32px;
+    color: var(--yellow);
+}
+
+/* First Header */
+.first-header-side-text {
+    /* Position */
+    position: absolute;
+    /* Display */
+    margin: 0px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 12px;
+    color: var(--medium-grey);
+}
+
+/* Second Header */
+.site-nav-button-box {
+    /* Display */
+    display: table-cell;
+}
+.site-nav-button {
+    /* Display */
+    width: 100px;
+    height: 40px;
+    padding: 0px;
+    border: none;
+    border-radius: 10px;
+    margin: 5px calc(50% - 50px) 5px calc(50% - 50px);
+    background-color: var(--medium-blue);
+}
+.site-nav-button:hover {
+    /* Display */
+    background-color: var(--light-blue);
+}
+.site-nav-button-text {
+    /* Display */
+    padding: 0px;
+    margin: 0px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 18px;
+    color: var(--medium-grey);
+}
+
+/* Sidebar */
+.page-nav-box {
+    /* Display */
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.page-nav-box:hover {
+    /* Display */
+    background-color: var(--medium-blue);
+}
+.page-nav-text {
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 20px;
+    color: var(--medium-grey);
+}
+.page-nav-icon {
+    /* Display */
+    height: 25px;
+    margin: 5px;
+}
+
+/* Footer */
+.footer-line {
+    /* Display */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 50px);
+}
+.footer-credit-box {
+    /* Display */
+    margin: 0px 10px 0px 10px;
+}
+.footer-credit-logo {
+    /* Display */
+    width: 50px;
+}
+.footer-credit-logo-text {
+    /* Display */
+    margin: 10px 0px 0px 0px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 16px;
+    color: var(--medium-grey);
+}
+.footer-image {
+    /* Display */
+    width: 120px;
+}
