@@ -1,3 +1,5 @@
+// Loading Version Data
+
 fetch("/data/website-data.txt")
     .then((res) => res.text())
     .then((text) => {

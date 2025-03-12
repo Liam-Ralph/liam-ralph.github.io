@@ -30,7 +30,7 @@
 
 body {
     /* Position */
-    margin: 0px;
+    margin: 0;
     /* Display */
     background-color: var(--darkest-blue);
 }
@@ -95,7 +95,7 @@ a {
 #second-header {
     /* Position */
     position: sticky;
-    top: 0px;
+    top: 0;
     z-index: 2;
     /* Display */
     display: table;
@@ -120,7 +120,7 @@ a {
     top: 52px;
     z-index: 1;
     /* Display */
-    overflow: scroll;
+    overflow: auto;
     width: calc(200px);
     height: calc(100vh - 152px);
     padding: 50px;
@@ -149,7 +149,7 @@ a {
 }
 #page-title{
     /* Display */
-    margin: 0px;
+    margin: 0;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 48px;
@@ -168,22 +168,22 @@ a {
 #footer {
     /* Display */
     width: calc(100% + 100px);
-    margin: 50px 0px 0px -50px;
+    margin: 50px 0 0 -50px;
     background-color: var(--black);
 }
 #credit-title {
     /* Display */
-    margin: 0px;
+    margin: 0;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 32px;
     color: var(--medium-grey);
 }
 #first-footer-line {
-    padding: 50px 25px 0px 25px;
+    padding: 50px 25px 0 25px;
 }
 #second-footer-line {
-    padding: 25px 25px 0px 25px;
+    padding: 25px 25px 0 25px;
 }
 #third-footer-line {
     padding: 25px 25px 50px 25px;
@@ -217,7 +217,7 @@ a {
     /* Position */
     position: absolute;
     /* Display */
-    margin: 0px;
+    margin: 0;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 12px;
@@ -233,7 +233,7 @@ a {
     /* Display */
     width: 100px;
     height: 40px;
-    padding: 0px;
+    padding: 0;
     border: none;
     border-radius: 10px;
     margin: 5px calc(50% - 50px) 5px calc(50% - 50px);
@@ -245,8 +245,8 @@ a {
 }
 .site-nav-button-text {
     /* Display */
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 18px;
@@ -280,6 +280,16 @@ a {
     margin: 5px;
 }
 
+/* Content */
+.section-title{
+    /* Display */
+    margin: 40px 0 0 0;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 42px;
+    color: var(--medium-grey);
+}
+
 /* Footer */
 .footer-line {
     /* Display */
@@ -290,7 +300,7 @@ a {
 }
 .footer-credit-box {
     /* Display */
-    margin: 0px 10px 0px 10px;
+    margin: 0 10px 0 10px;
 }
 .footer-credit-logo {
     /* Display */
@@ -298,7 +308,7 @@ a {
 }
 .footer-credit-logo-text {
     /* Display */
-    margin: 10px 0px 0px 0px;
+    margin: 10px 0 0 0;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 16px;
