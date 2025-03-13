@@ -38,6 +38,7 @@ body {
 a {
     /* Text */
     text-decoration: none;
+    color: inherit;
 }
 
 

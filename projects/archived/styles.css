@@ -1,0 +1,59 @@
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+@import "./styles.css";
+
+
+/* ==========================================================================
+   IDs
+   ========================================================================== */
+
+/* Table */
+table {
+    /* Display */
+    width: 100%;
+    border-collapse: collapse;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 20px;
+    color: var(--medium-grey);
+}
+th {
+    /* Display */
+    padding: 20px;
+    border: 1px solid var(--medium-grey);
+    background-color: var(--medium-blue);
+    /* Text */
+    font-size: 24px;
+    text-align: left;
+}
+td {
+    /* Display */
+    padding: 10px;
+    border: 1px solid var(--medium-grey);
+    /* Text */
+    text-align: left;
+}
+tr:nth-child(odd) {
+    /* Display */
+    background-color: #000E1F;
+}
+
+/* ==========================================================================
+   IDs
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Classes
+   ========================================================================== */
+
+/* Table */
+.chart-link {
+    /* Text */
+    text-decoration: underline;
+}
+.chart-link:hover {
+    /* Text */
+    color: #FFFFFF;
+}
