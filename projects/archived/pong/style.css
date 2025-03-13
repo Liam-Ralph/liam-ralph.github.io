@@ -1,0 +1,37 @@
+/* Global Elements */
+body {
+    background-color: #050505;
+}
+div {
+    background-color: #101010;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    text-align: center;
+}
+h1 {
+    font-size: 100px;
+    font-family: "Arial Black", "Arial", "sans-serif";
+    color: #21D121;
+    margin: 10px 0px 0px 0px;
+}
+
+/* Classes and IDs */
+#title-section {
+    height: 200px;
+}
+#main-section {
+    width: 820px;
+    height: 450px;
+    padding: 20px;
+}
+#bottom-section {
+    width: 820px;
+    height: 275px;
+    padding: 20px;
+}
+.bottom-section-text {
+    font-size: 30px;
+    font-family: "Arial Black", "Arial", "sans-serif";
+    color: #21D121;
+    margin: 10px 0px 10px 0px;
+}
