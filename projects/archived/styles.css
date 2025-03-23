@@ -8,52 +8,62 @@
    IDs
    ========================================================================== */
 
-/* Table */
-table {
+/* Project */
+#all-projects-box {
     /* Display */
-    width: 100%;
-    border-collapse: collapse;
-    /* Text */
-    font-family: var(--sans-serif);
-    font-size: 20px;
-    color: var(--medium-grey);
+    height: 250px;
+    width: 80%;
+    margin-top: 0;
 }
-th {
-    /* Display */
-    padding: 20px;
-    border: 1px solid var(--medium-grey);
-    background-color: var(--medium-blue);
-    /* Text */
-    font-size: 24px;
-    text-align: left;
-}
-td {
-    /* Display */
-    padding: 10px;
-    border: 1px solid var(--medium-grey);
-    /* Text */
-    text-align: left;
-}
-tr:nth-child(odd) {
-    /* Display */
-    background-color: #000E1F;
-}
-
-/* ==========================================================================
-   IDs
-   ========================================================================== */
 
 
 /* ==========================================================================
    Classes
    ========================================================================== */
 
-/* Table */
-.chart-link {
-    /* Text */
-    text-decoration: underline;
+/* Project */
+.project-box {
+    /* Display */
+    display: inline-block;
+    vertical-align: top;
+    width: 500px;
+    height: 500px;
+    margin: 60px 10px 0 10px;
+    background-color: var(--dark-blue);
 }
-.chart-link:hover {
+.project-title {
+    /* Display */
+    margin: 10px;
     /* Text */
-    color: #FFFFFF;
+    font-family: var(--sans-serif);
+    font-size: 36px;
+    color: var(--yellow);
+}
+.project-date {
+    /* Display */
+    margin: 10px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 24px;
+    color: var(--light-blue);
+}
+.project-description {
+    /* Display */
+    margin: 10px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 22px;
+    color: var(--medium-grey);
+}
+.project-link {
+    /* Display */
+    width: 100%;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 24px;
+    text-decoration: underline;
+    color: var(--medium-grey);
+}
+.project-link:hover {
+    color: var(--off-white);
 }
