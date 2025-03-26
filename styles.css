@@ -123,7 +123,7 @@ a {
     /* Display */
     overflow: auto;
     width: calc(200px);
-    height: calc(100vh - 152px);
+    height: 100vh;
     padding: 50px;
     border: solid;
     border-width: 0 2px 0 0;
