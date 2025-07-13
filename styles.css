@@ -6,13 +6,12 @@
 
     /* Colors */
 
-    --darkest-blue: #000712;
-    --dark-blue: #001429;
-    --medium-blue: #001F3D;
-    --light-blue: #2C4F70;
+    --darkest: #000000;
+    --dark: #101010;
+    --medium: #202020;
+    --light: #404040;
 
-    --yellow: #FFC200;
-    --black: #000000;
+    --highlight: #AA0000;
     --off-white: #C0C0C0;
     --medium-grey: #8C8C8C;
 
@@ -32,7 +31,7 @@ body {
     /* Position */
     margin: 0;
     /* Display */
-    background-color: var(--darkest-blue);
+    background-color: var(--darkest);
 }
 
 a {
@@ -107,7 +106,7 @@ a {
     border: solid;
     border-width: 0 0 2px 0;
     border-color: var(--off-white);
-    background-color: var(--darkest-blue);
+    background-color: var(--darkest);
 }
 #page-button {
     /* Text */
@@ -128,7 +127,7 @@ a {
     border: solid;
     border-width: 0 2px 0 0;
     border-color: var(--off-white);
-    background-color: var(--dark-blue);
+    background-color: var(--dark);
 }
 #sidebar-title {
     /* Display */
@@ -172,7 +171,7 @@ a {
     /* Display */
     width: calc(100% + 100px);
     margin: 50px 0 0 -50px;
-    background-color: var(--black);
+    background-color: var(--dark);
 }
 #credit-title {
     /* Display */
@@ -212,7 +211,7 @@ a {
     /* Font */
     font-family: var(--sans-serif);
     font-size: 32px;
-    color: var(--yellow);
+    color: var(--highlight);
 }
 
 /* First Header */
@@ -240,11 +239,11 @@ a {
     border: none;
     border-radius: 10px;
     margin: 5px calc(50% - 50px) 5px calc(50% - 50px);
-    background-color: var(--medium-blue);
+    background-color: var(--darkest);
 }
 .site-nav-button:hover {
     /* Display */
-    background-color: var(--light-blue);
+    background-color: var(--dark);
 }
 .site-nav-button-text {
     /* Display */
@@ -269,7 +268,7 @@ a {
 }
 .page-nav-box:hover {
     /* Display */
-    background-color: var(--medium-blue);
+    background-color: var(--medium);
 }
 .page-nav-text {
     /* Text */
