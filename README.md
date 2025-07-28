@@ -1,5 +1,5 @@
 # My Website
-### Released April 2025 (planned)
+### Released August 2025 (planned)
 
 <br/>
 
