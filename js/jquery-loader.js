@@ -1,4 +1,5 @@
 $(function(){
-    $("#first-header-loader").load("/jquery-elements.html #first-header");
-    $("#second-header-loader").load("/jquery-elements.html #second-header")
+    ["#first-header", "#second-header", "#footer"].forEach(function(item) {
+        $(item + "-loader").load("/jquery-elements.html " + item);
+    });
 });
