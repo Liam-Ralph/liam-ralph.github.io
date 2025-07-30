@@ -107,10 +107,6 @@ a {
     border-color: var(--off-white);
     background-color: var(--darkest);
 }
-#page-button {
-    /* Text */
-    color: #FFFFFF;
-}
 
 /* Sidebar */
 #sidebar {
