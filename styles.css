@@ -92,10 +92,6 @@ a {
 
 /* Second Header */
 #second-header {
-    /* Position */
-    position: sticky;
-    top: 0;
-    z-index: 2;
     /* Display */
     display: table;
     width: 500px;
@@ -106,6 +102,12 @@ a {
     border-width: 0 0 2px 0;
     border-color: var(--off-white);
     background-color: var(--darkest);
+}
+#second-header-loader {
+    /* Position */
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 /* Sidebar */
