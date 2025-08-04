@@ -9,12 +9,12 @@
    ========================================================================== */
 
 #projects-page-button {
-   /* Text */
-   color: #FFFFFF;
+    /* Text */
+    color: #FFFFFF;
 }
 #title-archived {
-   /* Text */
-   text-decoration: underline;
+    /* Text */
+    text-decoration: underline;
 }
 
 
@@ -23,10 +23,10 @@
    ========================================================================== */
 
 .project-title {
-   /* Display */
-   margin: 20px 0 0 0;
-   /* Text */
-   font-family: var(--sans-serif);
-   font-size: 30px;
-   color: var(--medium);
+    /* Display */
+    margin: 20px 0 0 0;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 30px;
+    color: var(--medium);
 }

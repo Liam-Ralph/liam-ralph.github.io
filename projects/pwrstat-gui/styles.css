@@ -15,14 +15,14 @@
 
 /* Link */
 .page-link {
-   /* Display */
-   width: 100%;
-   /* Text */
-   font-family: var(--sans-serif);
-   font-size: 24px;
-   text-decoration: underline;
-   color: var(--medium);
+    /* Display */
+    width: 100%;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 24px;
+    text-decoration: underline;
+    color: var(--medium);
 }
 .page-link:hover {
-   color: var(--off-white);
+    color: var(--off-white);
 }
