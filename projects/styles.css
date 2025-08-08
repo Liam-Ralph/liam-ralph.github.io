@@ -18,15 +18,35 @@
    Classes
    ========================================================================== */
 
+/* Project Boxes */
 .project-box {
     /* Display */
     display: inline-block;
-    width: 440px;
+    width: 400px;
     padding: 20px;
+    margin: 20px;
     background: var(--dark);
 }
-
 .project-logo {
     /* Display */
     width: 400px;
+}
+.project-title {
+    /* Display */
+    margin: 20px;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 36px;
+    color: var(--highlight);
+}
+.project-tag {
+    /* Display */
+    display: inline-block;
+    width: 120px;
+    height: 30px;
+    border-radius: 10px;
+    margin: 10px;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 24px;
 }
