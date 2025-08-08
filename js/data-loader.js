@@ -19,11 +19,7 @@ class Language {
 class Project {
     constructor(name, filePaths) {
         this.name = name;
-        if (name === "Website") {
-            this.pathName = "liam-ralph.github.io";
-        } else {
-            this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
-        }
+        this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
         this.filePaths = filePaths;
         this.license = "N/A";
         this.licenseType = "N/A";
@@ -69,8 +65,12 @@ async function loadData() {
 
         // Finding Project License
 
+        var linkName = project.pathName;
+        if (project.name === "Website") {
+            linkName = "liam-ralph.github.io"
+        }
         const response = await fetch(
-            "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
+            "https://raw.githubusercontent.com/Liam-Ralph/" + linkName +
             "/refs/heads/main/LICENSE"
         );
 
@@ -87,8 +87,8 @@ async function loadData() {
 
             // LICENSE file not found, all rights reserved
 
-            project.license = "GitHub";
-            project.licenseType = "NOS"; // Not Open Source
+            project.license = "Copyrighted";
+            project.licenseType = "Source Available";
 
         }
 
@@ -100,7 +100,7 @@ async function loadData() {
 
                 const response = await fetch(
                     "https://raw.githubusercontent.com/Liam-Ralph/" +
-                    project.pathName + "/refs/heads/main/" + project.filePaths[ii]
+                    linkName + "/refs/heads/main/" + project.filePaths[ii]
                 );
                 var fileText = await response.text();
 
@@ -208,7 +208,7 @@ async function loadData() {
 
 }
 
-const response = await loadData();
-const languages = response[0];
-const projects = response[1];
+const responses = await loadData();
+const languages = responses[0];
+const projects = responses[1];
 export { languages, projects };
