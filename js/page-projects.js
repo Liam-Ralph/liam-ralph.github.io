@@ -2,7 +2,7 @@ import { projects } from "./data-loader.js";
 
 const pinned_project_names = ["PwrStat GUI"];
 
-for (let i in projects) {
+for (let i = projects.length - 1; i >= 0; i--) {
 
     const project = projects[i];
 
@@ -11,25 +11,19 @@ for (let i in projects) {
     var projectBox = document.createElement("div");
     projectBox.className = "project-box";
 
-    // Project Link
-
-    var projectLink = document.createElement("a");
-    if (project.name === "Website") {
-        projectLink.href = "/projects/website";
-    } else {
-        projectLink.href = "/projects/" + project.pathName;
-    }
-
     // Project Logo
 
     var projectLogo = document.createElement("img");
     projectLogo.className = "project-logo";
-    if (project.name === "Website") {
-        projectLogo.src = "/images/project-logos/website.png";
-    } else {
-        projectLogo.src = "/images/project-logos/" + project.pathName + ".png";
-    }
+    projectLogo.src = "/images/project-logos/" + project.pathName + ".png";
     projectLogo.alt = project.name + " Logo";
+
+    projectBox.appendChild(projectLogo);
+
+    // Project Link
+
+    var projectLink = document.createElement("a");
+    projectLink.href = "/projects/" + project.pathName;
 
     // Project Title
 
@@ -37,7 +31,6 @@ for (let i in projects) {
     projectTitle.className = "project-title offwhite-hover";
     projectTitle.textContent = project.name;
 
-    projectLink.appendChild(projectLogo);
     projectLink.appendChild(projectTitle);
     projectBox.appendChild(projectLink);
 
@@ -51,8 +44,23 @@ for (let i in projects) {
     projectTagLang.style.backgroundColor = project.languages[0].color;
     projectTags.push(projectTagLang);
 
-    for (let i in projectTags) {
-        projectBox.appendChild(projectTags[i]);
+    var projectTagLic = document.createElement("p");
+    projectTagLic.className = "project-tag";
+    projectTagLic.textContent = project.license;
+    switch (project.licenseType) {
+        case "FOSS":
+            projectTagLic.style.backgroundColor = "#00FF00";
+            break;
+        case "Source Available":
+            projectTagLic.style.backgroundColor = "#FF8800";
+            break;
+        default:
+            projectTagLic.style.backgroundColor = "#FF0000";
+    }
+    projectTags.push(projectTagLic);
+
+    for (let ii in projectTags) {
+        projectBox.appendChild(projectTags[ii]);
     }
 
     // Append Children
