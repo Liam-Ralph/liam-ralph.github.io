@@ -12,21 +12,21 @@
     /* Text */
     color: #FFFFFF;
 }
-#title-archived {
-    /* Text */
-    text-decoration: underline;
-}
 
 
 /* ==========================================================================
    Classes
    ========================================================================== */
 
-.project-title {
+.project-box {
     /* Display */
-    margin: 20px 0 0 0;
-    /* Text */
-    font-family: var(--sans-serif);
-    font-size: 30px;
-    color: var(--medium);
+    display: inline-block;
+    width: 440px;
+    padding: 20px;
+    background: var(--dark);
+}
+
+.project-logo {
+    /* Display */
+    width: 400px;
 }
