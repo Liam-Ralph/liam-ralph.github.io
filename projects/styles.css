@@ -43,8 +43,8 @@
 .project-tag {
     /* Display */
     display: inline-block;
-    width: 150px;
     height: 30px;
+    padding: 0 10px;;
     border-radius: 10px;
     margin: 10px;
     /* Font */

@@ -42,6 +42,9 @@ for (let i = projects.length - 1; i >= 0; i--) {
     projectTagLang.className = "project-tag";
     projectTagLang.textContent = project.languages[0].name;
     projectTagLang.style.backgroundColor = project.languages[0].color;
+    if (project.languages[0].whiteText) {
+        projectTagLang.style.color = "#C0C0C0";
+    }
     projectTags.push(projectTagLang);
 
     var projectTagLic = document.createElement("p");
