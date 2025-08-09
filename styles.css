@@ -290,6 +290,14 @@ a {
     font-size: 28px;
     color: var(--light);
 }
+.counter {
+    /* Display */
+    margin: 10px;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 32px;
+    color: var(--highlight);
+}
 
 /* Footer */
 .footer-line {
