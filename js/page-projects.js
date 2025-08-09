@@ -70,3 +70,5 @@ for (let i = projects.length - 1; i >= 0; i--) {
     }
 
 }
+
+document.getElementById("projects-counter").textContent = projects.length + " Projects";
