@@ -1,6 +1,6 @@
 import { projects } from "./data-loader.js";
 
-const pinned_project_names = ["PwrStat GUI"];
+const pinnedProjectNames = ["PwrStat GUI"];
 
 for (let i = projects.length - 1; i >= 0; i--) {
 
@@ -68,7 +68,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Append Children
     document.getElementById("section-recent").appendChild(projectBox);
-    if (pinned_project_names.includes(project.name)) {
+    if (pinnedProjectPames.includes(project.name)) {
         document.getElementById("section-pinned").appendChild(projectBox.cloneNode(true));
     }
 
