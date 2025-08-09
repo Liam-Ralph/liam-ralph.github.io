@@ -68,7 +68,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Append Children
     document.getElementById("section-recent").appendChild(projectBox);
-    if (pinnedProjectPames.includes(project.name)) {
+    if (pinnedProjectNames.includes(project.name)) {
         document.getElementById("section-pinned").appendChild(projectBox.cloneNode(true));
     }
 
