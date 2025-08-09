@@ -3,10 +3,12 @@
 // Language
 
 class Language {
-    constructor(name, ext, color, shortComment = "//", longComment = ["/*", "*/"]) {
+    constructor(name, ext, color, whiteText = false,
+    shortComment = "//", longComment = ["/*", "*/"]) {
         this.name = name;
         this.ext = ext;
         this.color = color;
+        this.whiteText = whiteText;
         this.shortComment = shortComment;
         this.longComment = longComment;
         this.projects = [];
@@ -29,79 +31,78 @@ class Project {
     }
 }
 
+
 // Data Loader
 
 async function loadData() {
 
     // Variables
 
-    var python = new Language("Python", "py", "#0000AA", "#", []);
-    var java = new Language("Java", "java", "#AA0000");
-    var cSharp = new Language("C#", "cs", "#400070");
-    var html = new Language("HTML", "html", "#FF4000", "None", ["<!--", "-->"]);
-    var css = new Language("CSS", "css", "#600090");
+    var python = new Language("Python", "py", "#0000AA", true, "#", []);
+    var java = new Language("Java", "java", "#AA0000", true);
+    var cSharp = new Language("C#", "cs", "#400070", true);
+    var html = new Language("HTML", "html", "#FF4000", false, "None", ["<!--", "-->"]);
+    var css = new Language("CSS", "css", "#600090", true);
     var javaScript = new Language("JavaScript", "js", "#FFDD00");
     var languages = [python, java, cSharp, html, css, javaScript];
 
-    var biomeGen = new Project("BiomeGen", ["/main.py"]);
-    var pwrStatGUI = new Project("PwrStat GUI", ["/main.py"]);
+    var biomeGen = new Project("BiomeGen", ["main.py"]);
+    var pwrStatGUI = new Project("PwrStat GUI", ["main.py"]);
     var website = new Project("Website", [
-        "/index.html", "/styles.css", "/elements.html",
-        "/about-me/index.html", "/about-me/styles.css",
-        "/js/element-loader.js",
-        "/projects/index.html", "/projects/styles.css",
-        "/projects/archived/index.html", "/projects/archived/styles.css",
-        "/projects/biomegen/index.html",
-        "/projects/pwrstat-gui/index.html", "/projects/pwrstat-gui/styles.css",
-        "/statistics/index.html", "/statistics/styles.css"
+        "index.html", "styles.css", "elements.html",
+        "about-me/index.html", "about-me/styles.css",
+        "js/data-loader.js", "js/element-loader.js", "js/page-about-me.js", "js/page-projects.js",
+        "projects/index.html", "projects/styles.css",
+        "projects/archived/index.html", "projects/archived/styles.css",
+        "projects/biomegen/index.html",
+        "projects/pwrstat-gui/index.html", "projects/pwrstat-gui/styles.css",
+        "statistics/index.html", "statistics/styles.css"
     ]);
     var projects = [biomeGen, pwrStatGUI, website];
 
     // Getting Data on Projects
 
-    for (let i in projects) {
+    try {
 
-        var project = projects[i]
+        for (let i in projects) {
 
-        // Finding Project License
+            var project = projects[i]
 
-        var linkName = project.pathName;
-        if (project.name === "Website") {
-            linkName = "liam-ralph.github.io"
-        }
-        const response = await fetch(
-            "https://raw.githubusercontent.com/Liam-Ralph/" + linkName +
-            "/refs/heads/main/LICENSE"
-        );
+            // Project URL Path Name
 
-        if (response.ok) {
-
-            const licenseText = await response.text();
-
-            if (licenseText.includes("GNU General Public License")) {
-                project.license = "GPLv3";
-                project.licenseType = "FOSS";
+            var urlName = "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
+                "/refs/heads/main/";
+            if (project.name === "Website") {
+                urlName = "/";
             }
 
-        } else {
+            // Finding Project License
 
-            // LICENSE file not found, all rights reserved
+            const response = await fetch(urlName + "LICENSE");
 
-            project.license = "Copyrighted";
-            project.licenseType = "Source Available";
+            if (response.ok) {
 
-        }
+                const licenseText = await response.text();
 
-        for (let ii in project.filePaths) {
+                if (licenseText.includes("GNU General Public License")) {
+                    project.license = "GPLv3";
+                    project.licenseType = "FOSS";
+                }
 
-            try {
+            } else {
+
+                // LICENSE file not found, all rights reserved
+
+                project.license = "Rights Reserved";
+                project.licenseType = "Source Available";
+
+            }
+
+            for (let ii in project.filePaths) {
 
                 // Fetch File Contents
 
-                const response = await fetch(
-                    "https://raw.githubusercontent.com/Liam-Ralph/" +
-                    linkName + "/refs/heads/main/" + project.filePaths[ii]
-                );
+                const response = await fetch(urlName + project.filePaths[ii]);
                 var fileText = await response.text();
 
                 // Calculate File Lines
@@ -196,12 +197,12 @@ async function loadData() {
 
                 project.linesList[project.languages.indexOf(fileLanguage)] += fileLines;
 
-            } catch (error) {
-                console.log(error);
             }
 
         }
 
+    } catch (error) {
+        console.log(error);
     }
 
     return [languages, projects];
