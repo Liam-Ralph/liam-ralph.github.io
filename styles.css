@@ -276,7 +276,6 @@ a {
 /* Content */
 .section-title {
     /* Display */
-    display: inline-block;
     margin: 40px 5% 20px 5%;
     /* Text */
     font-family: var(--sans-serif);
@@ -285,8 +284,7 @@ a {
 }
 .paragraph-text {
     /* Display */
-    display: inline-block;
-    margin: 20px 5%;
+    margin: 10px 5%;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 28px;
