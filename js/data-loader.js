@@ -105,7 +105,7 @@ async function loadData() {
                 const response = await fetch(urlName + project.filePaths[ii]);
                 var fileText = await response.text();
 
-                // Calculate File Lines
+                // Remove Empty Lines and Indentation
 
                 while (fileText.includes("    ")) {
                     fileText = fileText.replace("    ", "");
@@ -182,6 +182,10 @@ async function loadData() {
 
                 const fileLines = fileText.split("\n").length;
 
+                if (fileLanguage.name === "HTML") {
+                    console.log(project.filePaths[ii] + ": " + fileLines);
+                }
+
                 // Add Data to Project, Language
 
                 fileLanguage.lines += fileLines;
@@ -203,7 +207,7 @@ async function loadData() {
 
     } catch (error) {
         console.log(error);
-    }for (let i in languages) {console.log(languages[i].name + ": " + languages[i].lines);}for (let i in projects) {console.log(projects[i].name + ": " + projects[i].lines);}
+    }
 
     return [languages, projects];
 
