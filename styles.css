@@ -7,7 +7,7 @@
     /* Colors */
 
     --darkest: #000000;
-    --dark: #101010;
+    --dark: #151515;
     --medium: #606060;
     --light: #808080;
 
@@ -245,6 +245,10 @@ a {
     font-size: 18px;
     color: var(--light);
 }
+.site-nav-button-text:hover {
+    /* Text */
+    color: var(--off-white);
+}
 
 /* Sidebar */
 .page-nav-box {
@@ -259,7 +263,7 @@ a {
 }
 .page-nav-box:hover {
     /* Display */
-    background-color: var(--medium);
+    background-color: var(--darkest);
 }
 .page-nav-text {
     /* Text */

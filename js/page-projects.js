@@ -66,7 +66,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
         projectBox.appendChild(projectTags[ii]);
     }
 
-    // Release Date and Version
+    // Project Release Date and Version
 
     var projectDate = document.createElement("p");
     projectDate.className = "project-text";
@@ -79,6 +79,31 @@ for (let i = projects.length - 1; i >= 0; i--) {
     projectVersion.textContent = "Version " + project.version;
 
     projectBox.appendChild(projectVersion);
+
+    // Project Lines of Code
+
+    var projectLoc = document.createElement("p");
+    projectLoc.className = "project-text";
+    projectLoc.textContent = "Lines of Code: " + project.lines;
+
+    projectBox.appendChild(projectLoc);
+
+    for (let ii in project.languages) {
+
+        const language = project.languages[ii];
+        const width = project.linesList[ii] / project.lines * 400;
+        var languageBar = document.createElement("div");
+        languageBar.className = "language-bar";
+        languageBar.textContent = language.name.replace("JavaScript", "Java\u00ADScript");
+        languageBar.style.width = width.toString() + "px";
+        languageBar.style.backgroundColor = language.color;
+        if (language.whiteText) {
+            languageBar.style.color = "#C0C0C0";
+        }
+
+        projectBox.appendChild(languageBar);
+
+    }
 
     // Append Children
 
