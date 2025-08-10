@@ -25,6 +25,8 @@ class Project {
         this.filePaths = filePaths;
         this.license = "N/A";
         this.licenseType = "N/A";
+        this.releaseDate = "Unknown Date";
+        this.version = "1.0.0";
         this.languages = [];
         this.linesList = [];
         this.lines = 0;
@@ -78,7 +80,7 @@ async function loadData() {
 
             // Finding Project License
 
-            const response = await fetch(urlName + "LICENSE");
+            var response = await fetch(urlName + "LICENSE");
 
             if (response.ok) {
 
@@ -95,6 +97,28 @@ async function loadData() {
 
                 project.license = "Rights Reserved";
                 project.licenseType = "Source Available";
+
+            }
+
+            // Finding Project Release Date and Version
+
+            response = await fetch(urlName + "README.md");
+
+            if (response.ok) {
+
+                const readmeLines = (await response.text()).split("\n");
+
+                for (let iii in readmeLines) {
+
+                    if (readmeLines[iii].startsWith("### Released ")) {
+                        project.releaseDate =
+                            readmeLines[iii].replace("### Released ", "").replace(" (planned)", "");
+                    } else if (readmeLines[iii].startsWith("### Version ")) {
+                        project.version = readmeLines[iii].replace("### Version ", "");
+                        break;
+                    }
+    
+                }
 
             }
 

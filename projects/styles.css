@@ -51,3 +51,11 @@
     font-family: var(--sans-serif);
     font-size: 24px;
 }
+.project-text {
+    /* Display */
+    margin: 20px;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 28px;
+    color: var(--light);
+}
