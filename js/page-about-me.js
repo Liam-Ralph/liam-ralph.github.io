@@ -1,4 +1,4 @@
-import { projects } from "./data-loader.js";
+import { projects } from "/js/data-loader.js";
 
 document.getElementById("projects-counter").textContent = projects.length + " Projects";
 
