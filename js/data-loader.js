@@ -105,10 +105,6 @@ async function loadData() {
                 const response = await fetch(urlName + project.filePaths[ii]);
                 var fileText = await response.text();
 
-                if (project.filePaths[ii] === "elements.html") {
-                    console.log(fileText);
-                }
-
                 // Remove Empty Lines and Indentation
 
                 while (fileText.includes("    ")) {
@@ -185,10 +181,6 @@ async function loadData() {
                 fileText = fileText.trim();
 
                 const fileLines = fileText.split("\n").length;
-
-                if (project.filePaths[ii] === "elements.html") {
-                    console.log(fileText);
-                }
 
                 // Add Data to Project, Language
 
