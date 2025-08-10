@@ -203,7 +203,7 @@ async function loadData() {
 
     } catch (error) {
         console.log(error);
-    }
+    }for (let i in languages) {console.log(languages[i].name + ": " + languages[i].lines);}for (let i in projects) {console.log(projects[i].name + ": " + projects[i].lines);}
 
     return [languages, projects];
 
