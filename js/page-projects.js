@@ -66,7 +66,22 @@ for (let i = projects.length - 1; i >= 0; i--) {
         projectBox.appendChild(projectTags[ii]);
     }
 
+    // Release Date and Version
+
+    var projectDate = document.createElement("p");
+    projectDate.className = "project-text";
+    projectDate.textContent = "Released " + project.releaseDate;
+
+    projectBox.appendChild(projectDate);
+
+    var projectVersion = document.createElement("p");
+    projectVersion.className = "project-text";
+    projectVersion.textContent = "Version " + project.version;
+
+    projectBox.appendChild(projectVersion);
+
     // Append Children
+
     document.getElementById("section-recent").appendChild(projectBox);
     if (pinnedProjectNames.includes(project.name)) {
         document.getElementById("section-pinned").appendChild(projectBox.cloneNode(true));
