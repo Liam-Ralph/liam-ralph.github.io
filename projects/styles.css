@@ -24,13 +24,14 @@
     display: inline-block;
     width: 400px;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 30px;
     margin: 20px;
     background: var(--dark);
 }
 .project-logo {
     /* Display */
     width: 400px;
+    border-radius: 20px;
 }
 .project-title {
     /* Display */
@@ -39,6 +40,14 @@
     font-family: var(--sans-serif);
     font-size: 36px;
     color: var(--highlight);
+}
+.project-tagline {
+    /* Display */
+    margin: 10px;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 28px;
+    color: var(--light);
 }
 .project-tag {
     /* Display */
@@ -53,10 +62,10 @@
 }
 .project-text {
     /* Display */
-    margin: 20px;
+    margin: 10px;
     /* Font */
     font-family: var(--sans-serif);
-    font-size: 28px;
+    font-size: 26px;
     color: var(--light);
 }
 .language-bar {

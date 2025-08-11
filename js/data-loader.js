@@ -19,9 +19,10 @@ class Language {
 // Project
 
 class Project {
-    constructor(name, filePaths) {
+    constructor(name, tagline, filePaths) {
         this.name = name;
         this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
+        this.tagline = tagline;
         this.filePaths = filePaths;
         this.license = "N/A";
         this.licenseType = "N/A";
@@ -48,9 +49,10 @@ async function loadData() {
     var javaScript = new Language("JavaScript", "js", "#FFDD00");
     var languages = [python, java, cSharp, html, css, javaScript];
 
-    var biomeGen = new Project("BiomeGen", ["main.py"]);
-    var pwrStatGUI = new Project("PwrStat GUI", ["main.py"]);
-    var website = new Project("Website", [
+    var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.", ["main.py"]);
+    var pwrStatGUI = new Project("PwrStat GUI", "An app for viewing CyberPower UPS info.", ["main.py"]);
+    var website = new Project("Website", "My personal website and project showcase.",
+    [
         "index.html", "styles.css", "elements.html",
         "about-me/index.html", "about-me/styles.css",
         "js/data-loader.js", "js/element-loader.js", "js/page-about-me.js", "js/page-projects.js",

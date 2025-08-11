@@ -8,12 +8,16 @@
    IDs
    ========================================================================== */
 
-/* Project */
+/* All Projects Box */
 #all-projects-box {
     /* Display */
+    display: inline-block;
     height: 250px;
     width: 80%;
-    margin-top: 0;
+    padding: 0 20px 20px 20px;
+    border-radius: 30px;
+    margin: 20px 0;
+    background-color: var(--dark);
 }
 
 
@@ -21,25 +25,19 @@
    Classes
    ========================================================================== */
 
-/* Project */
-.project-box {
+/* Archived Project Tiles */
+.archived-project-box {
     /* Display */
     display: inline-block;
     vertical-align: top;
-    width: 500px;
-    height: 500px;
-    margin: 60px 10px 0 10px;
+    width: 400px;
+    height: 600px;
+    padding: 0 20px 20px 20px;
+    border-radius: 30px;
+    margin: 20px;
     background-color: var(--dark);
 }
-.project-title {
-    /* Display */
-    margin: 10px;
-    /* Text */
-    font-family: var(--sans-serif);
-    font-size: 36px;
-    color: var(--highlight);
-}
-.project-date {
+.archived-project-date {
     /* Display */
     margin: 10px;
     /* Text */
@@ -47,23 +45,20 @@
     font-size: 24px;
     color: var(--light);
 }
-.project-description {
+.archived-project-description {
     /* Display */
     margin: 10px;
     /* Text */
     font-family: var(--sans-serif);
-    font-size: 22px;
+    font-size: 24px;
     color: var(--medium);
 }
-.project-link {
+.archived-project-link {
     /* Display */
     width: 100%;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 24px;
     text-decoration: underline;
-    color: var(--medium);
-}
-.project-link:hover {
-    color: var(--off-white);
+    color: var(--light);
 }
