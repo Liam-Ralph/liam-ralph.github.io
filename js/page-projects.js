@@ -34,6 +34,14 @@ for (let i = projects.length - 1; i >= 0; i--) {
     projectLink.appendChild(projectTitle);
     projectBox.appendChild(projectLink);
 
+    // Project Tagline
+
+    var projectTagline = document.createElement("p");
+    projectTagline.className = "project-tagline";
+    projectTagline.textContent = project.tagline;
+
+    projectBox.appendChild(projectTagline);
+
     // Project Tags
 
     var projectTags = [];
@@ -91,7 +99,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
     for (let ii in project.languages) {
 
         const language = project.languages[ii];
-        const width = project.linesList[ii] / project.lines * 400;
+        const width = project.linesList[ii] / project.lines * 350;
         var languageBar = document.createElement("div");
         languageBar.className = "language-bar";
         languageBar.textContent = language.name.replace("JavaScript", "Java\u00ADScript");
