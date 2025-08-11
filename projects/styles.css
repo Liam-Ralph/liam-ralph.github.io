@@ -81,7 +81,15 @@
 }
 
 /* Project Pages */
-.project-image {
+.project-page-link {
+    /* Display */
+    margin: 10px;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 32px;
+    color: var(--light);
+}
+.project-page-image {
     /* Display */
     width: 80%;
     border: 20px solid var(--dark);
