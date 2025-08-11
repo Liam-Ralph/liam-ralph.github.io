@@ -79,3 +79,11 @@
     font-family: var(--sans-serif);
     font-size: 24px;
 }
+
+/* Project Pages */
+.project-image {
+    /* Display */
+    width: 80%;
+    border: 20px solid var(--dark);
+    margin: 10px;
+}
