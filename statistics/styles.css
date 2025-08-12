@@ -1,4 +1,10 @@
 /* ==========================================================================
+   Variables
+   ========================================================================== */
+@import "./styles.css";
+
+
+/* ==========================================================================
    IDs
    ========================================================================== */
 
@@ -9,12 +15,41 @@
 }
 
 /* Project Bar Chart */
-#project-bar-chart {
+#projects-bar-chart {
     /* Display */
     display: inline-block;
     width: 80%;
-    height: 600px;
     padding: 20px;
     border-radius: 30px;
     background-color: var(--dark);
+}
+
+
+/* ==========================================================================
+   Classes
+   ========================================================================== */
+
+/* Bar Chart */
+.bar-header {
+    /* Display */
+    margin: 0;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 32px;
+    color: var(--off-white);
+    text-align: left;
+}
+.bars-container {
+    /* Display */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100px;
+}
+.chart-bar {
+    /* Display */
+    height: 100%;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 28px;
 }
