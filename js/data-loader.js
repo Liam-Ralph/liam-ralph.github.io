@@ -54,9 +54,9 @@ async function loadData() {
     var website = new Project("Website", "My personal website and project showcase.",
     [
         "index.html", "styles.css", "elements.html",
-        "about-me/index.html", "about-me/styles.css",
         "js/data-loader.js", "js/element-loader.js",
         "js/page-about-me.js", "js/page-projects.js", "js/page-statistics.js",
+        "about-me/index.html", "about-me/styles.css",
         "projects/index.html", "projects/styles.css",
         "projects/archived/index.html", "projects/archived/styles.css",
         "projects/biomegen/index.html",
@@ -121,7 +121,7 @@ async function loadData() {
                         project.version = readmeLines[iii].replace("### Version ", "");
                         break;
                     }
-    
+
                 }
 
             }
