@@ -55,7 +55,8 @@ async function loadData() {
     [
         "index.html", "styles.css", "elements.html",
         "about-me/index.html", "about-me/styles.css",
-        "js/data-loader.js", "js/element-loader.js", "js/page-about-me.js", "js/page-projects.js",
+        "js/data-loader.js", "js/element-loader.js",
+        "js/page-about-me.js", "js/page-projects.js", "js/page-statistics.js",
         "projects/index.html", "projects/styles.css",
         "projects/archived/index.html", "projects/archived/styles.css",
         "projects/biomegen/index.html",
