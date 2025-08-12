@@ -56,17 +56,17 @@
                 </div>
             </a>
 
-            <a class="page-nav-link" href="#title-languages">
-                <div class="page-nav-box">
-                    <img class="page-nav-icon" src="/images/icons/icon-languages.svg" alt="Languages Icon">
-                    <p class="page-nav-text">Languages</p>
-                </div>
-            </a>
-
             <a class="page-nav-link" href="#title-projects">
                 <div class="page-nav-box">
                     <img class="page-nav-icon" src="/images/icons/icon-projects.svg" alt="Projects Icon">
                     <p class="page-nav-text">Projects</p>
+                </div>
+            </a>
+
+            <a class="page-nav-link" href="#title-languages">
+                <div class="page-nav-box">
+                    <img class="page-nav-icon" src="/images/icons/icon-languages.svg" alt="Languages Icon">
+                    <p class="page-nav-text">Languages</p>
                 </div>
             </a>
 
@@ -95,6 +95,14 @@
                 and markdown files, and any comments or blank lines.
             </p>
 
+            <!--Summary-->
+
+            <p class="section-title" id="title-summary">Summary</p>
+
+            <p class="counter" id="projects-counter">Loading...</p>
+            <p class="counter" id="languages-counter">Loading...</p>
+            <p class="counter" id="loc-counter">Loading...</p>
+
             <!--Legend-->
 
             <p class="section-title">Legend</p>
@@ -105,13 +113,17 @@
 
             <p class="section-title" id="title-projects">Projects</p>
 
-            <div id="projects-bar-chart"></div>
+            <div class="bar-chart" id="projects-bar-chart"></div>
 
             <div id="projects-tile-container"></div>
 
             <!--Language Statistics-->
 
             <p class="section-title" id="title-languages">Languages</p>
+
+            <div class="bar-chart" id="languages-bar-chart-1"></div>
+
+            <div class="bar-chart" id="languages-bar-chart-2"></div>
 
             <!--Footer-->
             <div id="footer-loader"></div>
