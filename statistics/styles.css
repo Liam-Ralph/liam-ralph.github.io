@@ -66,3 +66,39 @@
     font-family: var(--sans-serif);
     font-size: 28px;
 }
+
+/* Tiles */
+.stats-box {
+    /* Display */
+    display: inline-block;
+    vertical-align: top;
+    width: 400px;
+    height: 620px;
+    padding: 20px;
+    border-radius: 30px;
+    margin: 20px;
+    background: var(--dark);
+}
+.stats-title {
+    /* Display */
+    margin: 20px;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 36px;
+    color: var(--light);
+}
+.stats-pie {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  margin: 20px;
+}
+.stats-legend {
+    /* Display */
+    padding: 10px;
+    margin: 0;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 26px;
+    text-align: left;
+}
