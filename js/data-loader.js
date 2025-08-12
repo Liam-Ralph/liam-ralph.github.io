@@ -61,6 +61,7 @@ async function loadData() {
         "projects/archived/index.html", "projects/archived/styles.css",
         "projects/biomegen/index.html",
         "projects/pwrstat-gui/index.html",
+        "projects/website/index.html",
         "statistics/index.html", "statistics/styles.css"
     ]);
     var projects = [biomeGen, pwrStatGUI, website];

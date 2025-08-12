@@ -18,7 +18,6 @@
 #legend-box {
     /* Display */
     display: inline-block;
-    width: 80%;
     padding: 20px;
     border-radius: 30px;
     background-color: var(--dark);
@@ -43,6 +42,7 @@
 .legend-item {
     /* Display */
     display: inline-block;
+    width: 200px;
     height: 30px;
     padding: 35px 0;
     /* Text */
@@ -61,6 +61,7 @@
 .chart-bar {
     /* Display */
     height: 100%;
+    white-space: pre;
     /* Text */
     font-family: var(--sans-serif);
     font-size: 28px;
