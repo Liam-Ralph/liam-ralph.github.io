@@ -1,5 +1,24 @@
 import { languages, projects } from "/js/data-loader.js"
 
+// Legend
+
+for (let i in languages) {
+
+    const language = languages[i];
+
+    var legendItem = document.createElement("div");
+    legendItem.className = "legend-item";
+    legendItem.style.backgroundColor = language.color;
+    legendItem.style.width = (100 / languages.length) + "%";
+    legendItem.textContent = language.name;
+    if (language.whiteText) {
+        legendItem.style.color = "#C0C0C0";
+    }
+
+    document.getElementById("legend-box").appendChild(legendItem);
+
+}
+
 // Sorting Languages and Projects
 
 var languagesByLines = languages.slice();
@@ -35,10 +54,6 @@ for (let i in projectsByLines) {
 
     const project = projectsByLines[i];
 
-    var barHeader = document.createElement("p");
-    barHeader.className = "bar-header";
-    barHeader.textContent = project.name + ": " + project.lines + " Lines of Code";
-
     var barsContainer = document.createElement("div");
     barsContainer.className = "bars-container";
 
@@ -48,9 +63,15 @@ for (let i in projectsByLines) {
         bar.className = "chart-bar";
         bar.style.width = (project.linesList[ii] * maxWidth) + "px";
         bar.style.backgroundColor = project.languages[ii].color;
-        bar.textContent = project.languages[ii].name + ": " +
-            project.linesList[ii] + " Lines (" +
-            Math.round(project.linesList[ii] / project.lines * 100) + "%)";
+        bar.style.whiteSpace = "pre";
+        if (ii == 0){
+            bar.textContent = project.name + "\n\r" +
+                project.linesList[ii] + " LoC (" +
+                Math.round(project.linesList[ii] / project.lines * 100) + "%)";
+        } else {
+            bar.textContent = "\n\r" + project.linesList[ii] + " LoC (" +
+                Math.round(project.linesList[ii] / project.lines * 100) + "%)";
+        }
         if (project.languages[ii].whiteText) {
             bar.style.color = "#C0C0C0";
         }
@@ -59,7 +80,6 @@ for (let i in projectsByLines) {
 
     }
 
-    barChart.appendChild(barHeader);
     barChart.appendChild(barsContainer);
 
 }
