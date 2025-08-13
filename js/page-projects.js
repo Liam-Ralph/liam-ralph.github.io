@@ -15,7 +15,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     var projectLogo = document.createElement("img");
     projectLogo.className = "project-logo";
-    projectLogo.src = "/images/project-logos/" + project.pathName + ".png";
+    projectLogo.src = "/images/projects/" + project.pathName + "/logo.png";
     projectLogo.alt = project.name + " Logo";
 
     projectBox.appendChild(projectLogo);

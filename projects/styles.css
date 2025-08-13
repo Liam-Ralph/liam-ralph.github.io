@@ -82,6 +82,12 @@
 }
 
 /* Project Pages */
+.project-page-logo {
+    /* Display */
+    width: 60%;
+    border: 20px solid var(--dark);
+    margin: 10px;
+}
 .project-page-link {
     /* Display */
     margin: 10px;
