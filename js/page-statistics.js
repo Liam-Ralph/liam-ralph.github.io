@@ -4,13 +4,19 @@ import { languages, projects } from "/js/data-loader.js"
 
 document.getElementById("projects-counter").textContent = projects.length + " Projects";
 
-document.getElementById("languages-counter").textContent = languages.length + " Languages";
-
-var sum = 0;
-for (let i in projects) {
-    sum += projects[i].lines;
+var tot = 0;
+for (let i in languages) {
+    if (languages[i].lines > 0) {
+        tot++;
+    }
 }
-document.getElementById("loc-counter").textContent = sum + " Lines of Code";
+document.getElementById("languages-counter").textContent = tot + " Languages";
+
+tot = 0;
+for (let i in projects) {
+    tot += projects[i].lines;
+}
+document.getElementById("loc-counter").textContent = tot + " Lines of Code";
 
 // Legend
 
