@@ -1,6 +1,6 @@
 # My Website
 ### Released August 2025
-### Version 1.0.1
+### Version 1.0.2
 ### Updated August 2025
 
 <br/>
