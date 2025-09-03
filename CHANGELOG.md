@@ -12,3 +12,8 @@ Initial finished website release.
 
  - Updated PwrStat GUI files.
  - Fixed CyberPower link on PwrStat GUI page.
+
+#### Version 1.0.3 (September 2025)
+
+ - Added PwrStat GUI v1.1.0 files.
+ - Added download for all PwrStat GUI versions.
