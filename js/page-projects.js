@@ -108,6 +108,9 @@ for (let i = projects.length - 1; i >= 0; i--) {
         if (language.whiteText) {
             languageBar.style.color = "#C0C0C0";
         }
+        if (width < 75) {
+            languageBar.style.direction = "rtl";
+        }
 
         projectBox.appendChild(languageBar);
 

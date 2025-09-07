@@ -169,15 +169,19 @@ a {
     color: var(--light);
 }
 #first-footer-line {
+    /* Display */
     padding: 50px 25px 0 25px;
 }
 #second-footer-line {
+    /* Display */
     padding: 25px 25px 0 25px;
 }
 #third-footer-line {
+    /* Display */
     padding: 25px 25px 50px 25px;
 }
 #fourth-footer-line {
+    /* Display */
     padding: 25px 25px 50px 25px;
 }
 
