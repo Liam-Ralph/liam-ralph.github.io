@@ -1,3 +1,7 @@
+## Version 1.0.5 (September 2025)
+
+ - Added Bash to language statistics.
+
 ## Version 1.0.4 (September 2025)
 
  - Added PwrStat GUI v1.1.1 files.

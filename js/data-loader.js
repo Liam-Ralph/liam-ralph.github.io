@@ -47,9 +47,10 @@ async function loadData() {
     var html = new Language("HTML", "html", "#FF4000", false, "None", ["<!--", "-->"]);
     var css = new Language("CSS", "css", "#600090", true);
     var javaScript = new Language("JavaScript", "js", "#FFDD00");
-    var languages = [python, java, cSharp, html, css, javaScript];
+    var bash = new Language("Bash", "bash", "#404040", true, "#", [])
+    var languages = [python, java, cSharp, html, css, javaScript, bash];
 
-    var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.", ["main.py"]);
+    var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.", ["main.py", "autorun.bash"]);
     var pwrStatGUI = new Project("PwrStat GUI", "An app for viewing CyberPower UPS info.", ["main.py"]);
     var website = new Project("Website", "My personal website and project showcase.",
     [
