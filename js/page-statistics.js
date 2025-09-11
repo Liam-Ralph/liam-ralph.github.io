@@ -4,15 +4,9 @@ import { languages, projects } from "/js/data-loader.js"
 
 document.getElementById("projects-counter").textContent = projects.length + " Projects";
 
-var tot = 0;
-for (let i in languages) {
-    if (languages[i].lines > 0) {
-        tot++;
-    }
-}
-document.getElementById("languages-counter").textContent = tot + " Languages";
+document.getElementById("languages-counter").textContent = languages.length + " Languages";
 
-tot = 0;
+var tot = 0;
 for (let i in projects) {
     tot += projects[i].lines;
 }
@@ -28,9 +22,6 @@ for (let i in languages) {
     legendItem.className = "legend-item";
     legendItem.style.backgroundColor = language.color;
     legendItem.textContent = language.name;
-    if (language.whiteText) {
-        legendItem.style.color = "#C0C0C0";
-    }
 
     document.getElementById("legend-box").appendChild(legendItem);
 
@@ -90,6 +81,9 @@ for (let i in projectsByLines) {
 
         var bar = document.createElement("div");
         bar.className = "chart-bar";
+        if (ii == 0) {
+            bar.className = "chart-bar chart-first-bar";
+        }
         bar.style.width = (project.linesList[ii] * maxWidth) + "px";
         bar.style.backgroundColor = project.languages[ii].color;
         if (window.innerWidth >= 1500) {
@@ -106,9 +100,6 @@ for (let i in projectsByLines) {
                 bar.textContent = "\n  " + project.name + ": " + project.lines + " LoC";
                 bar.style.textAlign = "left";
             }
-        }
-        if (project.languages[ii].whiteText) {
-            bar.style.color = "#C0C0C0";
         }
 
         barsContainer.appendChild(bar);
@@ -169,9 +160,6 @@ for (let i = projects.length - 1; i >= 0; i--) {
             var projectLegend = document.createElement("p");
             projectLegend.className = "stats-legend";
             projectLegend.style.backgroundColor = language.color;
-            if (language.whiteText) {
-                projectLegend.style.color = "#C0C0C0"
-            }
             projectLegend.textContent = language.name + ": " +
                 project.linesList[ii] + " LoC (" +
                 Math.round(project.linesList[ii] / project.lines * 100) + "%)";
@@ -206,9 +194,6 @@ for (let i in languagesByLines) {
     bar.textContent = "  " + language.name + "\n  " +
         language.lines + " LoC (" +
         Math.round(language.lines / totalLines * 100) + "%)";
-    if (language.whiteText) {
-        bar.style.color = "#C0C0C0";
-    }
 
     barChart.appendChild(bar);
 
@@ -233,9 +218,6 @@ for (let i in languagesByProjects) {
         Math.round(projectsLength / projects.length * 100) + "%)";
     if (projectsLength == 1) {
         bar.textContent = bar.textContent.replace("Projects", "Project");
-    }
-    if (language.whiteText) {
-        bar.style.color = "#C0C0C0";
     }
 
     barChart.appendChild(bar);
