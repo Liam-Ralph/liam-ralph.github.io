@@ -1,3 +1,9 @@
+## Version 1.0.6 (September 2025)
+
+ - Added C to language statistics, removed Bash, C#, and Java.
+ - Fix text covering in projects bar chart.
+ - Change project text colouring.
+
 ## Version 1.0.5 (September 2025)
 
  - Added Bash to language statistics.

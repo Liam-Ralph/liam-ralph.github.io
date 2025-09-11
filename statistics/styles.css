@@ -38,6 +38,8 @@
     /* Text */
     font-family: var(--sans-serif);
     font-size: 30px;
+    text-shadow: 2px 2px 1px #000000;
+    color: var(--off-white);
 }
 
 /* Bar Chart */
@@ -63,7 +65,13 @@
     /* Text */
     font-family: var(--sans-serif);
     font-size: 28px;
+    text-shadow: 2px 2px 1px #000000;
+    color: var(--off-white);
     text-align: left;
+}
+.chart-first-bar {
+    /* Position */
+    z-index: 0;
 }
 
 /* Tiles */
@@ -99,5 +107,7 @@
     /* Font */
     font-family: var(--sans-serif);
     font-size: 26px;
+    text-shadow: 2px 2px 1px #000000;
+    color: var(--off-white);
     text-align: left;
 }

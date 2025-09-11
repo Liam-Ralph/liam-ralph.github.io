@@ -3,12 +3,10 @@
 // Language
 
 class Language {
-    constructor(name, ext, color, whiteText = false,
-    shortComment = "//", longComment = ["/*", "*/"]) {
+    constructor(name, ext, color, shortComment = "//", longComment = ["/*", "*/"]) {
         this.name = name;
         this.ext = ext;
         this.color = color;
-        this.whiteText = whiteText;
         this.shortComment = shortComment;
         this.longComment = longComment;
         this.projects = [];
@@ -41,17 +39,19 @@ async function loadData() {
 
     // Variables
 
-    var python = new Language("Python", "py", "#0000AA", true, "#", []);
-    var java = new Language("Java", "java", "#AA0000", true);
-    var cSharp = new Language("C#", "cs", "#400070", true);
-    var html = new Language("HTML", "html", "#FF4000", false, "None", ["<!--", "-->"]);
-    var css = new Language("CSS", "css", "#600090", true);
+    var python = new Language("Python", "py", "#0000AA", "#", []);
+    // var java = new Language("Java", "java", "#AA0000");
+    // var cSharp = new Language("C#", "cs", "#400070");
+    var html = new Language("HTML", "html", "#FF4000", "None", ["<!--", "-->"]);
+    var css = new Language("CSS", "css", "#600090");
     var javaScript = new Language("JavaScript", "js", "#FFDD00");
-    var bash = new Language("Bash", "bash", "#404040", true, "#", [])
-    var languages = [python, java, cSharp, html, css, javaScript, bash];
+    var c = new Language("C", "c", "#2020AA");
+    var languages = [python, html, css, javaScript, c];
 
-    var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.", ["main.py", "autorun.bash"]);
-    var pwrStatGUI = new Project("PwrStat GUI", "An app for viewing CyberPower UPS info.", ["main.py"]);
+    var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.",
+        ["main.py", "autorun.c"]);
+    var pwrStatGUI =
+        new Project("PwrStat GUI", "An app for viewing CyberPower UPS info.", ["main.py"]);
     var website = new Project("Website", "My personal website and project showcase.",
     [
         "index.html", "styles.css", "elements.html",

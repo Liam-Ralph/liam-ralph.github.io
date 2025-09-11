@@ -60,6 +60,8 @@
     /* Font */
     font-family: var(--sans-serif);
     font-size: 24px;
+    text-shadow: 2px 2px 1px #000000;
+    color: var(--off-white);
 }
 .project-text {
     /* Display */
@@ -79,6 +81,8 @@
     /* Font */
     font-family: var(--sans-serif);
     font-size: 24px;
+    text-shadow: 2px 2px 1px #000000;
+    color: var(--off-white);
 }
 
 /* Project Pages */
