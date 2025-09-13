@@ -1,4 +1,4 @@
-import { projects } from "/js/data-loader.js";
+import { projects } from "/data-loader.js";
 
 const pinnedProjectNames = ["PwrStat GUI"];
 

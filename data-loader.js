@@ -44,9 +44,9 @@ async function loadData() {
     var html = new Language("HTML", "html", "#FF4000", "None", ["<!--", "-->"]);
     var css = new Language("CSS", "css", "#600090");
     var javaScript = new Language("JavaScript", "js", "#FFDD00");
-    var c = new Language("C", "c", "#3030FF");
-    // var cpp = new Language("C++", "cpp", "#5050FF");
-    // var cSharp = new Language("C#", "cs", "#7070FF");
+    var c = new Language("C", "c", "#050520");
+    // var cpp = new Language("C++", "cpp", "#101040");
+    // var cSharp = new Language("C#", "cs", "#151560");
     var languages = [python, html, css, javaScript, c];
 
     var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.",
@@ -56,15 +56,14 @@ async function loadData() {
     var website = new Project("Website", "My personal website and project showcase.",
     [
         "index.html", "styles.css", "elements.html",
-        "js/data-loader.js", "js/element-loader.js",
-        "js/page-about-me.js", "js/page-projects.js", "js/page-statistics.js",
-        "about-me/index.html", "about-me/styles.css",
-        "projects/index.html", "projects/styles.css",
+        "data-loader.js", "element-loader.js",
+        "about-me/index.html", "about-me/styles.css", "about-me/script.js",
+        "projects/index.html", "projects/styles.css", "projects/script.js",
         "projects/archived/index.html", "projects/archived/styles.css",
         "projects/biomegen/index.html",
         "projects/pwrstat-gui/index.html",
         "projects/website/index.html",
-        "statistics/index.html", "statistics/styles.css"
+        "statistics/index.html", "statistics/styles.css", "statistics/script.js"
     ]);
     var projects = [biomeGen, pwrStatGUI, website];
 
