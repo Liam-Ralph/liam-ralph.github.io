@@ -41,11 +41,12 @@ async function loadData() {
 
     var python = new Language("Python", "py", "#0000AA", "#", []);
     // var java = new Language("Java", "java", "#AA0000");
-    // var cSharp = new Language("C#", "cs", "#400070");
     var html = new Language("HTML", "html", "#FF4000", "None", ["<!--", "-->"]);
     var css = new Language("CSS", "css", "#600090");
     var javaScript = new Language("JavaScript", "js", "#FFDD00");
-    var c = new Language("C", "c", "#2020AA");
+    var c = new Language("C", "c", "#3030FF");
+    // var cpp = new Language("C++", "cpp", "#5050FF");
+    // var cSharp = new Language("C#", "cs", "#7070FF");
     var languages = [python, html, css, javaScript, c];
 
     var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.",
