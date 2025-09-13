@@ -1,4 +1,4 @@
-import { languages, projects } from "/js/data-loader.js"
+import { languages, projects } from "/data-loader.js";
 
 // Summary Counters
 

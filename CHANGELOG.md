@@ -1,3 +1,8 @@
+## Version 1.0.7 (September 2025)
+
+ - Changed C language colour.
+ - Changed JavaScript directory structure.
+
 ## Version 1.0.6 (September 2025)
 
  - Added C to language statistics, removed Bash, C#, and Java.

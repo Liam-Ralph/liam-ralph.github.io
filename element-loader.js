@@ -15,7 +15,7 @@ for (let i in elements) {
 
 // Getting Website Release Date and Version Data
 
-const { projects } = await import("/js/data-loader.js");
+const { projects } = await import("/data-loader.js");
 for (let i in projects) {
     const project = projects[i];
     if (project.name === "Website"){
