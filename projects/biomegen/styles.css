@@ -1,0 +1,32 @@
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+@import "./styles.css";
+
+
+/* ==========================================================================
+   IDs
+   ========================================================================== */
+
+/* C Rewrite Progress Bar */
+#c-rewrite-progress-bar {
+    /* Display */
+    display: inline-block;
+    width: 80%;
+    height: 80px;
+    border: 10px solid var(--dark);
+    margin: 20px;
+    background: var(--darker);
+}
+#c-rewrite-progress-bar-inner {
+    /* Display */
+    white-space: pre;
+    height: 60px;
+    padding: 10px;
+    background: #00AA00;
+    /* Text */
+    font-family: var(--sans-serif);
+    font-size: 36px;
+    text-shadow: 2px 2px 1px #000000;
+    color: var(--off-white);
+}
