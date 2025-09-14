@@ -20,6 +20,7 @@
 }
 #c-rewrite-progress-bar-inner {
     /* Display */
+    width: 0;
     white-space: pre;
     height: 60px;
     padding: 10px;
