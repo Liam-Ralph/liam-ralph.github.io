@@ -2,6 +2,7 @@
 
  - Changed C language colour.
  - Changed JavaScript directory structure.
+ - Added BiomeGen v3.0.0 progress bar.
 
 ## Version 1.0.6 (September 2025)
 
