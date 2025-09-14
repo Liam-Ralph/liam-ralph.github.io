@@ -60,7 +60,8 @@ async function loadData() {
         "about-me/index.html", "about-me/styles.css", "about-me/script.js",
         "projects/index.html", "projects/styles.css", "projects/script.js",
         "projects/archived/index.html", "projects/archived/styles.css",
-        "projects/biomegen/index.html",
+        "projects/biomegen/index.html", "projects/biomegen/styles.css",
+        "projects/biomegen/script.js",
         "projects/pwrstat-gui/index.html",
         "projects/website/index.html",
         "statistics/index.html", "statistics/styles.css", "statistics/script.js"
