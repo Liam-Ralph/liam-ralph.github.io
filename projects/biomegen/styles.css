@@ -12,7 +12,7 @@
 #c-rewrite-progress-bar {
     /* Display */
     display: inline-block;
-    width: 80%;
+    width: 90%;
     height: 80px;
     border: 10px solid var(--dark);
     margin: 20px;
