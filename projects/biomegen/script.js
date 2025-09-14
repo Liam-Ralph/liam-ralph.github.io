@@ -17,6 +17,6 @@ const progress = (linesTotal - linesLeft) / linesTotal;
 
 var barInner = document.getElementById("c-rewrite-progress-bar-inner");
 barInner.textContent =
-    "Version 3.0.0 C Rewrite Progress: " + Math.round(progress * 1000) / 10 + "%";
+    "C Rewrite Progress: " + Math.round(progress * 1000) / 10 + "%";
 barInner.style.width =
     (document.getElementById("c-rewrite-progress-bar").offsetWidth * progress - 20) + "px";
