@@ -1,3 +1,10 @@
+## Version 1.0.8 (September 2025)
+
+ - Improved layout for small screens.
+ - Added pie chart for all languages and licenses.
+ - Added sorting for languages and project languages.
+ - Changed language colour for HTML and JavaScript.
+
 ## Version 1.0.7 (September 2025)
 
  - Changed C language colour.

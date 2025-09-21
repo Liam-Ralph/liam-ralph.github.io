@@ -1,4 +1,4 @@
-import { languages, projects } from "/data-loader.js";
+import { languages, projects, licenses } from "/data-loader.js";
 
 // Summary Counters
 
@@ -6,11 +6,11 @@ document.getElementById("projects-counter").textContent = projects.length + " Pr
 
 document.getElementById("languages-counter").textContent = languages.length + " Languages";
 
-var tot = 0;
+var totLines = 0;
 for (let i in projects) {
-    tot += projects[i].lines;
+    totLines += projects[i].lines;
 }
-document.getElementById("loc-counter").textContent = tot + " Lines of Code";
+document.getElementById("loc-counter").textContent = totLines + " Lines of Code";
 
 // Legend
 
@@ -28,18 +28,6 @@ for (let i in languages) {
 }
 
 // Sorting Languages and Projects
-
-var languagesByLines = languages.slice();
-
-for (let i = 0; i < languagesByLines.length - 1; i++) {
-    for (let ii = 0; ii < languagesByLines.length - i - 1; ii++) {
-        if (languagesByLines[ii].lines < languagesByLines[ii + 1].lines) {
-            const temp = languagesByLines[ii];
-            languagesByLines[ii] = languagesByLines[ii + 1];
-            languagesByLines[ii + 1] = temp;
-        }
-    }
-}
 
 var languagesByProjects = languages.slice();
 
@@ -110,6 +98,61 @@ for (let i in projectsByLines) {
 
 }
 
+// Licenses Pie Chart
+
+var pieChartBox = document.getElementsByClassName("large-pie-chart")[0];
+
+var pieChart = document.createElement("div");
+pieChart.className = "large-pie";
+var backgroundImage = "conic-gradient(";
+var currentPct = 0;
+for (let i in licenses) {
+    const licPct = Math.round(licenses[i].projects / projects.length * 100);
+    backgroundImage += licenses[i].color + " " + currentPct + "% ";
+    currentPct += licPct;
+    backgroundImage += currentPct + "%";
+    if (i != licenses.length - 1) {
+        backgroundImage += ", ";
+    }
+}
+backgroundImage += ")";
+pieChart.style.backgroundImage = backgroundImage;
+
+pieChartBox.appendChild(pieChart);
+
+// Licenses Pie Chart Legend
+
+var typeIndex = -1;
+var typeNames = ["Free and Open Source Software", "Public, Rights Reserved", "Proprietary"];
+var typeColors = ["#00FF00", "#FF8000", "#FF0000"];
+
+for (let i in licenses) {
+
+    const license = licenses[i];
+
+    if (license.type > typeIndex) {
+
+        typeIndex += 1;
+        var typeLegend = document.createElement("p");
+        typeLegend.className = "legend-category";
+        typeLegend.style.color = typeColors[typeIndex];
+        typeLegend.textContent = typeNames[typeIndex];
+        
+        pieChartBox.appendChild(typeLegend);
+
+    }
+
+    var licenseLegend = document.createElement("p");
+    licenseLegend.className = "stats-legend";
+    licenseLegend.style.backgroundColor = license.color;
+    licenseLegend.textContent = license.name + ": " +
+        license.projects + " Projects (" +
+        Math.round(license.projects / projects.length * 100) + "%)";
+
+    pieChartBox.appendChild(licenseLegend);
+
+}
+
 // Project Tiles
 
 for (let i = projects.length - 1; i >= 0; i--) {
@@ -147,7 +190,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
             }
         }
         backgroundImage += ")";
-        projectPie.style.backgroundImage = backgroundImage
+        projectPie.style.backgroundImage = backgroundImage;
 
         projectBox.appendChild(projectPie);
 
@@ -157,14 +200,14 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
             const language = project.languages[ii];
 
-            var projectLegend = document.createElement("p");
-            projectLegend.className = "stats-legend";
-            projectLegend.style.backgroundColor = language.color;
-            projectLegend.textContent = language.name + ": " +
+            var languageLegend = document.createElement("p");
+            languageLegend.className = "stats-legend";
+            languageLegend.style.backgroundColor = language.color;
+            languageLegend.textContent = language.name + ": " +
                 project.linesList[ii] + " LoC (" +
                 Math.round(project.linesList[ii] / project.lines * 100) + "%)";
 
-            projectBox.appendChild(projectLegend);
+            projectBox.appendChild(languageLegend);
 
         }
 
@@ -177,15 +220,11 @@ for (let i = projects.length - 1; i >= 0; i--) {
 // Languages Bar Chart 1
 
 barChart = document.getElementById("languages-bar-chart-1");
-maxWidth = (barChart.offsetWidth - 60) / languagesByLines[0].lines;
-var totalLines = 0;
+maxWidth = (barChart.offsetWidth - 60) / languages[0].lines;
+
 for (let i in languages) {
-    totalLines += languages[i].lines;
-}
 
-for (let i in languagesByLines) {
-
-    const language = languagesByLines[i];
+    const language = languages[i];
 
     var bar = document.createElement("div");
     bar.className = "chart-bar";
@@ -193,11 +232,33 @@ for (let i in languagesByLines) {
     bar.style.backgroundColor = language.color;
     bar.textContent = "  " + language.name + "\n  " +
         language.lines + " LoC (" +
-        Math.round(language.lines / totalLines * 100) + "%)";
+        Math.round(language.lines / totLines * 100) + "%)";
 
     barChart.appendChild(bar);
 
 }
+
+// Languages Pie Chart
+
+pieChartBox = document.getElementsByClassName("large-pie-chart")[1];
+
+pieChart = document.createElement("div");
+pieChart.className = "large-pie";
+backgroundImage = "conic-gradient(";
+currentPct = 0;
+for (let i in languages) {
+    const langPct = Math.round(languages[i].lines / totLines * 100);
+    backgroundImage += languages[i].color + " " + currentPct + "% ";
+    currentPct += langPct;
+    backgroundImage += currentPct + "%";
+    if (i != languages.length - 1) {
+        backgroundImage += ", ";
+    }
+}
+backgroundImage += ")";
+pieChart.style.backgroundImage = backgroundImage;
+
+pieChartBox.appendChild(pieChart);
 
 // Languages Bar Chart 2
 

@@ -118,9 +118,9 @@ a {
     z-index: 1;
     /* Display */
     overflow: auto;
-    width: calc(200px);
+    width: min(20%, 200px);
     height: 100vh;
-    padding: 50px;
+    padding: min(5%, 50px);
     border: solid;
     border-width: 0 2px 0 0;
     border-color: var(--off-white);
@@ -138,9 +138,8 @@ a {
 /* Content */
 #content-body {
     /* Display */
-    width: calc(100vw - 402px);
-    padding: 50px 50px 0 50px;
-    margin-left: 302px;
+    padding: 50px 0 0 0;
+    margin-left: calc(2px + min(30%, 300px));
     /* Text */
     text-align: center;
 }
@@ -156,7 +155,6 @@ a {
 /* Footer */
 #footer {
     /* Display */
-    width: calc(100% + 100px);
     margin: 50px 0 0 -50px;
     background-color: var(--dark);
 }
@@ -259,7 +257,6 @@ a {
     /* Display */
     display: flex;
     align-items: center;
-    width: 200px;
     height: 30px;
     padding: 5px;
     border-radius: 10px;

@@ -22,8 +22,7 @@ class Project {
         this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
         this.tagline = tagline;
         this.filePaths = filePaths;
-        this.license = "N/A";
-        this.licenseType = "N/A";
+        this.license = null;
         this.releaseDate = "Unknown Date";
         this.version = "1.0.0";
         this.languages = [];
@@ -32,22 +31,41 @@ class Project {
     }
 }
 
+// Project License
+
+class License {
+    constructor(name, shortName, type, color) {
+        this.name = name;
+        this.shortName = shortName;
+        this.type = type;
+        /*
+        1 - Free and Open Source Software
+        2 - Public, Rights Reserved
+        3 - Proprietary
+        */
+        this.color = color;
+        this.projects = 0;
+    }
+}
+
 
 // Data Loader
 
 async function loadData() {
 
-    // Variables
+    // Languages
 
     var python = new Language("Python", "py", "#0000AA", "#", []);
     // var java = new Language("Java", "java", "#AA0000");
-    var html = new Language("HTML", "html", "#FF4000", "None", ["<!--", "-->"]);
+    var html = new Language("HTML", "html", "#DD4000", "None", ["<!--", "-->"]);
     var css = new Language("CSS", "css", "#600090");
-    var javaScript = new Language("JavaScript", "js", "#FFDD00");
+    var javaScript = new Language("JavaScript", "js", "#DDAA00");
     var c = new Language("C", "c", "#050520");
     // var cpp = new Language("C++", "cpp", "#101040");
     // var cSharp = new Language("C#", "cs", "#151560");
     var languages = [python, html, css, javaScript, c];
+
+    // Projects
 
     var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.",
         ["main.py", "autorun.c"]);
@@ -67,6 +85,14 @@ async function loadData() {
         "statistics/index.html", "statistics/styles.css", "statistics/script.js"
     ]);
     var projects = [biomeGen, pwrStatGUI, website];
+
+    // Licenses
+
+    // var expat = new License("Expat/MIT License", "Expat", 0, "#00AA00");
+    var gpl3 = new License("GNU General Public License v3.0", "GPLv3", 0, "#008000");
+    var rightsReserved = new License("All Rights Reserved", "Rights Reserved", 1, "#DD8000");
+    // var proprietary = new License("Proprietary", "Proprietary", 2, "#800000");
+    var licenses = [gpl3, rightsReserved];
 
     // Getting Data on Projects
 
@@ -93,18 +119,16 @@ async function loadData() {
                 const licenseText = await response.text();
 
                 if (licenseText.includes("GNU General Public License")) {
-                    project.license = "GPLv3";
-                    project.licenseType = "FOSS";
+                    project.license = gpl3;
                 }
 
             } else {
 
-                // LICENSE file not found, all rights reserved
-
-                project.license = "Rights Reserved";
-                project.licenseType = "Source Available";
+                project.license = rightsReserved;
 
             }
+
+            project.license.projects += 1;
 
             // Finding Project Release Date and Version
 
@@ -229,17 +253,76 @@ async function loadData() {
 
             }
 
+            // Sort Project Languages
+
+            var numLangs = project.languages.length
+
+            for (let ii = 0; ii < numLangs - 1; ii++) {
+
+                var swapped = false;
+
+                for (let iii = 0; iii < numLangs - ii - 1; iii++) {
+
+                    if (project.linesList[iii] < project.linesList[iii + 1]) {
+
+                        var temp = project.languages[iii];
+                        project.languages[iii] = project.languages[iii + 1];
+                        project.languages[iii + 1] = temp;
+
+                        temp = project.linesList[iii];
+                        project.linesList[iii] = project.linesList[iii + 1];
+                        project.linesList[iii + 1] = temp;
+
+                        swapped = true;
+
+                    }
+                }
+
+                if (!swapped) {
+                    break;
+                }
+
+            }
+
+        }
+
+        // Sort Languages
+
+        var numLangs = languages.length;
+
+        for (let i = 0; i < numLangs - 1; i++) {
+
+            var swapped = false;
+
+            for (let ii = 0; ii < numLangs - i - 1; ii++) {
+
+                if (languages[ii].lines < languages[ii + 1].lines) {
+
+                    const temp = languages[ii];
+                    languages[ii] = languages[ii + 1];
+                    languages[ii + 1] = temp;
+
+                    swapped = true;
+
+                }
+            }
+
+            if (!swapped) {
+                break;
+            }
+
         }
 
     } catch (error) {
         console.log(error);
     }
 
-    return [languages, projects];
+    return [languages, projects, licenses];
 
 }
 
 const responses = await loadData();
 const languages = responses[0];
 const projects = responses[1];
-export { languages, projects };
+const licenses = responses[2];
+export { languages, projects, licenses };
