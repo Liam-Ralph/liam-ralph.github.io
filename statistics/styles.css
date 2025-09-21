@@ -18,6 +18,7 @@
 #legend-box {
     /* Display */
     display: inline-block;
+    width: min(round(80%, 200px), 1000px);
     padding: 20px;
     border-radius: 30px;
     background-color: var(--dark);
@@ -46,10 +47,10 @@
 .bar-chart {
     /* Display */
     display: inline-block;
-    width: 90%;
+    width: 80%;
     padding: 30px;
     border-radius: 30px;
-    margin: 20px;
+    margin: 20px 0;
     background-color: var(--dark);
 }
 .bars-container {
@@ -72,6 +73,32 @@
 .chart-first-bar {
     /* Position */
     z-index: 0;
+}
+
+/* Large Pie Charts */
+.large-pie-chart {
+    /* Display */
+    display: inline-block;
+    vertical-align: top;
+    width: max(40%, 400px);
+    padding: 20px;
+    border-radius: 30px;
+    margin: 20px;
+    background: var(--dark);
+}
+.large-pie {
+  width: calc(100% - 40px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin: 20px;
+}
+.legend-category {
+    /* Display */
+    margin: 5px 0;
+    /* Font */
+    font-family: var(--sans-serif);
+    font-size: 30px;
+    text-align: left;
 }
 
 /* Tiles */

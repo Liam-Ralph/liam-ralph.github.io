@@ -1,6 +1,6 @@
 import { projects } from "/data-loader.js";
 
-const pinnedProjectNames = ["PwrStat GUI"];
+const pinnedProjectNames = [];
 
 for (let i = projects.length - 1; i >= 0; i--) {
 
@@ -44,32 +44,19 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Project Tags
 
-    var projectTags = [];
-
     var projectTagLang = document.createElement("p");
     projectTagLang.className = "project-tag";
     projectTagLang.textContent = project.languages[0].name;
     projectTagLang.style.backgroundColor = project.languages[0].color;
-    projectTags.push(projectTagLang);
+
+    projectBox.appendChild(projectTagLang);
 
     var projectTagLic = document.createElement("p");
     projectTagLic.className = "project-tag";
-    projectTagLic.textContent = project.license;
-    switch (project.licenseType) {
-        case "FOSS":
-            projectTagLic.style.backgroundColor = "#00FF00";
-            break;
-        case "Source Available":
-            projectTagLic.style.backgroundColor = "#FF8800";
-            break;
-        default:
-            projectTagLic.style.backgroundColor = "#FF0000";
-    }
-    projectTags.push(projectTagLic);
+    projectTagLic.textContent = project.license.shortName;
+    projectTagLic.style.backgroundColor = project.license.color;
 
-    for (let ii in projectTags) {
-        projectBox.appendChild(projectTags[ii]);
-    }
+    projectBox.appendChild(projectTagLic);
 
     // Project Release Date and Version
 
