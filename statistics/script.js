@@ -148,6 +148,9 @@ for (let i in licenses) {
     licenseLegend.textContent = license.name + ": " +
         license.projects + " Projects (" +
         Math.round(license.projects / projects.length * 100) + "%)";
+    if (license.projects == 1) {
+        licenseLegend.textContent = licenseLegend.textContent.replace("Projects", "Project");
+    }
 
     pieChartBox.appendChild(licenseLegend);
 
