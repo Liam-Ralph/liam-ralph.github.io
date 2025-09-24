@@ -4,19 +4,17 @@ import { projects } from "/data-loader.js";
 // Test Result Class
 
 class TestResult {
-    constructor(
-        version, width, height, processes, reps,
-        mean, std_dev, pix_per_sec, pct5, pct25, pct50, pct75, pct95
-    ){
+    constructor(version, width, height, processes, mean, std_dev, pix_per_sec, pct5, pct50, pct95){
         this.version = version;
         this.width = width;
         this.height = height;
         this.processes = processes;
-        this.reps = reps;
         this.mean = mean;
         this.std_dev = std_dev;
         this.pix_per_sec = pix_per_sec;
-        this.percentiles = [pct5, pct25, pct50, pct75, pct95];
+        this.pct5 = pct5;
+        this.pct50 = pct50;
+        this.pct95 = pct95;
     }
 }
 
@@ -54,9 +52,6 @@ response = await fetch(urlName);
 const csvLines = await response.text()
 var csvTextLines = csvLines.split("\n");
 csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
-for(let i in csvTextLines) {
-    console.log(csvTextLines[i]);
-}
 
 // Creating Test Results
 
@@ -67,11 +62,11 @@ for (let i in csvTextLines) {
     testResults.push(
         new TestResult(
             textLine[0], Number(textLine[1]), Number(textLine[2]), // version, width, height
-            Number(textLine[3]), Number(textLine[4]), // processes, reps
+            Number(textLine[3]), // processes (reps ignored)
             Number(textLine[5]), Number(textLine[6]), // mean, standard_deviation
             Number(textLine[7]), // pixels per second
-            Number(textLine[8]), Number(textLine[9]), // 5th and 25th percentiles
-            Number(textLine[10]), Number(textLine[11]), Number(textLine[12]) // 50th, 75th, 95th
+            Number(textLine[8]), Number(textLine[10]), Number(textLine[12])
+            // 5th, 50th, and 95th percentiles (25th and 75th ignored)
         )
     );
 }
@@ -82,34 +77,83 @@ var xValues = {
     "Version vs Time": [],
     "Version vs Pix Per Sec": [],
     "Version vs Std Dev": [],
-    "Version vs Std Dev Pct": [],
     "Resolution vs Time": [],
     "Pixels vs Time": [],
     "Resolution vs Pix Per Sec": [],
     "Pixels vs Pix Per Sec": [],
     "Processes vs Time": [],
-    "Processes vs Pix Per Sec": []
+    "Processes vs Pix Per Sec": [],
+    "Processes vs Std Dev": []
 };
 var yValues = {
-    "Version vs Time": [],
-    "Version vs Pix Per Sec": [],
-    "Version vs Std Dev": [],
-    "Version vs Std Dev Pct": [],
-    "Resolution vs Time": [],
-    "Pixels vs Time": [],
+    "Version vs Time": [[], [], [], []], // mean, 5th pct, 50th pct, 95th pct
+    "Version vs Pix Per Sec": [[], [], []], // 1080p, 1440p, 4K
+    "Version vs Std Dev": [[], [], []],
+    "Resolution vs Time": [[], [], [], []],
+    "Pixels vs Time": [[], [], [], []],
     "Resolution vs Pix Per Sec": [],
     "Pixels vs Pix Per Sec": [],
-    "Processes vs Time": [],
-    "Processes vs Pix Per Sec": []
+    "Processes vs Time": [[], [], [], []],
+    "Processes vs Pix Per Sec": [[], [], []],
+    "Processes vs Std Dev": [[], [], []]
 };
 
 for (let i in testResults) {
 
     var result = testResults[i];
 
-}
+    // Not in order
 
-// Version vs Time at 1080p
+    if (result.processes === 8) {
+
+        var index = 0;
+
+        switch (result.width) {
+
+            case 1920:
+
+                xValues["Version vs Time"].push(result.version);
+                yValues["Version vs Time"][0].push(result.mean);
+                yValues["Version vs Time"][1].push(result.pct5);
+                yValues["Version vs Time"][2].push(result.pct50);
+                yValues["Version vs Time"][3].push(result.pct95);
+
+                xValues["Version vs Pix Per Sec"].push(result.version);
+
+                xValues["Version vs Std Dev"].push(result.version);
+
+                break;
+
+            case 2560:
+
+                index = 1;
+
+                break;
+
+            case 3840:
+
+                index = 2;
+
+                break;
+
+        }
+
+        yValues["Version vs Pix Per Sec"][index].push(result.mean);
+
+        yValues["Version vs Std Dev"][index].push(
+            result.std_dev / (result.width * result.height)
+        );
+
+        if (result.version === testResults[0].version) {
+
+
+
+        }
+
+    }
+
+
+}
 
 
 
@@ -117,8 +161,7 @@ for (let i in testResults) {
 
 version vs time at 1080p (mean, median, 5th + 95th percentiles)
 version vs pix_per_sec (one line for each resolution)
-version vs std_dev
-version vs std_dev / resolution (one line for each resolution)
+version vs std_dev / pixels (one line for each resolution)
 
 resolution vs time (mean, median, etc.)
 pixels vs time (mean, median, etc.)
@@ -127,5 +170,6 @@ pixels vs pix_per_sec
 
 processes vs time at 1080p (mean, median, etc.)
 processes vs pix_per_sec (one line for each resolution)
+processes vs std_dev (one line for each resolution)
 
 */

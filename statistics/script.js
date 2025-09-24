@@ -76,8 +76,8 @@ for (let i in projectsByLines) {
         bar.style.backgroundColor = project.languages[ii].color;
         if (window.innerWidth >= 1500) {
             if (ii == 0) {
-                bar.textContent = "  " + project.name + ": " + project.lines + " LoC\n  " +
-                    project.linesList[ii] + " LoC (" +
+                bar.textContent = "  " + project.name + ": " + project.lines +
+                    " Lines of Code\n  " + project.linesList[ii] + " LoC (" +
                     Math.round(project.linesList[ii] / project.lines * 100) + "%)";
             } else {
                 bar.textContent = "\n  " + project.linesList[ii] + " LoC (" +
