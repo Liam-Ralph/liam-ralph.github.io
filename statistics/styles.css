@@ -47,7 +47,7 @@
 .bar-chart {
     /* Display */
     display: inline-block;
-    width: 70%;
+    width: max(70%, 400px);
     padding: 30px;
     border-radius: 30px;
     margin: 20px 0;
