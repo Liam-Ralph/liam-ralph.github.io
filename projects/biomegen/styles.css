@@ -12,7 +12,7 @@
 #c-rewrite-progress-bar {
     /* Display */
     display: inline-block;
-    width: 90%;
+    width: 80%;
     height: 80px;
     border: 10px solid var(--dark);
     margin: 20px;
@@ -42,4 +42,19 @@
     /* Display */
     width: 25px;
     margin: 5px;
+}
+
+/* Line Graph */
+.graph-box {
+    /* Display */
+    display: inline-block;
+    vertical-align: top;
+    width: max(80%, 400px);
+    padding: 20px;
+    border-radius: 30px;
+    margin: 20px;
+    background: var(--dark);
+}
+.graph-canvas {
+    width: calc(100% - 40px);
 }
