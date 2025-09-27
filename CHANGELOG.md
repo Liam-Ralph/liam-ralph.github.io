@@ -1,3 +1,7 @@
+## Version 1.0.9 (September 2025)
+
+ - Added graphs to BiomeGen page.
+
 ## Version 1.0.8 (September 2025)
 
  - Improved layout for small screens.
