@@ -321,8 +321,24 @@ async function loadData() {
 
 }
 
+// Start Time
+
+const startTime = new Date();
+
+// Load Data
+
 const responses = await loadData();
 const languages = responses[0];
 const projects = responses[1];
 const licenses = responses[2];
+
+// Export Data
+
 export { languages, projects, licenses };
+
+// Log Script Time
+
+console.log(
+    ("/data-loader.js: ").padEnd(35) + // script path
+    (new Date() - startTime).toString().padStart(4) + "ms" // path
+);

@@ -1,3 +1,7 @@
+// Start Time
+
+const startTime = new Date();
+
 // Loading Elements
 
 const response = await fetch('/elements.html');
@@ -24,3 +28,11 @@ for (let i in projects) {
         document.getElementById("first-header-version").textContent = "Version " + project.version;
     }
 }
+
+// Log Script Time
+
+const endTime = new Date();
+console.log(
+    ("/element-loader.js: ").padEnd(35) + // script path
+    (endTime - startTime).toString().padStart(4) + "ms" // time
+);

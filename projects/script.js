@@ -1,3 +1,9 @@
+// Start Time
+
+const startTime = new Date();
+
+// Import From Data Loader
+
 import { projects } from "/data-loader.js";
 
 const pinnedProjectNames = [];
@@ -107,3 +113,11 @@ for (let i = projects.length - 1; i >= 0; i--) {
 }
 
 document.getElementById("projects-counter").textContent = projects.length + " Projects";
+
+// Log Script Time
+
+const endTime = new Date();
+console.log(
+    ("/projects/script.js: ").padEnd(35) + // script path
+    (endTime - startTime).toString().padStart(4) + "ms" // time
+);
