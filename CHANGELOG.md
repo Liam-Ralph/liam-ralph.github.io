@@ -1,3 +1,7 @@
+## Version 1.0.10 (September 2025)
+
+ - Added logging of JavaScript script times in console.
+
 ## Version 1.0.9 (September 2025)
 
  - Added graphs to BiomeGen page.

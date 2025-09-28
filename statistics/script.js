@@ -1,3 +1,9 @@
+// Start Time
+
+const startTime = new Date();
+
+// Import From Data Loader
+
 import { languages, projects, licenses } from "/data-loader.js";
 
 // Summary Counters
@@ -287,3 +293,11 @@ for (let i in languagesByProjects) {
     barChart.appendChild(bar);
 
 }
+
+// Log Script Time
+
+const endTime = new Date();
+console.log(
+    ("/statistics/script.js: ").padEnd(35) + // script path
+    (endTime - startTime).toString().padStart(4) + "ms" // time
+);

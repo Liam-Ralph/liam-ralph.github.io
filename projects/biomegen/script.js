@@ -1,5 +1,10 @@
-import { projects } from "/data-loader.js";
+// Start Time
 
+const startTime = new Date();
+
+// Import From Data Loader
+
+import { projects } from "/data-loader.js";
 
 // Test Result Class
 
@@ -678,3 +683,11 @@ new Chart(graph, {
         }
     }
 });
+
+// Log Script Time
+
+const endTime = new Date();
+console.log(
+    ("/projects/biomegen/script.js: ").padEnd(35) + // script path
+    (endTime - startTime).toString().padStart(4) + "ms" // time
+);
