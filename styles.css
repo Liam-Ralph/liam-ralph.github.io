@@ -288,7 +288,7 @@ a {
 }
 .paragraph-text {
     /* Display */
-    margin: 10px 5%;
+    margin: 10px max(50px, 15%);
     /* Text */
     font-family: var(--sans-serif);
     font-size: 28px;

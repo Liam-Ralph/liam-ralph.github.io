@@ -50,12 +50,16 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Project Tags
 
-    var projectTagLang = document.createElement("p");
-    projectTagLang.className = "project-tag";
-    projectTagLang.textContent = project.languages[0].name;
-    projectTagLang.style.backgroundColor = project.languages[0].color;
+    if (project.languages.length != 0) {
 
-    projectBox.appendChild(projectTagLang);
+        var projectTagLang = document.createElement("p");
+        projectTagLang.className = "project-tag";
+        projectTagLang.textContent = project.languages[0].name;
+        projectTagLang.style.backgroundColor = project.languages[0].color;
+
+        projectBox.appendChild(projectTagLang);
+
+    }
 
     var projectTagLic = document.createElement("p");
     projectTagLic.className = "project-tag";
@@ -86,20 +90,32 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     projectBox.appendChild(projectLoc);
 
-    for (let ii in project.languages) {
+    if (project.languages.length != 0) {
 
-        const language = project.languages[ii];
-        const width = project.linesList[ii] / project.lines * 350;
-        var languageBar = document.createElement("div");
-        languageBar.className = "language-bar";
-        languageBar.textContent = language.name.replace("JavaScript", "Java\u00ADScript");
-        languageBar.style.width = width.toString() + "px";
-        languageBar.style.backgroundColor = language.color;
-        if (width < 75) {
-            languageBar.style.direction = "rtl";
+        for (let ii in project.languages) {
+
+            const language = project.languages[ii];
+            const width = project.linesList[ii] / project.lines * 350;
+            var languageBar = document.createElement("div");
+            languageBar.className = "language-bar";
+            languageBar.textContent = language.name.replace("JavaScript", "Java\u00ADScript");
+            languageBar.style.width = width.toString() + "px";
+            languageBar.style.backgroundColor = language.color;
+            if (width < 75) {
+                languageBar.style.direction = "rtl";
+            }
+
+            projectBox.appendChild(languageBar);
+
         }
 
-        projectBox.appendChild(languageBar);
+    } else {
+
+        var bufferBar = document.createElement("div");
+        bufferBar.className = "language-bar";
+        bufferBar.style.width = "100px";
+        
+        projectBox.appendChild(bufferBar);
 
     }
 

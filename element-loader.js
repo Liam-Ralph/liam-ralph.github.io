@@ -23,8 +23,6 @@ const { projects } = await import("/data-loader.js");
 for (let i in projects) {
     const project = projects[i];
     if (project.name === "Website"){
-        document.getElementById("first-header-released").textContent =
-            "Released " + project.releaseDate;
         document.getElementById("first-header-version").textContent = "Version " + project.version;
     }
 }
