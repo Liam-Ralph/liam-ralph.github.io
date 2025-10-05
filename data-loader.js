@@ -82,17 +82,19 @@ async function loadData() {
         "projects/biomegen/script.js",
         "projects/pwrstat-gui/index.html",
         "projects/website/index.html",
+        "projects/blacklite/index.html",
         "statistics/index.html", "statistics/styles.css", "statistics/script.js"
     ]);
-    var projects = [biomeGen, pwrStatGUI, website];
+    var blackLite = new Project("BlackLite", "A simple, dark theme for Visual Studio Code", []);
+    var projects = [biomeGen, pwrStatGUI, website, blackLite];
 
     // Licenses
 
-    // var expat = new License("Expat/MIT License", "Expat", 0, "#00AA00");
+    var mit = new License("MIT License", "MIT", 0, "#00AA00");
     var gpl3 = new License("GNU General Public License v3.0", "GPLv3", 0, "#008000");
     var rightsReserved = new License("All Rights Reserved", "Rights Reserved", 1, "#DD8000");
     // var proprietary = new License("Proprietary", "Proprietary", 2, "#800000");
-    var licenses = [gpl3, rightsReserved];
+    var licenses = [mit, gpl3, rightsReserved];
 
     // Getting Data on Projects
 
@@ -120,6 +122,8 @@ async function loadData() {
 
                 if (licenseText.includes("GNU General Public License")) {
                     project.license = gpl3;
+                } else if (licenseText.includes("Permission is hereby granted")) {
+                    project.license = mit;
                 }
 
             } else {

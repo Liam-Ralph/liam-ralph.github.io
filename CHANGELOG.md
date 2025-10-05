@@ -1,3 +1,8 @@
+## Version 1.0.11 (October 2025)
+
+ - Added BlackLite to projects.
+ - Added MIT to licenses.
+
 ## Version 1.0.10 (September 2025)
 
  - Added logging of JavaScript script times in console.

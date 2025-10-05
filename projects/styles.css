@@ -88,7 +88,7 @@
 /* Project Pages */
 .project-page-logo {
     /* Display */
-    width: 60%;
+    width: min(60%, 600px);
     border: 20px solid var(--dark);
     margin: 10px;
 }
