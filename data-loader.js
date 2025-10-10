@@ -55,7 +55,7 @@ async function loadData() {
 
     // Languages
 
-    var python = new Language("Python", "py", "#0000AA", "#", []);
+    var python = new Language("Python", "py", "#0000AA", "#", ["\"\"\"", "\"\"\""]);
     // var java = new Language("Java", "java", "#AA0000");
     var html = new Language("HTML", "html", "#DD4000", "None", ["<!--", "-->"]);
     var css = new Language("CSS", "css", "#600090");
