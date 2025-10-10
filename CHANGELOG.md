@@ -1,3 +1,9 @@
+## Version 1.0.12 (October 2025)
+
+ - Added documentation comments for Python.
+ - Added PwrStat GUI v1.1.2 files.
+ - Remove PwrStat GUI all_versions download (exceed GitHub size limits).
+
 ## Version 1.0.11 (October 2025)
 
  - Added BlackLite to projects.
