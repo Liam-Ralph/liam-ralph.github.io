@@ -17,7 +17,7 @@ for (let i in elements) {
         documentElements.getElementById(elementId).outerHTML;
 }
 
-// Getting Website Release Date and Version Data
+// Getting Website Version Data
 
 const { projects } = await import("/data-loader.js");
 for (let i in projects) {
