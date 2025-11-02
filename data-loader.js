@@ -14,23 +14,6 @@ class Language {
     }
 }
 
-// Project
-
-class Project {
-    constructor(name, tagline, filePaths) {
-        this.name = name;
-        this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
-        this.tagline = tagline;
-        this.filePaths = filePaths;
-        this.license = null;
-        this.releaseDate = "Unknown Date";
-        this.version = "1.0.0";
-        this.languages = [];
-        this.linesList = [];
-        this.lines = 0;
-    }
-}
-
 // Project License
 
 class License {
@@ -45,6 +28,23 @@ class License {
         */
         this.color = color;
         this.projects = 0;
+    }
+}
+
+// Project
+
+class Project {
+    constructor(name, tagline, license, releaseDate, filePaths) {
+        this.name = name;
+        this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
+        this.tagline = tagline;
+        this.filePaths = filePaths;
+        this.license = license;
+        this.releaseDate = releaseDate;
+        this.version = "1.0.0";
+        this.languages = [];
+        this.linesList = [];
+        this.lines = 0;
     }
 }
 
@@ -65,29 +65,6 @@ async function loadData() {
     // var cSharp = new Language("C#", "cs", "#151560");
     var languages = [python, html, css, javaScript, c];
 
-    // Projects
-
-    var biomeGen = new Project("BiomeGen", "A map generation and visualization tool.",
-        ["main.py", "autorun.c"]);
-    var pwrStatGUI =
-        new Project("PwrStat GUI", "An app for viewing CyberPower UPS info.", ["main.py"]);
-    var website = new Project("Website", "My personal website and project showcase.",
-    [
-        "index.html", "styles.css", "elements.html",
-        "data-loader.js", "element-loader.js",
-        "about-me/index.html", "about-me/styles.css", "about-me/script.js",
-        "projects/index.html", "projects/styles.css", "projects/script.js",
-        "projects/archived/index.html", "projects/archived/styles.css",
-        "projects/biomegen/index.html", "projects/biomegen/styles.css",
-        "projects/biomegen/script.js",
-        "projects/pwrstat-gui/index.html",
-        "projects/website/index.html",
-        "projects/blacklite/index.html",
-        "statistics/index.html", "statistics/styles.css", "statistics/script.js"
-    ]);
-    var blackLite = new Project("BlackLite", "A simple, dark theme for Visual Studio Code", []);
-    var projects = [biomeGen, pwrStatGUI, website, blackLite];
-
     // Licenses
 
     var mit = new License("MIT License", "MIT", 0, "#00AA00");
@@ -96,6 +73,36 @@ async function loadData() {
     // var proprietary = new License("Proprietary", "Proprietary", 2, "#800000");
     var licenses = [mit, gpl3, rightsReserved];
 
+    // Projects
+
+    var biomeGen = new Project(
+        "BiomeGen", "A map generation and visualization tool.", gpl3, "July 2025",
+        ["main.py", "autorun.c"]
+    );
+    var pwrStatGUI = new Project(
+        "PwrStat GUI", "An app for viewing CyberPower UPS info.", gpl3, "July 2025", ["main.py"]
+    );
+    var website = new Project(
+        "Website", "My personal website and project showcase.", rightsReserved, "August 2025",
+        [
+            "index.html", "styles.css", "elements.html",
+            "data-loader.js", "element-loader.js",
+            "about-me/index.html", "about-me/styles.css", "about-me/script.js",
+            "projects/index.html", "projects/styles.css", "projects/script.js",
+            "projects/archived/index.html", "projects/archived/styles.css",
+            "projects/biomegen/index.html", "projects/biomegen/styles.css",
+            "projects/biomegen/script.js",
+            "projects/pwrstat-gui/index.html",
+            "projects/website/index.html",
+            "projects/blacklite/index.html",
+            "statistics/index.html", "statistics/styles.css", "statistics/script.js"
+        ]
+    );
+    var blackLite = new Project(
+        "BlackLite", "A simple, dark theme for Visual Studio Code", mit, "October 2025", []
+    );
+    var projects = [biomeGen, pwrStatGUI, website, blackLite];
+
     // Getting Data on Projects
 
     try {
@@ -103,75 +110,45 @@ async function loadData() {
         for (let i in projects) {
 
             var project = projects[i]
+            project.license.projects += 1;
 
             // Project URL Path Name
 
-            var urlName = "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
-                "/refs/heads/main/";
+            var urlName;
             if (project.name === "Website") {
                 urlName = "/";
-            }
-
-            // Finding Project License
-
-            var response = await fetch(urlName + "LICENSE");
-
-            if (response.ok) {
-
-                const licenseText = await response.text();
-
-                if (licenseText.includes("GNU General Public License")) {
-                    project.license = gpl3;
-                } else if (licenseText.includes("Permission is hereby granted")) {
-                    project.license = mit;
-                }
-
             } else {
-
-                project.license = rightsReserved;
-
+                urlName = "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
+                    "/refs/heads/main/";
             }
 
-            project.license.projects += 1;
+            // Finding Project Version
 
-            // Finding Project Release Date and Version
-
-            response = await fetch(urlName + "README.md");
-
-            if (response.ok) {
-
-                const readmeLines = (await response.text()).split("\n");
-
-                for (let iii in readmeLines) {
-
-                    if (readmeLines[iii].startsWith("### Released ")) {
-                        project.releaseDate =
-                            readmeLines[iii].replace("### Released ", "").replace(" (planned)", "");
-                    } else if (readmeLines[iii].startsWith("### Version ")) {
-                        project.version = readmeLines[iii].replace("### Version ", "");
-                        break;
-                    }
-
+            var response = await fetch(urlName + "README.md");
+            const readmeLines = (await response.text()).split("\n");
+            for (let iii in readmeLines) {
+                if (readmeLines[iii].startsWith("### Version ")) {
+                    project.version = readmeLines[iii].replace("### Version ", "");
+                    break;
                 }
-
             }
+
+            // Fetch File Contents
+
+            var urls = [];
+            for (let ii in project.filePaths) {
+                urls.push(urlName + project.filePaths[ii]);
+            }
+            const promises = urls.map(file => fetch(file).then(r => r.text()));
+            const fileTexts = await Promise.all(promises);
+
+            // Counting Project Lines of Code
 
             for (let ii in project.filePaths) {
 
-                // Fetch File Contents
-
-                const response = await fetch(urlName + project.filePaths[ii]);
-                var fileText = await response.text();
-
                 // Remove Empty Lines and Indentation
 
-                while (fileText.includes("    ")) {
-                    fileText = fileText.replace("    ", "");
-                }
-                while (fileText.includes("\n\n")) {
-                    fileText = fileText.replace("\n\n", "\n");
-                }
-                fileText = fileText.trim();
+                var fileText = fileTexts[ii].replaceAll("    ", "").replaceAll("\n\n", "\n");
 
                 // Detect Language
 
@@ -344,5 +321,5 @@ export { languages, projects, licenses };
 
 console.log(
     ("/data-loader.js: ").padEnd(35) + // script path
-    (new Date() - startTime).toString().padStart(4) + "ms" // path
+    (new Date() - startTime).toString().padStart(4) + "ms" // time
 );

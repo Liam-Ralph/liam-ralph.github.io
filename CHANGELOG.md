@@ -1,3 +1,7 @@
+## Version 1.1.0 (November 2025)
+
+ - Improved speed for data loading.
+
 ## Version 1.0.12 (October 2025)
 
  - Added documentation comments for Python.
