@@ -273,14 +273,14 @@ async function loadData() {
 
             // Add Project Info to Cookie
 
-            cookie += project.version + ",";
+            cookie += project.version + "|";
             for (let ii = 0; ii < numLangs; ii++) {
                 cookie += project.languages[ii].ext;
                 if (ii != numLangs - 1) {
                     cookie += "_";
                 }
             }
-            cookie += ",";
+            cookie += "|";
             for (let ii = 0; ii < numLangs; ii++) {
                 cookie += project.linesList[ii].toString();
                 if (ii != numLangs - 1) {
@@ -288,7 +288,7 @@ async function loadData() {
                 }
             }
             if (i != projects.length - 1) {
-                cookie += ",";
+                cookie += "|";
             }
 
         }
@@ -326,6 +326,7 @@ async function loadData() {
 
     document.cookie = "projects=" + cookie + "; path=/;";
     console.log(document.cookie);
+    console.log(cookie);
 
     return [languages, projects, licenses];
 
