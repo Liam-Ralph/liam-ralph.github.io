@@ -40,6 +40,7 @@ class Project {
         this.tagline = tagline;
         this.filePaths = filePaths;
         this.license = license;
+        this.license.projects += 1;
         this.releaseDate = releaseDate;
         this.version = "1.0.0";
         this.languages = [];
@@ -103,14 +104,19 @@ async function loadData() {
     );
     var projects = [biomeGen, pwrStatGUI, website, blackLite];
 
+    // Attempting to Read Cookies
+
+
+
     // Getting Data on Projects
+
+    var cookie = "";
 
     try {
 
         for (let i in projects) {
 
             var project = projects[i]
-            project.license.projects += 1;
 
             // Project URL Path Name
 
@@ -265,6 +271,26 @@ async function loadData() {
 
             }
 
+            // Add Project Info to Cookie
+
+            cookie += project.version + ",";
+            for (let ii = 0; ii < numLangs; ii++) {
+                cookie += project.languages[ii].ext;
+                if (ii != numLangs - 1) {
+                    cookie += "_";
+                }
+            }
+            cookie += ",";
+            for (let ii = 0; ii < numLangs; ii++) {
+                cookie += project.linesList[ii].toString();
+                if (ii != numLangs - 1) {
+                    cookie += "_";
+                }
+            }
+            if (i != projects.length - 1) {
+                cookie += ",";
+            }
+
         }
 
         // Sort Languages
@@ -297,6 +323,9 @@ async function loadData() {
     } catch (error) {
         console.log(error);
     }
+
+    document.cookie = "projects=" + cookie + "; path=/;";
+    console.log(document.cookie);
 
     return [languages, projects, licenses];
 
