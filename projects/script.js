@@ -14,12 +14,12 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Project Box
 
-    var projectBox = document.createElement("div");
+    let projectBox = document.createElement("div");
     projectBox.className = "project-box";
 
     // Project Logo
 
-    var projectLogo = document.createElement("img");
+    let projectLogo = document.createElement("img");
     projectLogo.className = "project-logo";
     projectLogo.src = "/images/projects/" + project.pathName + "/logo.png";
     projectLogo.alt = project.name + " Logo";
@@ -28,12 +28,12 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Project Link
 
-    var projectLink = document.createElement("a");
+    let projectLink = document.createElement("a");
     projectLink.href = "/projects/" + project.pathName;
 
     // Project Title
 
-    var projectTitle = document.createElement("p");
+    let projectTitle = document.createElement("p");
     projectTitle.className = "project-title offwhite-hover";
     projectTitle.textContent = project.name;
 
@@ -42,7 +42,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Project Tagline
 
-    var projectTagline = document.createElement("p");
+    let projectTagline = document.createElement("p");
     projectTagline.className = "project-tagline";
     projectTagline.textContent = project.tagline;
 
@@ -52,7 +52,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     if (project.languages.length != 0) {
 
-        var projectTagLang = document.createElement("p");
+        let projectTagLang = document.createElement("p");
         projectTagLang.className = "project-tag";
         projectTagLang.textContent = project.languages[0].name;
         projectTagLang.style.backgroundColor = project.languages[0].color;
@@ -61,7 +61,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     }
 
-    var projectTagLic = document.createElement("p");
+    let projectTagLic = document.createElement("p");
     projectTagLic.className = "project-tag";
     projectTagLic.textContent = project.license.shortName;
     projectTagLic.style.backgroundColor = project.license.color;
@@ -70,13 +70,13 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Project Release Date and Version
 
-    var projectDate = document.createElement("p");
+    let projectDate = document.createElement("p");
     projectDate.className = "project-text";
     projectDate.textContent = "Released " + project.releaseDate;
 
     projectBox.appendChild(projectDate);
 
-    var projectVersion = document.createElement("p");
+    let projectVersion = document.createElement("p");
     projectVersion.className = "project-text";
     projectVersion.textContent = "Version " + project.version;
 
@@ -84,7 +84,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     // Project Lines of Code
 
-    var projectLoc = document.createElement("p");
+    let projectLoc = document.createElement("p");
     projectLoc.className = "project-text";
     projectLoc.textContent = "Lines of Code: " + project.lines;
 
@@ -96,7 +96,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
             const language = project.languages[ii];
             const width = project.linesList[ii] / project.lines * 350;
-            var languageBar = document.createElement("div");
+            let languageBar = document.createElement("div");
             languageBar.className = "language-bar";
             languageBar.textContent = language.name.replace("JavaScript", "Java\u00ADScript");
             languageBar.style.width = width.toString() + "px";
@@ -111,7 +111,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     } else {
 
-        var bufferBar = document.createElement("div");
+        let bufferBar = document.createElement("div");
         bufferBar.className = "language-bar";
         bufferBar.style.width = "100px";
         

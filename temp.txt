@@ -3,4 +3,4 @@ for each project
     language exts
     lines list
 
-2.1.5,py_c,543_214,1.1.2,py,1280,1.1.0,js_html_css,1084_966_470,1.0.8,,
+2.1.5_py,c_543,214_1.1.2_py_1280_1.1.0_js,html,css_1102,966,470_1.0.8__

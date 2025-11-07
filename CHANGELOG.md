@@ -1,3 +1,8 @@
+## Version 1.2.0 (November 2025)
+
+ - Added cookies for improved data loading speed.
+ - Remove usage of JavaScript var keyword.
+
 ## Version 1.1.0 (November 2025)
 
  - Improved speed for data loading.
