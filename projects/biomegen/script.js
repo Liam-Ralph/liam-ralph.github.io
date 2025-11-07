@@ -28,9 +28,9 @@ class TestResult {
 
 // Getting Number of Lines Left
 
-var urlName =
+let urlName =
     "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/c-rewrite/main_left.txt";
-var response = await fetch(urlName);
+let response = await fetch(urlName);
 const fileText = await response.text();
 const linesLeft = fileText.split("\n").length;
 
@@ -41,7 +41,7 @@ const progress = (linesTotal - linesLeft) / linesTotal;
 
 // Updating Progress bar
 
-var barInner = document.getElementById("c-rewrite-progress-bar-inner");
+let barInner = document.getElementById("c-rewrite-progress-bar-inner");
 barInner.textContent =
     "C Rewrite Progress: " + Math.round(progress * 1000) / 10 + "%";
 barInner.style.width =
@@ -55,15 +55,15 @@ barInner.style.width =
 urlName = "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
 response = await fetch(urlName);
 const csvLines = await response.text()
-var csvTextLines = csvLines.split("\n");
+let csvTextLines = csvLines.split("\n");
 csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
 
 // Creating Test Results
 
-var testResults = [];
+let testResults = [];
 
 for (let i in csvTextLines) {
-   var textLine = csvTextLines[i].split(", ");
+   let textLine = csvTextLines[i].split(", ");
     testResults.push(
         new TestResult(
             textLine[0], Number(textLine[1]), Number(textLine[2]), // version, width, height
@@ -78,13 +78,13 @@ for (let i in csvTextLines) {
 
 // Getting Graph Values
 
-var xValues = {
+let xValues = {
     "Version": [],
     "Resolution": [],
     "Pixels": [],
     "Processes": []
 };
-var yValues = {
+let yValues = {
     "Version vs Time": [[], [], [], []], // mean, 5th pct, 50th pct, 95th pct
     "Version vs Pix Per Sec": [[], [], []], // 1080p, 1440p, 4K
     "Version vs Std Dev": [[], [], []],
@@ -99,13 +99,13 @@ var yValues = {
 
 for (let i in testResults) {
 
-    var result = testResults[i];
+    let result = testResults[i];
 
     // Not in order
 
     if (result.processes === 8) {
 
-        var index = 0;
+        let index = 0;
 
         switch (result.width) {
 
@@ -165,7 +165,7 @@ for (let i in testResults) {
 
     if (result.version === testResults[0].version) {
 
-        var index = 0;
+        let index = 0;
 
         switch (result.width) {
 
@@ -206,7 +206,7 @@ for (let i in testResults) {
 
 // Creating Graphs
 
-var graph;
+let graph;
 
 // Version vs Time
 
