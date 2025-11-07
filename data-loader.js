@@ -189,15 +189,14 @@ async function loadData() {
                 let result = fileText;
 
                 while (true) {
-                    const startIndex = result.indexOf(fileLanguage.longComment[0]);
 
+                    const startIndex = result.indexOf(fileLanguage.longComment[0]);
                     if (startIndex === -1) {
                         break;
                     }
 
                     const searchStart = startIndex + fileLanguage.longComment[0].length;
                     const endIndex = result.indexOf(fileLanguage.longComment[1], searchStart);
-
                     if (endIndex === -1) {
                         result = result.substring(0, startIndex);
                         break;
@@ -205,6 +204,7 @@ async function loadData() {
 
                     result = result.substring(0, startIndex) +
                         result.substring(endIndex + fileLanguage.longComment[1].length);
+
                 }
 
                 fileText = result;
@@ -262,6 +262,7 @@ async function loadData() {
                     swapped = true;
 
                 }
+
             }
 
             if (!swapped) {
