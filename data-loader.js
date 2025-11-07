@@ -106,8 +106,8 @@ async function loadData() {
 
     // Attempting to Read Cookies
 
-    var current_cookie = document.cookie;
-    console.log(current_cookie);
+    var currentCookie = document.cookie;
+    console.log(currentCookie);
 
     // Getting Data on Projects
 
@@ -273,14 +273,14 @@ async function loadData() {
 
         // Add Project Info to Cookie
 
-        cookie += project.version + "|";
+        cookie += project.version.trim() + "/";
         for (let ii = 0; ii < numLangs; ii++) {
             cookie += project.languages[ii].ext;
             if (ii != numLangs - 1) {
                 cookie += "_";
             }
         }
-        cookie += "|";
+        cookie += "/";
         for (let ii = 0; ii < numLangs; ii++) {
             cookie += project.linesList[ii].toString();
             if (ii != numLangs - 1) {
@@ -288,7 +288,7 @@ async function loadData() {
             }
         }
         if (i != projects.length - 1) {
-            cookie += "|";
+            cookie += "/";
         }
 
     }
@@ -320,6 +320,7 @@ async function loadData() {
 
     }
 
+    console.log(cookie);
     document.cookie = "projects=" + cookie + "; path=/;"
 
     return [languages, projects, licenses];
