@@ -1,6 +1,0 @@
-for each project
-    version
-    language exts
-    lines list
-
-2.1.5_py,c_543,214_1.1.2_py_1280_1.1.0_js,html,css_1102,966,470_1.0.8__

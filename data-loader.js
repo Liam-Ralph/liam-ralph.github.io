@@ -36,7 +36,7 @@ class License {
 class Project {
     constructor(name, tagline, license, releaseDate, filePaths) {
         this.name = name;
-        this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
+        this.pathName = name.toLowerCase().replace(" ", "-").replaceAll("--", "-");
         this.tagline = tagline;
         this.license = license;
         this.license.projects += 1;
@@ -106,10 +106,12 @@ async function loadData() {
 
     // Attempting to Read Cookies
 
-    let cookie = document.cookie.replace("projects=", "");
-    console.log("Cookie: " + cookie);
+    let cookie;
 
-    if (cookie != "") {
+    if (document.cookie.indexOf("projects=") != -1) {
+
+        cookie = document.cookie.split(";")[1].replace("projects=", "").trim();
+        console.log("Projects Cookie: " + cookie);
 
         let cookie_sections = cookie.split("_");
         let i = 0;
@@ -123,8 +125,8 @@ async function loadData() {
             if (cookie_sections[i] === "") {
                 continue;
             }
-            let projectLangExts = cookie_sections[i++].split(",");
-            let projectLangLines = cookie_sections[i++].split(",");
+            let projectLangExts = cookie_sections[i++].split("-");
+            let projectLangLines = cookie_sections[i++].split("-");
 
             for (let iii in projectLangExts) {
 
@@ -133,7 +135,7 @@ async function loadData() {
                 let lang;
 
                 for (let iv in languages) {
-                    if (languages[iv].ext == langExt) {
+                    if (languages[iv].ext === langExt) {
                         lang = languages[iv];
                         break;
                     }
@@ -149,191 +151,193 @@ async function loadData() {
 
         }
 
-        return [languages, projects, licenses];
+    } else {
 
-    }
+        // Getting Data on Projects
 
-    // Getting Data on Projects
+        cookie = "";
 
-    cookie = "";
+        for (let i in projects) {
 
-    for (let i in projects) {
+            let project = projects[i]
 
-        let project = projects[i]
+            // Project URL Path Name
 
-        // Project URL Path Name
-
-        let urlName;
-        if (project.name === "Website") {
-            urlName = "/";
-        } else {
-            urlName = "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
-                "/refs/heads/main/";
-        }
-
-        // Finding Project Version
-
-        let response = await fetch(urlName + "README.md");
-        const readmeLines = (await response.text()).split("\n");
-        for (let iii in readmeLines) {
-            if (readmeLines[iii].startsWith("### Version ")) {
-                project.version = readmeLines[iii].replace("### Version ", "");
-                break;
+            let urlName;
+            if (project.name === "Website") {
+                urlName = "/";
+            } else {
+                urlName = "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
+                    "/refs/heads/main/";
             }
-        }
 
-        // Fetch File Contents
+            // Finding Project Version
 
-        let urls = [];
-        for (let ii in project.filePaths) {
-            urls.push(urlName + project.filePaths[ii]);
-        }
-        const promises = urls.map(file => fetch(file).then(r => r.text()));
-        const fileTexts = await Promise.all(promises);
-
-        // Counting Project Lines of Code
-
-        for (let ii in project.filePaths) {
-
-            // Remove Empty Lines and Indentation
-
-            let fileText = fileTexts[ii].replaceAll("    ", "").replaceAll("\n\n", "\n");
-
-            // Detect Language
-
-            let fileLanguage;
-            for (let iii in languages) {
-                if (languages[iii].ext === project.filePaths[ii].split(".")[1]) {
-                    fileLanguage = languages[iii];
+            let response = await fetch(urlName + "README.md");
+            const readmeLines = (await response.text()).split("\n");
+            for (let iii in readmeLines) {
+                if (readmeLines[iii].startsWith("### Version ")) {
+                    project.version = readmeLines[iii].replace("### Version ", "");
+                    break;
                 }
             }
 
-            // Remove Single-Line Comments
+            // Fetch File Contents
 
-            if (fileLanguage.shortComment != "None") {
+            let urls = [];
+            for (let ii in project.filePaths) {
+                urls.push(urlName + project.filePaths[ii]);
+            }
+            const promises = urls.map(file => fetch(file).then(r => r.text()));
+            const fileTexts = await Promise.all(promises);
 
-                let fileLinesList = fileText.split("\n");
+            // Counting Project Lines of Code
 
-                for (let iii = 0; iii < fileLinesList.length; iii++) {
-                    let line = fileLinesList[iii].trim();
-                    if (line.startsWith(fileLanguage.shortComment) || line === "") {
-                        fileLinesList.splice(iii, 1);
-                        iii--;
+            for (let ii in project.filePaths) {
+
+                // Remove Empty Lines and Indentation
+
+                let fileText = fileTexts[ii].replaceAll("    ", "").replaceAll("\n\n", "\n");
+
+                // Detect Language
+
+                let fileLanguage;
+                for (let iii in languages) {
+                    if (languages[iii].ext === project.filePaths[ii].split(".")[1]) {
+                        fileLanguage = languages[iii];
                     }
                 }
 
-                fileText = fileLinesList.join("\n");
+                // Remove Single-Line Comments
 
-            }
+                if (fileLanguage.shortComment != "None") {
 
-            // Remove Multi-Line Comments
+                    let fileLinesList = fileText.split("\n");
 
-            if (fileLanguage.longComment.length === 2) {
-
-                let result = fileText;
-
-                while (true) {
-
-                    const startIndex = result.indexOf(fileLanguage.longComment[0]);
-                    if (startIndex === -1) {
-                        break;
+                    for (let iii = 0; iii < fileLinesList.length; iii++) {
+                        let line = fileLinesList[iii].trim();
+                        if (line.startsWith(fileLanguage.shortComment) || line === "") {
+                            fileLinesList.splice(iii, 1);
+                            iii--;
+                        }
                     }
 
-                    const searchStart = startIndex + fileLanguage.longComment[0].length;
-                    const endIndex = result.indexOf(fileLanguage.longComment[1], searchStart);
-                    if (endIndex === -1) {
-                        result = result.substring(0, startIndex);
-                        break;
-                    }
-
-                    result = result.substring(0, startIndex) +
-                        result.substring(endIndex + fileLanguage.longComment[1].length);
+                    fileText = fileLinesList.join("\n");
 
                 }
 
-                fileText = result;
+                // Remove Multi-Line Comments
+
+                if (fileLanguage.longComment.length === 2) {
+
+                    let result = fileText;
+
+                    while (true) {
+
+                        const startIndex = result.indexOf(fileLanguage.longComment[0]);
+                        if (startIndex === -1) {
+                            break;
+                        }
+
+                        const searchStart = startIndex + fileLanguage.longComment[0].length;
+                        const endIndex = result.indexOf(fileLanguage.longComment[1], searchStart);
+                        if (endIndex === -1) {
+                            result = result.substring(0, startIndex);
+                            break;
+                        }
+
+                        result = result.substring(0, startIndex) +
+                            result.substring(endIndex + fileLanguage.longComment[1].length);
+
+                    }
+
+                    fileText = result;
+
+                }
+
+                // Finish Cleaning File, Calculate Lines
+
+                fileText = fileText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+                while (fileText.includes("\n\n")) {
+                    fileText = fileText.replace("\n\n", "\n");
+                }
+                fileText = fileText.trim();
+
+                const fileLines = fileText.split("\n").length;
+
+                // Add Data to Project, Language
+
+                fileLanguage.lines += fileLines;
+                project.lines += fileLines;
+
+                if (!fileLanguage.projects.includes(project)) {
+                    fileLanguage.projects.push(project);
+                }
+                if (!project.languages.includes(fileLanguage)) {
+                    project.languages.push(fileLanguage);
+                    project.linesList.push(0);
+                }
+
+                project.linesList[project.languages.indexOf(fileLanguage)] += fileLines;
 
             }
 
-            // Finish Cleaning File, Calculate Lines
+            // Sort Project Languages
 
-            fileText = fileText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            let numLangs = project.languages.length
 
-            while (fileText.includes("\n\n")) {
-                fileText = fileText.replace("\n\n", "\n");
-            }
-            fileText = fileText.trim();
+            for (let ii = 0; ii < numLangs - 1; ii++) {
 
-            const fileLines = fileText.split("\n").length;
+                let swapped = false;
 
-            // Add Data to Project, Language
+                for (let iii = 0; iii < numLangs - ii - 1; iii++) {
 
-            fileLanguage.lines += fileLines;
-            project.lines += fileLines;
+                    if (project.linesList[iii] < project.linesList[iii + 1]) {
 
-            if (!fileLanguage.projects.includes(project)) {
-                fileLanguage.projects.push(project);
-            }
-            if (!project.languages.includes(fileLanguage)) {
-                project.languages.push(fileLanguage);
-                project.linesList.push(0);
-            }
+                        let temp = project.languages[iii];
+                        project.languages[iii] = project.languages[iii + 1];
+                        project.languages[iii + 1] = temp;
 
-            project.linesList[project.languages.indexOf(fileLanguage)] += fileLines;
+                        temp = project.linesList[iii];
+                        project.linesList[iii] = project.linesList[iii + 1];
+                        project.linesList[iii + 1] = temp;
 
-        }
+                        swapped = true;
 
-        // Sort Project Languages
+                    }
 
-        let numLangs = project.languages.length
+                }
 
-        for (let ii = 0; ii < numLangs - 1; ii++) {
-
-            let swapped = false;
-
-            for (let iii = 0; iii < numLangs - ii - 1; iii++) {
-
-                if (project.linesList[iii] < project.linesList[iii + 1]) {
-
-                    let temp = project.languages[iii];
-                    project.languages[iii] = project.languages[iii + 1];
-                    project.languages[iii + 1] = temp;
-
-                    temp = project.linesList[iii];
-                    project.linesList[iii] = project.linesList[iii + 1];
-                    project.linesList[iii + 1] = temp;
-
-                    swapped = true;
-
+                if (!swapped) {
+                    break;
                 }
 
             }
 
-            if (!swapped) {
-                break;
-            }
+            // Add Project Info to Cookie
 
-        }
-
-        // Add Project Info to Cookie
-
-        cookie += project.version.trim() + "_";
-        for (let ii = 0; ii < numLangs; ii++) {
-            cookie += project.languages[ii].ext;
-            if (ii != numLangs - 1) {
-                cookie += ",";
+            cookie += project.version.trim() + "_";
+            for (let ii = 0; ii < numLangs; ii++) {
+                cookie += project.languages[ii].ext;
+                if (ii != numLangs - 1) {
+                    cookie += "-";
+                }
             }
-        }
-        cookie += "_";
-        for (let ii = 0; ii < numLangs; ii++) {
-            cookie += project.linesList[ii].toString();
-            if (ii != numLangs - 1) {
-                cookie += ",";
-            }
-        }
-        if (i != projects.length - 1) {
             cookie += "_";
+            for (let ii = 0; ii < numLangs; ii++) {
+                cookie += project.linesList[ii].toString();
+                if (ii != numLangs - 1) {
+                    cookie += "-";
+                }
+            }
+            if (i != projects.length - 1) {
+                cookie += "_";
+            }
+
         }
+
+        document.cookie = "projects=" + cookie + "; path=/;";
 
     }
 
@@ -363,8 +367,6 @@ async function loadData() {
         }
 
     }
-
-    document.cookie = "projects=" + cookie + "; path=/;";
 
     return [languages, projects, licenses];
 

@@ -2,12 +2,36 @@
 
 const startTime = new Date();
 
+// Attempting to Read Cookie
+
+let text;
+
+if (document.cookie.indexOf("elements=") != -1) {
+
+    const cookie = document.cookie.split(";")[0].replace("elements=", "");
+    text = cookie.replaceAll("/n", "\n").replaceAll("?", " ")
+        .replaceAll("^", ",").replaceAll("%", ";").trim();
+
+} else {
+
+    // Fetching Elements
+
+    const response = await fetch('/elements.html');
+    text = await response.text();
+
+    // Saving Cookie
+
+    document.cookie = 
+        "elements=" + text.replaceAll("    ", "").replaceAll("\n\n", "\n")
+        .replaceAll("\n", "/n").replaceAll(" ", "?").replaceAll(",", "^").replaceAll(";", "%") +
+        "; path=/;";
+
+}
+
 // Loading Elements
 
-const response = await fetch('/elements.html');
-const html = await response.text();
 const parser = new DOMParser();
-const documentElements = parser.parseFromString(html, 'text/html');
+const documentElements = parser.parseFromString(text, 'text/html');
 
 const elements = ['first-header', 'second-header', 'footer'];
 
@@ -19,13 +43,14 @@ for (let i in elements) {
 
 // Getting Website Version Data
 
-const { projects } = await import("/data-loader.js");
-for (let i in projects) {
-    const project = projects[i];
-    if (project.name === "Website"){
-        document.getElementById("first-header-version").textContent = "Version " + project.version;
-    }
+let websiteVersion;
+if (document.cookie.indexOf("projects=") != -1) {
+    websiteVersion = document.cookie.split(";")[1].split("_")[6];
+} else {
+    const { projects } = await import("/data-loader.js");
+    websiteVersion = projects[2].version;
 }
+document.getElementById("first-header-version").textContent = "Version " + websiteVersion;
 
 // Log Script Time
 
