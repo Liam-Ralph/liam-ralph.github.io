@@ -38,10 +38,10 @@ class Project {
         this.name = name;
         this.pathName = name.toLowerCase().replace(" ", "-").replace("--", "-");
         this.tagline = tagline;
-        this.filePaths = filePaths;
         this.license = license;
         this.license.projects += 1;
         this.releaseDate = releaseDate;
+        this.filePaths = filePaths;
         this.version = "1.0.0";
         this.languages = [];
         this.linesList = [];
@@ -56,34 +56,34 @@ async function loadData() {
 
     // Languages
 
-    var python = new Language("Python", "py", "#0000AA", "#", ["\"\"\"", "\"\"\""]);
-    // var java = new Language("Java", "java", "#AA0000");
-    var html = new Language("HTML", "html", "#DD4000", "None", ["<!--", "-->"]);
-    var css = new Language("CSS", "css", "#600090");
-    var javaScript = new Language("JavaScript", "js", "#DDAA00");
-    var c = new Language("C", "c", "#050520");
-    // var cpp = new Language("C++", "cpp", "#101040");
-    // var cSharp = new Language("C#", "cs", "#151560");
-    var languages = [python, html, css, javaScript, c];
+    let python = new Language("Python", "py", "#0000AA", "#", ["\"\"\"", "\"\"\""]);
+    // let java = new Language("Java", "java", "#AA0000");
+    let html = new Language("HTML", "html", "#DD4000", "None", ["<!--", "-->"]);
+    let css = new Language("CSS", "css", "#600090");
+    let javaScript = new Language("JavaScript", "js", "#DDAA00");
+    let c = new Language("C", "c", "#050520");
+    // let cpp = new Language("C++", "cpp", "#101040");
+    // let cSharp = new Language("C#", "cs", "#151560");
+    let languages = [python, html, css, javaScript, c];
 
     // Licenses
 
-    var mit = new License("MIT License", "MIT", 0, "#00AA00");
-    var gpl3 = new License("GNU General Public License v3.0", "GPLv3", 0, "#008000");
-    var rightsReserved = new License("All Rights Reserved", "Rights Reserved", 1, "#DD8000");
-    // var proprietary = new License("Proprietary", "Proprietary", 2, "#800000");
-    var licenses = [mit, gpl3, rightsReserved];
+    let mit = new License("MIT License", "MIT", 0, "#00AA00");
+    let gpl3 = new License("GNU General Public License v3.0", "GPLv3", 0, "#008000");
+    let rightsReserved = new License("All Rights Reserved", "Rights Reserved", 1, "#DD8000");
+    // let proprietary = new License("Proprietary", "Proprietary", 2, "#800000");
+    let licenses = [mit, gpl3, rightsReserved];
 
     // Projects
 
-    var biomeGen = new Project(
+    let biomeGen = new Project(
         "BiomeGen", "A map generation and visualization tool.", gpl3, "July 2025",
         ["main.py", "autorun.c"]
     );
-    var pwrStatGUI = new Project(
+    let pwrStatGUI = new Project(
         "PwrStat GUI", "An app for viewing CyberPower UPS info.", gpl3, "July 2025", ["main.py"]
     );
-    var website = new Project(
+    let website = new Project(
         "Website", "My personal website and project showcase.", rightsReserved, "August 2025",
         [
             "index.html", "styles.css", "elements.html",
@@ -99,27 +99,71 @@ async function loadData() {
             "statistics/index.html", "statistics/styles.css", "statistics/script.js"
         ]
     );
-    var blackLite = new Project(
+    let blackLite = new Project(
         "BlackLite", "A simple, dark theme for Visual Studio Code", mit, "October 2025", []
     );
-    var projects = [biomeGen, pwrStatGUI, website, blackLite];
+    let projects = [biomeGen, pwrStatGUI, website, blackLite];
 
     // Attempting to Read Cookies
 
-    var currentCookie = document.cookie;
-    console.log(currentCookie);
+    let cookie = document.cookie.replace("projects=", "");
+    console.log("Cookie: " + cookie);
+
+    if (cookie != "") {
+
+        let cookie_sections = cookie.split("_");
+        let i = 0;
+
+        for (let ii in projects) {
+
+            let project = projects[ii];
+
+            project.version = cookie_sections[i++];
+            
+            if (cookie_sections[i] === "") {
+                continue;
+            }
+            let projectLangExts = cookie_sections[i++].split(",");
+            let projectLangLines = cookie_sections[i++].split(",");
+
+            for (let iii in projectLangExts) {
+
+                let langExt = projectLangExts[iii];
+                let langLines = parseInt(projectLangLines[iii]);
+                let lang;
+
+                for (let iv in languages) {
+                    if (languages[iv].ext == langExt) {
+                        lang = languages[iv];
+                        break;
+                    }
+                }
+
+                project.languages.push(lang);
+                project.linesList.push(langLines);
+                project.lines += langLines;
+                lang.projects.push(project);
+                lang.lines += langLines;
+
+            }
+
+        }
+
+        return [languages, projects, licenses];
+
+    }
 
     // Getting Data on Projects
 
-    var cookie = "";
+    cookie = "";
 
     for (let i in projects) {
 
-        var project = projects[i]
+        let project = projects[i]
 
         // Project URL Path Name
 
-        var urlName;
+        let urlName;
         if (project.name === "Website") {
             urlName = "/";
         } else {
@@ -129,7 +173,7 @@ async function loadData() {
 
         // Finding Project Version
 
-        var response = await fetch(urlName + "README.md");
+        let response = await fetch(urlName + "README.md");
         const readmeLines = (await response.text()).split("\n");
         for (let iii in readmeLines) {
             if (readmeLines[iii].startsWith("### Version ")) {
@@ -140,7 +184,7 @@ async function loadData() {
 
         // Fetch File Contents
 
-        var urls = [];
+        let urls = [];
         for (let ii in project.filePaths) {
             urls.push(urlName + project.filePaths[ii]);
         }
@@ -153,11 +197,11 @@ async function loadData() {
 
             // Remove Empty Lines and Indentation
 
-            var fileText = fileTexts[ii].replaceAll("    ", "").replaceAll("\n\n", "\n");
+            let fileText = fileTexts[ii].replaceAll("    ", "").replaceAll("\n\n", "\n");
 
             // Detect Language
 
-            var fileLanguage;
+            let fileLanguage;
             for (let iii in languages) {
                 if (languages[iii].ext === project.filePaths[ii].split(".")[1]) {
                     fileLanguage = languages[iii];
@@ -168,10 +212,10 @@ async function loadData() {
 
             if (fileLanguage.shortComment != "None") {
 
-                var fileLinesList = fileText.split("\n");
+                let fileLinesList = fileText.split("\n");
 
                 for (let iii = 0; iii < fileLinesList.length; iii++) {
-                    var line = fileLinesList[iii].trim();
+                    let line = fileLinesList[iii].trim();
                     if (line.startsWith(fileLanguage.shortComment) || line === "") {
                         fileLinesList.splice(iii, 1);
                         iii--;
@@ -241,17 +285,17 @@ async function loadData() {
 
         // Sort Project Languages
 
-        var numLangs = project.languages.length
+        let numLangs = project.languages.length
 
         for (let ii = 0; ii < numLangs - 1; ii++) {
 
-            var swapped = false;
+            let swapped = false;
 
             for (let iii = 0; iii < numLangs - ii - 1; iii++) {
 
                 if (project.linesList[iii] < project.linesList[iii + 1]) {
 
-                    var temp = project.languages[iii];
+                    let temp = project.languages[iii];
                     project.languages[iii] = project.languages[iii + 1];
                     project.languages[iii + 1] = temp;
 
@@ -273,33 +317,33 @@ async function loadData() {
 
         // Add Project Info to Cookie
 
-        cookie += project.version.trim() + "/";
+        cookie += project.version.trim() + "_";
         for (let ii = 0; ii < numLangs; ii++) {
             cookie += project.languages[ii].ext;
             if (ii != numLangs - 1) {
-                cookie += "_";
+                cookie += ",";
             }
         }
-        cookie += "/";
+        cookie += "_";
         for (let ii = 0; ii < numLangs; ii++) {
             cookie += project.linesList[ii].toString();
             if (ii != numLangs - 1) {
-                cookie += "_";
+                cookie += ",";
             }
         }
         if (i != projects.length - 1) {
-            cookie += "/";
+            cookie += "_";
         }
 
     }
 
     // Sort Languages
 
-    var numLangs = languages.length;
+    let numLangs = languages.length;
 
     for (let i = 0; i < numLangs - 1; i++) {
 
-        var swapped = false;
+        let swapped = false;
 
         for (let ii = 0; ii < numLangs - i - 1; ii++) {
 
@@ -320,8 +364,7 @@ async function loadData() {
 
     }
 
-    console.log(cookie);
-    document.cookie = "projects=" + cookie + "; path=/;"
+    document.cookie = "projects=" + cookie + "; path=/;";
 
     return [languages, projects, licenses];
 

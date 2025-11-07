@@ -12,7 +12,7 @@ document.getElementById("projects-counter").textContent = projects.length + " Pr
 
 document.getElementById("languages-counter").textContent = languages.length + " Languages";
 
-var totLines = 0;
+let totLines = 0;
 for (let i in projects) {
     totLines += projects[i].lines;
 }
@@ -24,7 +24,7 @@ for (let i in languages) {
 
     const language = languages[i];
 
-    var legendItem = document.createElement("div");
+    let legendItem = document.createElement("div");
     legendItem.className = "legend-item";
     legendItem.style.backgroundColor = language.color;
     legendItem.textContent = language.name;
@@ -35,7 +35,7 @@ for (let i in languages) {
 
 // Sorting Languages and Projects
 
-var languagesByProjects = languages.slice();
+let languagesByProjects = languages.slice();
 
 for (let i = 0; i < languagesByProjects.length - 1; i++) {
     for (let ii = 0; ii < languagesByProjects.length - i - 1; ii++) {
@@ -47,7 +47,7 @@ for (let i = 0; i < languagesByProjects.length - 1; i++) {
     }
 }
 
-var projectsByLines = projects.slice();
+let projectsByLines = projects.slice();
 
 for (let i = 0; i < projectsByLines.length - 1; i++) {
     for (let ii = 0; ii < projectsByLines.length - i - 1; ii++) {
@@ -61,19 +61,19 @@ for (let i = 0; i < projectsByLines.length - 1; i++) {
 
 // Projects Bar Chart
 
-var barChart = document.getElementById("projects-bar-chart");
-var maxWidth = (barChart.offsetWidth - 60) / projectsByLines[0].lines;
+let barChart = document.getElementById("projects-bar-chart");
+let maxWidth = (barChart.offsetWidth - 60) / projectsByLines[0].lines;
 
 for (let i in projectsByLines) {
 
     const project = projectsByLines[i];
 
-    var barsContainer = document.createElement("div");
+    let barsContainer = document.createElement("div");
     barsContainer.className = "bars-container";
 
     for (let ii in project.languages) {
 
-        var bar = document.createElement("div");
+        let bar = document.createElement("div");
         bar.className = "chart-bar";
         if (ii == 0) {
             bar.className = "chart-bar chart-first-bar";
@@ -107,12 +107,12 @@ for (let i in projectsByLines) {
 
 // Licenses Pie Chart
 
-var pieChartBox = document.getElementsByClassName("large-pie-chart")[0];
+let pieChartBox = document.getElementsByClassName("large-pie-chart")[0];
 
-var pieChart = document.createElement("div");
+let pieChart = document.createElement("div");
 pieChart.className = "large-pie";
-var backgroundImage = "conic-gradient(";
-var currentPct = 0;
+let backgroundImage = "conic-gradient(";
+let currentPct = 0;
 for (let i in licenses) {
     const licPct = Math.round(licenses[i].projects / projects.length * 100);
     backgroundImage += licenses[i].color + " " + currentPct + "% ";
@@ -129,9 +129,9 @@ pieChartBox.appendChild(pieChart);
 
 // Licenses Pie Chart Legend
 
-var typeIndex = -1;
-var typeNames = ["Free and Open Source Software", "Public, Rights Reserved", "Proprietary"];
-var typeColors = ["#00FF00", "#FF8000", "#FF0000"];
+let typeIndex = -1;
+let typeNames = ["Free and Open Source Software", "Public, Rights Reserved", "Proprietary"];
+let typeColors = ["#00FF00", "#FF8000", "#FF0000"];
 
 for (let i in licenses) {
 
@@ -140,7 +140,7 @@ for (let i in licenses) {
     if (license.type > typeIndex) {
 
         typeIndex += 1;
-        var typeLegend = document.createElement("p");
+        let typeLegend = document.createElement("p");
         typeLegend.className = "legend-category";
         typeLegend.style.color = typeColors[typeIndex];
         typeLegend.textContent = typeNames[typeIndex];
@@ -149,7 +149,7 @@ for (let i in licenses) {
 
     }
 
-    var licenseLegend = document.createElement("p");
+    let licenseLegend = document.createElement("p");
     licenseLegend.className = "stats-legend";
     licenseLegend.style.backgroundColor = license.color;
     licenseLegend.textContent = license.name + ": " +
@@ -173,12 +173,12 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
         // Project Box
 
-        var projectBox = document.createElement("div");
+        let projectBox = document.createElement("div");
         projectBox.className = "stats-box";
 
         // Project Title
 
-        var projectTitle = document.createElement("p");
+        let projectTitle = document.createElement("p");
         projectTitle.className = "stats-title";
         projectTitle.textContent = project.name;
 
@@ -186,10 +186,10 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
         // Project Pie Chart
 
-        var projectPie = document.createElement("div");
+        let projectPie = document.createElement("div");
         projectPie.className = "stats-pie";
-        var backgroundImage = "conic-gradient(";
-        var currentPct = 0;
+        let backgroundImage = "conic-gradient(";
+        let currentPct = 0;
         for (let ii in project.languages) {
             const langPct = Math.round(project.linesList[ii] / project.lines * 100);
             backgroundImage += project.languages[ii].color + " " + currentPct + "% ";
@@ -210,7 +210,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
             const language = project.languages[ii];
 
-            var languageLegend = document.createElement("p");
+            let languageLegend = document.createElement("p");
             languageLegend.className = "stats-legend";
             languageLegend.style.backgroundColor = language.color;
             languageLegend.textContent = language.name + ": " +
@@ -236,7 +236,7 @@ for (let i in languages) {
 
     const language = languages[i];
 
-    var bar = document.createElement("div");
+    let bar = document.createElement("div");
     bar.className = "chart-bar";
     bar.style.width = (language.lines * maxWidth) + "px";
     bar.style.backgroundColor = language.color;
@@ -280,7 +280,7 @@ for (let i in languagesByProjects) {
     const language = languagesByProjects[i];
     const projectsLength = language.projects.length;
 
-    var bar = document.createElement("div");
+    let bar = document.createElement("div");
     bar.className = "chart-bar";
     bar.style.width = (projectsLength * maxWidth) + "px";
     bar.style.backgroundColor = language.color;
