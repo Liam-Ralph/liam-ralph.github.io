@@ -56,6 +56,10 @@ a {
     /* Text */
     text-align: center;
 }
+#first-header-loader {
+    /* Display */
+    height: 50px;
+}
 #first-header-released {
     /* Position */
     top: 10px;
@@ -97,16 +101,18 @@ a {
     height: 50px;
     padding-left: calc(50% - 250px);
     padding-right: calc(50% - 250px);
-    border: solid;
-    border-width: 0 0 2px 0;
-    border-color: var(--off-white);
-    background-color: var(--darkest);
 }
 #second-header-loader {
     /* Position */
     position: sticky;
     top: 0;
     z-index: 2;
+    /* Display */
+    height: 50px;
+    border: solid;
+    border-width: 0 0 2px 0;
+    border-color: var(--off-white);
+    background-color: var(--darkest);
 }
 
 /* Sidebar */
