@@ -46,6 +46,7 @@ class Project {
         this.languages = [];
         this.linesList = [];
         this.lines = 0;
+        this.reloadData = false;
     }
 }
 
@@ -106,60 +107,83 @@ async function loadData() {
 
     // Attempting to Read Cookies
 
-    let cookie;
+    let projectsCookie = readCookie("projects");
+    let cookieSections = projectsCookie.split("_");
+    const checkCookie = readCookie("check");
 
-    if (document.cookie.indexOf("projects=") != -1) {
+    if (projectsCookie === "") {
 
-        cookie = document.cookie.split(";")[1].replace("projects=", "").trim();
-        console.log("Projects Cookie: " + cookie);
+        // No Project Data Saved
 
-        let cookie_sections = cookie.split("_");
-        let i = 0;
-
-        for (let ii in projects) {
-
-            let project = projects[ii];
-
-            project.version = cookie_sections[i++];
-            
-            if (cookie_sections[i] === "") {
-                continue;
-            }
-            let projectLangExts = cookie_sections[i++].split("-");
-            let projectLangLines = cookie_sections[i++].split("-");
-
-            for (let iii in projectLangExts) {
-
-                let langExt = projectLangExts[iii];
-                let langLines = parseInt(projectLangLines[iii]);
-                let lang;
-
-                for (let iv in languages) {
-                    if (languages[iv].ext === langExt) {
-                        lang = languages[iv];
-                        break;
-                    }
-                }
-
-                project.languages.push(lang);
-                project.linesList.push(langLines);
-                project.lines += langLines;
-                lang.projects.push(project);
-                lang.lines += langLines;
-
-            }
-
-        }
+        projects.forEach(function(project) {
+            project.reloadData = true;
+        });
 
     } else {
 
-        // Getting Data on Projects
+        if (checkCookie === "") {
 
-        cookie = "";
+            // Run Check for New Commits
 
-        for (let i in projects) {
+            let commitsCookie = readCookie("commits");
+            const commits = commitsCookie.split("_");
+            let newCommitsCookie = "";
 
-            let project = projects[i]
+            for (let i in projects) {
+
+                let project = projects[i];
+
+                let projectUrl;
+                if (project.name === "Website") {
+                    projectUrl = "liam-ralph.github.io";
+                } else {
+                    projectUrl = project.pathName;
+                }
+                const apiResponse = await fetch(
+                    "https://api.github.com/repos/Liam-Ralph/" + projectUrl + "/commits/main"
+                );
+                const json = await apiResponse.json();
+
+                if (json.hasOwnProperty("message")) {
+                    // API Limit or Other Error
+                    project.reloadData = true;
+                    newCommitsCookie += "";
+                } else if (commitsCookie === "" || json.sha != commits[i]) {
+                    // Empty Cookie or SHA Mismatch
+                    project.reloadData = true;
+                    newCommitsCookie += json.sha;
+                } else {
+                    newCommitsCookie += commits[i];
+                }
+                if (i != projects.length - 1) {
+                    newCommitsCookie += "_"
+                }
+
+            }
+
+            // Save Check and Commits Cookies
+
+            let date = new Date();
+            document.cookie =
+                "check=true; path=/; expires=" + new Date(date.getTime() + 300_000) + ";";
+            document.cookie = "commits=" + newCommitsCookie +
+                "; path=/; expires=" + new Date(date.getDate() + 365) + ";";
+
+        }
+
+    }
+
+    // Load Project Data
+
+    projectsCookie = "";
+
+    for (let i in projects) {
+
+        let project = projects[i];
+
+        if (project.reloadData) {
+
+            // Loading Project Data From raw.githubusercontent.com
 
             // Project URL Path Name
 
@@ -173,7 +197,7 @@ async function loadData() {
 
             // Finding Project Version
 
-            let response = await fetch(urlName + "README.md");
+            const response = await fetch(urlName + "README.md");
             const readmeLines = (await response.text()).split("\n");
             for (let iii in readmeLines) {
                 if (readmeLines[iii].startsWith("### Version ")) {
@@ -285,7 +309,7 @@ async function loadData() {
 
             // Sort Project Languages
 
-            let numLangs = project.languages.length
+            const numLangs = project.languages.length
 
             for (let ii = 0; ii < numLangs - 1; ii++) {
 
@@ -315,30 +339,71 @@ async function loadData() {
 
             }
 
-            // Add Project Info to Cookie
+        } else {
 
-            cookie += project.version.trim() + "_";
-            for (let ii = 0; ii < numLangs; ii++) {
-                cookie += project.languages[ii].ext;
-                if (ii != numLangs - 1) {
-                    cookie += "-";
-                }
+            // Loading Project Data From Cookie
+
+            project.version = cookieSections[i * 3];
+
+            if (cookieSections[i * 3 + 1] === "") {
+                continue;
             }
-            cookie += "_";
-            for (let ii = 0; ii < numLangs; ii++) {
-                cookie += project.linesList[ii].toString();
-                if (ii != numLangs - 1) {
-                    cookie += "-";
+            let projectLangExts = cookieSections[i * 3 + 1].split("-");
+            let projectLangLines = cookieSections[i * 3 + 2].split("-");
+
+            for (let iii in projectLangExts) {
+
+                let langExt = projectLangExts[iii];
+                let langLines = parseInt(projectLangLines[iii]);
+                let lang;
+
+                for (let iv in languages) {
+                    if (languages[iv].ext === langExt) {
+                        lang = languages[iv];
+                        break;
+                    }
                 }
-            }
-            if (i != projects.length - 1) {
-                cookie += "_";
+
+                project.languages.push(lang);
+                project.linesList.push(langLines);
+                project.lines += langLines;
+                lang.projects.push(project);
+                lang.lines += langLines;
+
             }
 
         }
 
-        document.cookie = "projects=" + cookie + "; path=/;";
+        // Add Project Info to Cookie
 
+        const numLangs = project.languages.length
+
+        projectsCookie += project.version.trim() + "_";
+        for (let ii = 0; ii < numLangs; ii++) {
+            projectsCookie += project.languages[ii].ext;
+            if (ii != numLangs - 1) {
+                projectsCookie += "-";
+            }
+        }
+        projectsCookie += "_";
+        for (let ii = 0; ii < numLangs; ii++) {
+            projectsCookie += project.linesList[ii].toString();
+            if (ii != numLangs - 1) {
+                projectsCookie += "-";
+            }
+        }
+        if (i != projects.length - 1) {
+            projectsCookie += "_";
+        }
+
+    }
+
+    // Save Cookies
+
+    if (projectsCookie != readCookie("projects")) {
+        let date = new Date();
+        document.cookie = "projects=" + projectsCookie +
+            "; path=/; expires=" + new Date(date.getTime() + 8_640_000) + ";";
     }
 
     // Sort Languages
@@ -375,6 +440,10 @@ async function loadData() {
 // Start Time
 
 const startTime = new Date();
+
+// Importing Cookie Reader
+
+import { readCookie } from "./cookie-reader.js";
 
 // Load Data
 
