@@ -4,12 +4,14 @@ const startTime = new Date();
 
 // Attempting to Read Cookie
 
+import { readCookie } from "./cookie-reader.js";
+
+const elementsCookie = readCookie("elements");
 let text;
 
-if (document.cookie.indexOf("elements=") != -1) {
+if (elementsCookie != "") {
 
-    const cookie = document.cookie.split(";")[0].replace("elements=", "");
-    text = cookie.replaceAll("/n", "\n").replaceAll("?", " ")
+    text = elementsCookie.replaceAll("/n", "\n").replaceAll("?", " ")
         .replaceAll("^", ",").replaceAll("%", ";").trim();
 
 } else {
@@ -44,8 +46,9 @@ for (let i in elements) {
 // Getting Website Version Data
 
 let websiteVersion;
-if (document.cookie.indexOf("projects=") != -1) {
-    websiteVersion = document.cookie.split(";")[1].split("_")[6];
+const projectsCookie = readCookie("projects");
+if (projectsCookie != "") {
+    websiteVersion = projectsCookie.split("_")[6];
 } else {
     const { projects } = await import("/data-loader.js");
     websiteVersion = projects[2].version;

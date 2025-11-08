@@ -106,12 +106,9 @@ async function loadData() {
 
     // Attempting to Read Cookies
 
-    let cookie;
+    let cookie = readCookie("projects");
 
-    if (document.cookie.indexOf("projects=") != -1) {
-
-        cookie = document.cookie.split(";")[1].replace("projects=", "").trim();
-        console.log("Projects Cookie: " + cookie);
+    if (cookie != "") {
 
         let cookie_sections = cookie.split("_");
         let i = 0;
@@ -154,8 +151,6 @@ async function loadData() {
     } else {
 
         // Getting Data on Projects
-
-        cookie = "";
 
         for (let i in projects) {
 
@@ -375,6 +370,10 @@ async function loadData() {
 // Start Time
 
 const startTime = new Date();
+
+// Import Cookie Reader
+
+import { readCookie } from "./cookie-reader.js";
 
 // Load Data
 
