@@ -1,3 +1,8 @@
+## Version 1.2.1 (November 2025)
+
+ - Added cookie reader function.
+ - Improved CSS to help hide page flickering.
+
 ## Version 1.2.0 (November 2025)
 
  - Added a cookie for improved data loading speed.

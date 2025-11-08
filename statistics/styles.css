@@ -19,6 +19,7 @@
     /* Display */
     display: inline-block;
     width: min(round(80%, 200px), 1000px);
+    min-height: 100px;
     padding: 20px;
     border-radius: 30px;
     background-color: var(--dark);
@@ -48,6 +49,7 @@
     /* Display */
     display: inline-block;
     width: max(70%, 400px);
+    min-height: 300px;
     padding: 30px;
     border-radius: 30px;
     margin: 20px 0;
@@ -81,6 +83,7 @@
     display: inline-block;
     vertical-align: top;
     width: max(40%, 400px);
+    min-height: 640px;
     padding: 20px;
     border-radius: 30px;
     margin: 20px;
