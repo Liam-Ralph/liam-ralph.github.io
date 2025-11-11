@@ -1,3 +1,7 @@
+## Version 1.2.2 (November 2025)
+
+- Changed C language colour.
+
 ## Version 1.2.1 (November 2025)
 
  - Added cookie reader function.
