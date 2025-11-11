@@ -61,9 +61,9 @@ async function loadData() {
     let html = new Language("HTML", "html", "#DD4000", "None", ["<!--", "-->"]);
     let css = new Language("CSS", "css", "#600090");
     let javaScript = new Language("JavaScript", "js", "#DDAA00");
-    let c = new Language("C", "c", "#050520");
-    // let cpp = new Language("C++", "cpp", "#101040");
-    // let cSharp = new Language("C#", "cs", "#151560");
+    let c = new Language("C", "c", "#5050a0");
+    // let cpp = new Language("C++", "cpp", "#202040");
+    // let cSharp = new Language("C#", "cs", "#080820");
     let languages = [python, html, css, javaScript, c];
 
     // Licenses
