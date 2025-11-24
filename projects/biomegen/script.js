@@ -2,10 +2,6 @@
 
 const startTime = new Date();
 
-// Import From Data Loader
-
-import { projects } from "/data-loader.js";
-
 // Test Result Class
 
 class TestResult {
@@ -24,36 +20,14 @@ class TestResult {
 }
 
 
-// C Rerwite Progress Bar
-
-// Getting Number of Lines Left
-
-let urlName =
-    "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/c-rewrite/main_left.txt";
-let response = await fetch(urlName);
-const fileText = await response.text();
-const linesLeft = fileText.split("\n").length;
-
-// Calculating Progress Percentage
-
-const linesTotal = projects[0].linesList[0];
-const progress = (linesTotal - linesLeft) / linesTotal;
-
-// Updating Progress bar
-
-let barInner = document.getElementById("c-rewrite-progress-bar-inner");
-barInner.textContent =
-    "C Rewrite Progress: " + Math.round(progress * 1000) / 10 + "%";
-barInner.style.width =
-    (document.getElementById("c-rewrite-progress-bar").offsetWidth * progress - 20) + "px";
-
-
 // Statistics
 
 // Getting CSV Data
 
-urlName = "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
-response = await fetch(urlName);
+
+let urlName =
+    "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
+let response = await fetch(urlName);
 const csvLines = await response.text()
 let csvTextLines = csvLines.split("\n");
 csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
@@ -63,7 +37,7 @@ csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
 let testResults = [];
 
 for (let i in csvTextLines) {
-   let textLine = csvTextLines[i].split(", ");
+    let textLine = csvTextLines[i].split(", ");
     testResults.push(
         new TestResult(
             textLine[0], Number(textLine[1]), Number(textLine[2]), // version, width, height
@@ -75,6 +49,8 @@ for (let i in csvTextLines) {
         )
     );
 }
+
+const newestVersion = testResults[testResults.length - 1].version;
 
 // Getting Graph Values
 
@@ -140,7 +116,7 @@ for (let i in testResults) {
             result.std_dev / result.mean * 100
         );
 
-        if (result.version === testResults[0].version) {
+        if (result.version === newestVersion) {
 
             xValues["Resolution"].push(result.width + "x" + result.height);
             xValues["Pixels"].push(result.width * result.height);
@@ -163,7 +139,7 @@ for (let i in testResults) {
 
     }
 
-    if (result.version === testResults[0].version) {
+    if (result.version === newestVersion) {
 
         let index = 0;
 
@@ -220,21 +196,25 @@ new Chart(graph, {
             {
                 label: "5th Percentile",
                 backgroundColor: "#808080",
+                borderColor: "#808080",
                 data: yValues["Version vs Time"][1]
             },
             {
                 label: "Mean",
                 backgroundColor: "#0000FF",
+                borderColor: "#0000FF",
                 data: yValues["Version vs Time"][0]
             },
             {
                 label: "50th Percentile",
                 backgroundColor: "#00FF00",
+                borderColor: "#00FF00",
                 data: yValues["Version vs Time"][2]
             },
             {
                 label: "95th Percentile",
                 backgroundColor: "#808080",
+                borderColor: "#808080",
                 data: yValues["Version vs Time"][3]
             }
         ]

@@ -1,6 +1,11 @@
+## Version 1.2.3 (November 2025)
+
+ - Remove C rewrite progress bar.
+ - Edited BiomeGen page for v2.1.6.
+
 ## Version 1.2.2 (November 2025)
 
-- Changed C language colour.
+ - Changed C language colour.
 
 ## Version 1.2.1 (November 2025)
 
