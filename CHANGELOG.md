@@ -1,3 +1,7 @@
+## Version 1.2.4 (November 2025)
+
+ - Update BiomeGen page and statistics for v3.0.0.
+
 ## Version 1.2.3 (November 2025)
 
  - Remove C rewrite progress bar.

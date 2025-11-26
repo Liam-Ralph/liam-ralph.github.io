@@ -28,8 +28,8 @@ class TestResult {
 let urlName =
     "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
 let response = await fetch(urlName);
-const csvLines = await response.text()
-let csvTextLines = csvLines.split("\n");
+const csvLines = await response.text();
+let csvTextLines = csvLines.trim().split("\n");
 csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
 
 // Creating Test Results
