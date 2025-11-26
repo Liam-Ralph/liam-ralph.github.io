@@ -78,7 +78,7 @@ async function loadData() {
 
     let biomeGen = new Project(
         "BiomeGen", "A map generation and visualization tool.", gpl3, "July 2025",
-        ["main.py", "autorun.c"]
+        ["main.c", "autorun.c"]
     );
     let pwrStatGUI = new Project(
         "PwrStat GUI", "An app for viewing CyberPower UPS info.", gpl3, "July 2025", ["main.py"]
