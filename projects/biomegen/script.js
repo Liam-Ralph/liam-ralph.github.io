@@ -79,7 +79,10 @@ for (let i in testResults) {
 
     // Not in order
 
-    if (result.processes === 8) {
+    if (
+        (result.version != "3.0.1" && result.processes === 8) ||
+        (result.version === "3.0.1" && result.processes === 16)
+    ) {
 
         let index = 0;
 
@@ -221,7 +224,10 @@ new Chart(graph, {
     },
     options: {
         plugins: {
-            legend: {display: false},
+            legend: {
+                display: true,
+                position: "bottom",
+            },
             title: {
                 display: true,
                 text: "Version vs Time",
@@ -525,14 +531,14 @@ new Chart(graph, {
         labels: xValues["Processes"],
         datasets: [
             {
-                label: "Mean",
-                borderColor: "#0000FF",
-                data: yValues["Processes vs Time"][0]
-            },
-            {
                 label: "5th Percentile",
                 borderColor: "#808080",
                 data: yValues["Processes vs Time"][1]
+            },
+            {
+                label: "Mean",
+                borderColor: "#0000FF",
+                data: yValues["Processes vs Time"][0]
             },
             {
                 label: "50th Percentile",

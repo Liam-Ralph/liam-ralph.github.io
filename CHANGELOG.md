@@ -1,3 +1,7 @@
+## Version 1.2.5 (November 2025)
+
+ - Update BiomeGen statistics for v3.0.1.
+
 ## Version 1.2.4 (November 2025)
 
  - Update BiomeGen page and statistics for v3.0.0.
