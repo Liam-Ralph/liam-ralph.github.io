@@ -62,15 +62,15 @@ let xValues = {
 };
 let yValues = {
     "Version vs Time": [[], [], [], []], // mean, 5th pct, 50th pct, 95th pct
-    "Version vs Pix Per Sec": [[], [], []], // 1080p, 1440p, 4K
-    "Version vs Std Dev": [[], [], []],
+    "Version vs Pix Per Sec": [[], [], [], [], []], // 1080p, 1440p, 4K
+    "Version vs Std Dev": [[], [], [], [], []],
     "Resolution vs Time": [[], [], [], []],
     "Pixels vs Time": [[], [], [], []],
     "Resolution vs Pix Per Sec": [],
     "Pixels vs Pix Per Sec": [],
     "Processes vs Time": [[], [], [], []],
-    "Processes vs Pix Per Sec": [[], [], []],
-    "Processes vs Std Dev": [[], [], []]
+    "Processes vs Pix Per Sec": [[], [], [], [], []],
+    "Processes vs Std Dev": [[], [], [], [], []]
 };
 
 for (let i in testResults) {
@@ -108,6 +108,18 @@ for (let i in testResults) {
             case 3840:
 
                 index = 2;
+
+                break;
+
+            case 7680:
+
+                index = 3;
+
+                break;
+
+            case 10000:
+
+                index = 4;
 
                 break;
 
@@ -168,6 +180,18 @@ for (let i in testResults) {
             case 3840:
 
                 index = 2;
+
+                break;
+
+            case 7680:
+
+                index = 3;
+
+                break;
+
+            case 10000:
+
+                index = 4;
 
                 break;
 
@@ -266,6 +290,14 @@ new Chart(graph, {
             {
                 label: "4K",
                 data: yValues["Version vs Pix Per Sec"][2]
+            },
+            {
+                label: "8K",
+                data: yValues["Version vs Pix Per Sec"][3]
+            },
+            {
+                label: "10K x 10K",
+                data: yValues["Version vs Pix Per Sec"][4]
             }
         ]
     },
@@ -313,6 +345,14 @@ new Chart(graph, {
             {
                 label: "4K",
                 data: yValues["Version vs Std Dev"][2]
+            },
+            {
+                label: "8K",
+                data: yValues["Version vs Std Dev"][3]
+            },
+            {
+                label: "10K x 10K",
+                data: yValues["Version vs Std Dev"][4]
             }
         ]
     },
@@ -596,6 +636,14 @@ new Chart(graph, {
             {
                 label: "4K",
                 data: yValues["Processes vs Pix Per Sec"][2]
+            },
+            {
+                label: "8K",
+                data: yValues["Processes vs Pix Per Sec"][3]
+            },
+            {
+                label: "10K x 10K",
+                data: yValues["Processes vs Pix Per Sec"][4]
             }
         ]
     },
@@ -643,6 +691,14 @@ new Chart(graph, {
             {
                 label: "4K",
                 data: yValues["Processes vs Std Dev"][2]
+            },
+            {
+                label: "8K",
+                data: yValues["Processes vs Std Dev"][3]
+            },
+            {
+                label: "10K x 10K",
+                data: yValues["Processes vs Std Dev"][4]
             }
         ]
     },
