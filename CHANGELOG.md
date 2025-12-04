@@ -1,3 +1,8 @@
+## Version 1.2.7 (December 2025) (not complete)
+
+ - Remove standard deviation graphs from BiomeGen page.
+ - Automatically check most efficient number of processes for BiomeGen page.
+
 ## Version 1.2.6 (November 2025)
 
  - Added 4K and 10K x 10K results to BiomeGen graphs.
