@@ -110,20 +110,20 @@ async function loadData() {
 
     if (cookie != "") {
 
-        let cookie_sections = cookie.split("_");
+        let cookieSections = cookie.split("_");
         let i = 0;
 
         for (let ii in projects) {
 
             let project = projects[ii];
 
-            project.version = cookie_sections[i++];
+            project.version = cookieSections[i++];
             
-            if (cookie_sections[i] === "") {
+            if (cookieSections[i] == "") {
                 continue;
             }
-            let projectLangExts = cookie_sections[i++].split("-");
-            let projectLangLines = cookie_sections[i++].split("-");
+            let projectLangExts = cookieSections[i++].split("-");
+            let projectLangLines = cookieSections[i++].split("-");
 
             for (let iii in projectLangExts) {
 
@@ -132,7 +132,7 @@ async function loadData() {
                 let lang;
 
                 for (let iv in languages) {
-                    if (languages[iv].ext === langExt) {
+                    if (languages[iv].ext == langExt) {
                         lang = languages[iv];
                         break;
                     }
@@ -159,7 +159,7 @@ async function loadData() {
             // Project URL Path Name
 
             let urlName;
-            if (project.name === "Website") {
+            if (project.name == "Website") {
                 urlName = "/";
             } else {
                 urlName = "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
@@ -198,7 +198,7 @@ async function loadData() {
 
                 let fileLanguage;
                 for (let iii in languages) {
-                    if (languages[iii].ext === project.filePaths[ii].split(".")[1]) {
+                    if (languages[iii].ext == project.filePaths[ii].split(".")[1]) {
                         fileLanguage = languages[iii];
                     }
                 }
@@ -211,7 +211,7 @@ async function loadData() {
 
                     for (let iii = 0; iii < fileLinesList.length; iii++) {
                         let line = fileLinesList[iii].trim();
-                        if (line.startsWith(fileLanguage.shortComment) || line === "") {
+                        if (line.startsWith(fileLanguage.shortComment) || line == "") {
                             fileLinesList.splice(iii, 1);
                             iii--;
                         }
@@ -223,20 +223,20 @@ async function loadData() {
 
                 // Remove Multi-Line Comments
 
-                if (fileLanguage.longComment.length === 2) {
+                if (fileLanguage.longComment.length == 2) {
 
                     let result = fileText;
 
                     while (true) {
 
                         const startIndex = result.indexOf(fileLanguage.longComment[0]);
-                        if (startIndex === -1) {
+                        if (startIndex == -1) {
                             break;
                         }
 
                         const searchStart = startIndex + fileLanguage.longComment[0].length;
                         const endIndex = result.indexOf(fileLanguage.longComment[1], searchStart);
-                        if (endIndex === -1) {
+                        if (endIndex == -1) {
                             result = result.substring(0, startIndex);
                             break;
                         }
@@ -313,6 +313,7 @@ async function loadData() {
             // Add Project Info to Cookie
 
             cookie += project.version.trim() + "_";
+
             for (let ii = 0; ii < numLangs; ii++) {
                 cookie += project.languages[ii].ext;
                 if (ii != numLangs - 1) {
@@ -320,6 +321,7 @@ async function loadData() {
                 }
             }
             cookie += "_";
+
             for (let ii = 0; ii < numLangs; ii++) {
                 cookie += project.linesList[ii].toString();
                 if (ii != numLangs - 1) {
