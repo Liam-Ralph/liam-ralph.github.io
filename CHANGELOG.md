@@ -1,3 +1,29 @@
+## Version 1.2.7 (December 2025) (not complete)
+
+ - Remove standard deviation graphs from BiomeGen page.
+ - Automatically check most efficient number of processes for BiomeGen page.
+
+## Version 1.2.6 (November 2025)
+
+ - Added 4K and 10K x 10K results to BiomeGen graphs.
+
+## Version 1.2.5 (November 2025)
+
+ - Updated BiomeGen statistics for v3.0.1.
+
+## Version 1.2.4 (November 2025)
+
+ - Updated BiomeGen page and statistics for v3.0.0.
+
+## Version 1.2.3 (November 2025)
+
+ - Removed C rewrite progress bar.
+ - Edited BiomeGen page for v2.1.6.
+
+## Version 1.2.2 (November 2025)
+
+ - Changed C language colour.
+
 ## Version 1.2.1 (November 2025)
 
  - Added cookie reader function.
@@ -7,7 +33,7 @@
 
  - Added a cookie for improved data loading speed.
  - Added a cookie for improved elements loading speed.
- - Remove usage of JavaScript var keyword.
+ - Removed usage of JavaScript var keyword.
 
 ## Version 1.1.0 (November 2025)
 
@@ -17,7 +43,7 @@
 
  - Added documentation comments for Python.
  - Added PwrStat GUI v1.1.2 files.
- - Remove PwrStat GUI all_versions download (exceed GitHub size limits).
+ - Removed PwrStat GUI all_versions download (exceed GitHub size limits).
 
 ## Version 1.0.11 (October 2025)
 
@@ -48,7 +74,7 @@
 ## Version 1.0.6 (September 2025)
 
  - Added C to language statistics, removed Bash, C#, and Java.
- - Fix text covering in projects bar chart.
+ - Fixed text covering in projects bar chart.
  - Change project text colouring.
 
 ## Version 1.0.5 (September 2025)

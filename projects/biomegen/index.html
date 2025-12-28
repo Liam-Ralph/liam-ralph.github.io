@@ -95,26 +95,21 @@
             <img class="project-page-logo" src="/images/projects/biomegen/logo.png"
                 alt="BiomeGen Logo">
 
-            <!--C Rewrite Progress-->
-            <div id="c-rewrite-progress-bar">
-                <div id="c-rewrite-progress-bar-inner"></div>
-            </div>
-
             <!--Page Description-->
             <p class="paragraph-text" id="title-summary">
                 BiomeGen is a map generation and visualization console app,
-                written in Python. It uses Python's multiprocessing library for
-                better generation speed and efficiency. It can generate various
-                land biomes and water with shading for depth. It uses by own
-                algorithm, and splits the map into polygons, which allows for a
-                good final product, while avoiding the resource demand of
-                individually generating every pixel. The generator also has a
-                number of settings, allowing users to influence the map's
-                general look, including map dimensions, island abundance and
-                size, and coastline smoothness. You can also change the number
-                of CPU threads used in map generation, allowing for reduced
-                generation times. Version 1.0.0 was released in July 2025, and
-                the project is under the General Public License v3.0.
+                written in C. It uses forks in C for better efficiency. It can
+                generate various land biomes and water with shading for depth.
+                It uses my own algorithm, and splits the map into polygons,
+                which allows for a good final product, while avoiding the
+                resource demand of individually generating every pixel. The
+                generator also has a number of settings, allowing users to
+                influence the map's general look, including map dimensions,
+                island abundance and size, and coastline smoothness. You can
+                also change the number of CPU threads used in map generation,
+                allowing for reduced generation times. Version 1.0.0 was
+                released in July 2025, and the project is under the General
+                Public License v3.0.
             </p>
 
             <!--Links-->
@@ -146,14 +141,15 @@
                 Below are a variety of graphs relating to BiomeGen's performance
                 across versions, processor counts, and resolutions. Graphs with
                 no specified resolution are at 1080p, and graphs with no
-                specified number of processes are at the fastest number, 8.
-                Pixels per second are measured by the number of pixels generated
-                (~2.07M for 1080p) divided by the seconds of generation. The
-                machine used for these tests has a 16-thread processor, 32 GB of
-                RAM, and is running on antiX 23.2 (a Debian-based Linux distro).
-                Versions not included are not significantly different from
-                their previous version. Versions 2.1.0 and 2.1.1 are not
-                significantly different from 2.1.2, the first included version.
+                specified number of processes are at the fastest number, 8 or
+                16. Pixels per second are measured by the number of pixels
+                generated (~2.07M for 1080p) divided by the seconds of
+                generation. The machine used for these tests has a 16-thread
+                processor, 32 GB of RAM, and is running on antiX 23.2 (a
+                Debian-based Linux distro). Versions not included are not
+                significantly different from their previous version. Versions
+                2.1.0 and 2.1.1 are not significantly different from 2.1.2, the
+                first included version.
             </p>
 
             <div class="graph-box">
@@ -161,9 +157,6 @@
             </div>
             <div class="graph-box">
                 <canvas class="graph-canvas" id="graph-version-pix_per_sec"></canvas>
-            </div>
-            <div class="graph-box">
-                <canvas class="graph-canvas" id="graph-version-std_dev"></canvas>
             </div>
             <div class="graph-box">
                 <canvas class="graph-canvas" id="graph-resolution-time"></canvas>
@@ -182,9 +175,6 @@
             </div>
             <div class="graph-box">
                 <canvas class="graph-canvas" id="graph-processes-pix_per_sec"></canvas>
-            </div>
-            <div class="graph-box">
-                <canvas class="graph-canvas" id="graph-processes-std_dev"></canvas>
             </div>
 
             <!--Footer-->
