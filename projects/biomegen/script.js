@@ -2,20 +2,15 @@
 
 const startTime = new Date();
 
-// Import From Data Loader
-
-import { projects } from "/data-loader.js";
-
 // Test Result Class
 
 class TestResult {
-    constructor(version, width, height, processes, mean, std_dev, pix_per_sec, pct5, pct50, pct95){
+    constructor(version, width, height, processes, mean, pix_per_sec, pct5, pct50, pct95){
         this.version = version;
         this.width = width;
         this.height = height;
         this.processes = processes;
         this.mean = mean;
-        this.std_dev = std_dev;
         this.pix_per_sec = pix_per_sec;
         this.pct5 = pct5;
         this.pct50 = pct50;
@@ -24,38 +19,16 @@ class TestResult {
 }
 
 
-// C Rerwite Progress Bar
-
-// Getting Number of Lines Left
-
-let urlName =
-    "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/c-rewrite/main_left.txt";
-let response = await fetch(urlName);
-const fileText = await response.text();
-const linesLeft = fileText.split("\n").length;
-
-// Calculating Progress Percentage
-
-const linesTotal = projects[0].linesList[0];
-const progress = (linesTotal - linesLeft) / linesTotal;
-
-// Updating Progress bar
-
-let barInner = document.getElementById("c-rewrite-progress-bar-inner");
-barInner.textContent =
-    "C Rewrite Progress: " + Math.round(progress * 1000) / 10 + "%";
-barInner.style.width =
-    (document.getElementById("c-rewrite-progress-bar").offsetWidth * progress - 20) + "px";
-
-
 // Statistics
 
 // Getting CSV Data
 
-urlName = "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
-response = await fetch(urlName);
-const csvLines = await response.text()
-let csvTextLines = csvLines.split("\n");
+
+let urlName =
+    "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
+let response = await fetch(urlName);
+const csvLines = await response.text();
+let csvTextLines = csvLines.trim().split("\n");
 csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
 
 // Creating Test Results
@@ -63,17 +36,32 @@ csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
 let testResults = [];
 
 for (let i in csvTextLines) {
-   let textLine = csvTextLines[i].split(", ");
+    let textLine = csvTextLines[i].split(", ");
     testResults.push(
         new TestResult(
             textLine[0], Number(textLine[1]), Number(textLine[2]), // version, width, height
             Number(textLine[3]), // processes (reps ignored)
-            Number(textLine[5]), Number(textLine[6]), // mean, standard_deviation
-            Number(textLine[7]), // pixels per second
+            Number(textLine[5]), Number(textLine[7]),
+            // mean (standard deviation ignored), pixels per second
             Number(textLine[8]), Number(textLine[10]), Number(textLine[12])
             // 5th, 50th, and 95th percentiles (25th and 75th ignored)
         )
     );
+}
+
+const newestVersion = testResults[testResults.length - 1].version;
+
+let bestProcesses = {1920: 8, 2560: 8, 3840: 8, 7680: 8, 10000: 8};
+let results8 = {1920: 0, 2560: 0, 3840: 0, 7680: 0, 10000: 0};
+for (let i in testResults) {
+    let result = testResults[i];
+    if (result.version == newestVersion) {
+        if (result.processes == 8) {
+            results8[result.width] = result.mean;
+        } else if (result.processes == 16 && result.mean < results8[result.width]) {
+            bestProcesses[result.width] == 16;
+        }
+    }
 }
 
 // Getting Graph Values
@@ -86,15 +74,13 @@ let xValues = {
 };
 let yValues = {
     "Version vs Time": [[], [], [], []], // mean, 5th pct, 50th pct, 95th pct
-    "Version vs Pix Per Sec": [[], [], []], // 1080p, 1440p, 4K
-    "Version vs Std Dev": [[], [], []],
+    "Version vs Pix Per Sec": [[], [], [], [], []], // 1080p, 1440p, 4K, 8K, 10K
     "Resolution vs Time": [[], [], [], []],
     "Pixels vs Time": [[], [], [], []],
     "Resolution vs Pix Per Sec": [],
     "Pixels vs Pix Per Sec": [],
     "Processes vs Time": [[], [], [], []],
-    "Processes vs Pix Per Sec": [[], [], []],
-    "Processes vs Std Dev": [[], [], []]
+    "Processes vs Pix Per Sec": [[], [], [], [], []]
 };
 
 for (let i in testResults) {
@@ -103,7 +89,10 @@ for (let i in testResults) {
 
     // Not in order
 
-    if (result.processes === 8) {
+    if (
+        result.version != newestVersion ||
+        (result.version == newestVersion && (bestProcesses[result.width] == result.processes))
+    ) {
 
         let index = 0;
 
@@ -132,15 +121,23 @@ for (let i in testResults) {
 
                 break;
 
+            case 7680:
+
+                index = 3;
+
+                break;
+
+            case 10000:
+
+                index = 4;
+
+                break;
+
         }
 
         yValues["Version vs Pix Per Sec"][index].push(result.pix_per_sec);
 
-        yValues["Version vs Std Dev"][index].push(
-            result.std_dev / result.mean * 100
-        );
-
-        if (result.version === testResults[0].version) {
+        if (result.version === newestVersion) {
 
             xValues["Resolution"].push(result.width + "x" + result.height);
             xValues["Pixels"].push(result.width * result.height);
@@ -163,7 +160,7 @@ for (let i in testResults) {
 
     }
 
-    if (result.version === testResults[0].version) {
+    if (result.version === newestVersion) {
 
         let index = 0;
 
@@ -192,13 +189,21 @@ for (let i in testResults) {
 
                 break;
 
+            case 7680:
+
+                index = 3;
+
+                break;
+
+            case 10000:
+
+                index = 4;
+
+                break;
+
         }
 
         yValues["Processes vs Pix Per Sec"][index].push(result.pix_per_sec);
-
-        yValues["Processes vs Std Dev"][index].push(
-            result.std_dev / result.mean * 100
-        );
 
     }
 
@@ -220,28 +225,35 @@ new Chart(graph, {
             {
                 label: "5th Percentile",
                 backgroundColor: "#808080",
+                borderColor: "#808080",
                 data: yValues["Version vs Time"][1]
             },
             {
                 label: "Mean",
                 backgroundColor: "#0000FF",
+                borderColor: "#0000FF",
                 data: yValues["Version vs Time"][0]
             },
             {
                 label: "50th Percentile",
                 backgroundColor: "#00FF00",
+                borderColor: "#00FF00",
                 data: yValues["Version vs Time"][2]
             },
             {
                 label: "95th Percentile",
                 backgroundColor: "#808080",
+                borderColor: "#808080",
                 data: yValues["Version vs Time"][3]
             }
         ]
     },
     options: {
         plugins: {
-            legend: {display: false},
+            legend: {
+                display: true,
+                position: "bottom",
+            },
             title: {
                 display: true,
                 text: "Version vs Time",
@@ -280,6 +292,14 @@ new Chart(graph, {
             {
                 label: "4K",
                 data: yValues["Version vs Pix Per Sec"][2]
+            },
+            {
+                label: "8K",
+                data: yValues["Version vs Pix Per Sec"][3]
+            },
+            {
+                label: "10K x 10K",
+                data: yValues["Version vs Pix Per Sec"][4]
             }
         ]
     },
@@ -306,54 +326,6 @@ new Chart(graph, {
         }
     }
 });
-
-// Processes vs Standard Deviation
-
-graph = document.getElementById("graph-version-std_dev");
-
-new Chart(graph, {
-    type: "line",
-    data: {
-        labels: xValues["Version"],
-        datasets: [
-            {
-                label: "1080p",
-                data: yValues["Version vs Std Dev"][0]
-            },
-            {
-                label: "1440p",
-                data: yValues["Version vs Std Dev"][1]
-            },
-            {
-                label: "4K",
-                data: yValues["Version vs Std Dev"][2]
-            }
-        ]
-    },
-    options: {
-        plugins: {
-            legend: {
-                display: true,
-                position: "bottom",
-            },
-            title: {
-                display: true,
-                text: "Version vs Standard Deviation",
-                font: {size: 26}
-            }
-        },
-        scales: {
-            x: {
-                grid: {color: "#606060"}
-            },
-            y: {
-                grid: {color: "#606060"},
-                min: 0
-            }
-        }
-    }
-});
-
 
 // Resolution vs Time
 
@@ -545,14 +517,14 @@ new Chart(graph, {
         labels: xValues["Processes"],
         datasets: [
             {
-                label: "Mean",
-                borderColor: "#0000FF",
-                data: yValues["Processes vs Time"][0]
-            },
-            {
                 label: "5th Percentile",
                 borderColor: "#808080",
                 data: yValues["Processes vs Time"][1]
+            },
+            {
+                label: "Mean",
+                borderColor: "#0000FF",
+                data: yValues["Processes vs Time"][0]
             },
             {
                 label: "50th Percentile",
@@ -610,6 +582,14 @@ new Chart(graph, {
             {
                 label: "4K",
                 data: yValues["Processes vs Pix Per Sec"][2]
+            },
+            {
+                label: "8K",
+                data: yValues["Processes vs Pix Per Sec"][3]
+            },
+            {
+                label: "10K x 10K",
+                data: yValues["Processes vs Pix Per Sec"][4]
             }
         ]
     },
@@ -622,53 +602,6 @@ new Chart(graph, {
             title: {
                 display: true,
                 text: "Processes vs Pixels per Second",
-                font: {size: 26}
-            }
-        },
-        scales: {
-            x: {
-                grid: {color: "#606060"}
-            },
-            y: {
-                grid: {color: "#606060"},
-                min: 0
-            }
-        }
-    }
-});
-
-// Processes vs Standard Deviation
-
-graph = document.getElementById("graph-processes-std_dev");
-
-new Chart(graph, {
-    type: "line",
-    data: {
-        labels: xValues["Processes"],
-        datasets: [
-            {
-                label: "1080p",
-                data: yValues["Processes vs Std Dev"][0]
-            },
-            {
-                label: "1440p",
-                data: yValues["Processes vs Std Dev"][1]
-            },
-            {
-                label: "4K",
-                data: yValues["Processes vs Std Dev"][2]
-            }
-        ]
-    },
-    options: {
-        plugins: {
-            legend: {
-                display: true,
-                position: "bottom",
-            },
-            title: {
-                display: true,
-                text: "Processes vs Standard Deviation (Percent of Mean Time)",
                 font: {size: 26}
             }
         },
