@@ -5,13 +5,13 @@ const startTime = new Date();
 // Test Result Class
 
 class TestResult {
-    constructor(version, width, height, processes, mean, pix_per_sec, pct5, pct50, pct95){
+    constructor(version, width, height, processes, mean, pixPerSec, pct5, pct50, pct95){
         this.version = version;
         this.width = width;
         this.height = height;
         this.processes = processes;
         this.mean = mean;
-        this.pix_per_sec = pix_per_sec;
+        this.pixPerSec = pixPerSec;
         this.pct5 = pct5;
         this.pct50 = pct50;
         this.pct95 = pct95;
@@ -21,55 +21,12 @@ class TestResult {
 
 // Statistics
 
-// Getting CSV Data
-
-
-let urlName =
-    "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
-let response = await fetch(urlName);
-const csvLines = await response.text();
-let csvTextLines = csvLines.trim().split("\n");
-csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
-
-// Creating Test Results
-
-let testResults = [];
-
-for (let i in csvTextLines) {
-    let textLine = csvTextLines[i].split(", ");
-    testResults.push(
-        new TestResult(
-            textLine[0], Number(textLine[1]), Number(textLine[2]), // version, width, height
-            Number(textLine[3]), // processes (reps ignored)
-            Number(textLine[5]), Number(textLine[7]),
-            // mean (standard deviation ignored), pixels per second
-            Number(textLine[8]), Number(textLine[10]), Number(textLine[12])
-            // 5th, 50th, and 95th percentiles (25th and 75th ignored)
-        )
-    );
-}
-
-const newestVersion = testResults[testResults.length - 1].version;
-
-let bestProcesses = {1920: 8, 2560: 8, 3840: 8, 7680: 8, 10000: 8};
-let results8 = {1920: 0, 2560: 0, 3840: 0, 7680: 0, 10000: 0};
-for (let i in testResults) {
-    let result = testResults[i];
-    if (result.version == newestVersion) {
-        if (result.processes == 8) {
-            results8[result.width] = result.mean;
-        } else if (result.processes == 16 && result.mean < results8[result.width]) {
-            bestProcesses[result.width] == 16;
-        }
-    }
-}
-
-// Getting Graph Values
+// Creating Empty Graph Value Lists
 
 let xValues = {
     "Version": [],
-    "Resolution": [],
-    "Pixels": [],
+    "Resolution": ["1920x1080", "2560x1440", "3840x2160", "7680x4320", "10000x10000"],
+    "Pixels": [2073600, 3686400, 8294400, 33177600, 100000000],
     "Processes": []
 };
 let yValues = {
@@ -83,22 +40,135 @@ let yValues = {
     "Processes vs Pix Per Sec": [[], [], [], [], []]
 };
 
-for (let i in testResults) {
+// Attempting to Read Cookie
 
-    let result = testResults[i];
+import { readCookie } from "/cookie-reader.js";
+let cookie = readCookie("biomegen-graphs");
 
-    // Not in order
+if (cookie != "") {
 
-    if (
-        result.version != newestVersion ||
-        (result.version == newestVersion && (bestProcesses[result.width] == result.processes))
-    ) {
+    let cookieSections = cookie.split("_");
 
-        let index = 0;
+    // Get Graph X Values
 
-        switch (result.width) {
+    xValues["Version"] = cookieSections[0].split("-");
+    let processesRaw = cookieSections[1].split("-");
+    for (let i in processesRaw) {
+        xValues["Processes"][i] = processesRaw[i];
+    }
 
-            case 1920:
+    // Get Graph Y Values
+
+    const numVersions = xValues["Version"].length;
+    const numResolutions = xValues["Resolution"].length;
+    const numProcesses = xValues["Processes"].length;
+
+    let yValuesCookie = cookieSections[2].split("-");
+    for (let i in yValuesCookie){
+        yValuesCookie[i] = parseFloat(yValuesCookie[i]);
+    }
+    let index = 0;
+
+
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numVersions; ii++) {
+            yValues["Version vs Time"][i][ii] = yValuesCookie[index++];
+        }
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        for (let ii = 0; ii < numVersions; ii++) {
+            yValues["Version vs Pix Per Sec"][i][ii] = yValuesCookie[index++];
+        }
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numResolutions; ii++) {
+            yValues["Resolution vs Time"][i][ii] = yValuesCookie[index++];
+        }
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numResolutions; ii++) {
+            yValues["Pixels vs Time"][i][ii] = yValuesCookie[index++];
+        }
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        yValues["Resolution vs Pix Per Sec"][i] = yValuesCookie[index++];
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        yValues["Pixels vs Pix Per Sec"][i] = yValuesCookie[index++];
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numProcesses; ii++) {
+            yValues["Processes vs Time"][i][ii] = yValuesCookie[index++];
+        }
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        for (let ii = 0; ii < numProcesses; ii++) {
+            yValues["Processes vs Pix Per Sec"][i][ii] = yValuesCookie[index++];
+        }
+    }
+
+} else {
+
+    // Getting CSV Data
+
+    let urlName =
+        "https://raw.githubusercontent.com/Liam-Ralph/biomegen/refs/heads/main/autorun_results.csv";
+    let response = await fetch(urlName);
+    const csvLines = await response.text();
+    let csvTextLines = csvLines.trim().split("\n");
+    csvTextLines = csvTextLines.splice(1, csvTextLines.length - 1);
+
+    // Creating Test Results
+
+    let testResults = [];
+
+    for (let i in csvTextLines) {
+        let textLine = csvTextLines[i].split(", ");
+        testResults.push(
+            new TestResult(
+                textLine[0], Number(textLine[1]), Number(textLine[2]), // version, width, height
+                Number(textLine[3]), // processes (reps ignored)
+                Number(textLine[5]), Number(textLine[7]),
+                // mean (standard deviation ignored), pixels per second
+                Number(textLine[8]), Number(textLine[10]), Number(textLine[12])
+                // 5th, 50th, and 95th percentiles (25th and 75th ignored)
+            )
+        );
+    }
+
+    const newestVersion = testResults[testResults.length - 1].version;
+
+    let bestProcesses = {1920: 8, 2560: 8, 3840: 8, 7680: 8, 10000: 8};
+    let result8 = 0;
+    for (let i in testResults) {
+        let result = testResults[i];
+        if (result.version == newestVersion) {
+            if (result.processes == 8) {
+                result8 = result.mean;
+            } else if (result.processes == 16 && result.mean < result8) {
+                bestProcesses[result.width] = 16;
+            }
+        }
+    }
+
+    // Getting Graph Values
+
+    const resolutions = [1920, 2560, 3840, 7680, 10000];
+
+    for (let i in testResults) {
+
+        let result = testResults[i];
+
+        // Not in order
+
+        if (
+            result.version != newestVersion ||
+            (result.version == newestVersion && (bestProcesses[result.width] == result.processes))
+        ) {
+
+            let index = resolutions.indexOf(result.width);
+
+            if (index == 0) {
 
                 xValues["Version"].push(result.version);
 
@@ -107,66 +177,35 @@ for (let i in testResults) {
                 yValues["Version vs Time"][2].push(result.pct50);
                 yValues["Version vs Time"][3].push(result.pct95);
 
-                break;
+            }
 
-            case 2560:
+            yValues["Version vs Pix Per Sec"][index].push(result.pixPerSec);
 
-                index = 1;
+            if (result.version == newestVersion) {
 
-                break;
+                yValues["Resolution vs Time"][0].push(result.mean);
+                yValues["Resolution vs Time"][1].push(result.pct5);
+                yValues["Resolution vs Time"][2].push(result.pct50);
+                yValues["Resolution vs Time"][3].push(result.pct95);
 
-            case 3840:
+                yValues["Pixels vs Time"][0].push(result.mean);
+                yValues["Pixels vs Time"][1].push(result.pct5);
+                yValues["Pixels vs Time"][2].push(result.pct50);
+                yValues["Pixels vs Time"][3].push(result.pct95);
 
-                index = 2;
+                yValues["Resolution vs Pix Per Sec"].push(result.pixPerSec);
 
-                break;
+                yValues["Pixels vs Pix Per Sec"].push(result.pixPerSec);
 
-            case 7680:
-
-                index = 3;
-
-                break;
-
-            case 10000:
-
-                index = 4;
-
-                break;
+            }
 
         }
 
-        yValues["Version vs Pix Per Sec"][index].push(result.pix_per_sec);
+        if (result.version == newestVersion) {
 
-        if (result.version === newestVersion) {
+            let index = resolutions.indexOf(result.width);
 
-            xValues["Resolution"].push(result.width + "x" + result.height);
-            xValues["Pixels"].push(result.width * result.height);
-
-            yValues["Resolution vs Time"][0].push(result.mean);
-            yValues["Resolution vs Time"][1].push(result.pct5);
-            yValues["Resolution vs Time"][2].push(result.pct50);
-            yValues["Resolution vs Time"][3].push(result.pct95);
-
-            yValues["Pixels vs Time"][0].push(result.mean);
-            yValues["Pixels vs Time"][1].push(result.pct5);
-            yValues["Pixels vs Time"][2].push(result.pct50);
-            yValues["Pixels vs Time"][3].push(result.pct95);
-
-            yValues["Resolution vs Pix Per Sec"].push(result.pix_per_sec);
-
-            yValues["Pixels vs Pix Per Sec"].push(result.pix_per_sec);
-
-        }
-
-    }
-
-    if (result.version === newestVersion) {
-
-        let index = 0;
-
-        switch (result.width) {
-
-            case 1920:
+            if (index == 0) {
 
                 xValues["Processes"].push(result.processes.toString());
 
@@ -175,47 +214,87 @@ for (let i in testResults) {
                 yValues["Processes vs Time"][2].push(result.pct50);
                 yValues["Processes vs Time"][3].push(result.pct95);
 
-                break;
+            }
 
-            case 2560:
-
-                index = 1;
-
-                break;
-
-            case 3840:
-
-                index = 2;
-
-                break;
-
-            case 7680:
-
-                index = 3;
-
-                break;
-
-            case 10000:
-
-                index = 4;
-
-                break;
+            yValues["Processes vs Pix Per Sec"][index].push(result.pixPerSec);
 
         }
 
-        yValues["Processes vs Pix Per Sec"][index].push(result.pix_per_sec);
-
     }
+
+    // Create BiomeGen Graphs Cookie
+
+    const numVersions = xValues["Version"].length;
+    const numResolutions = xValues["Resolution"].length;
+    const numProcesses = xValues["Processes"].length;
+
+    let cookie = "";
+
+    for (let i = 0; i < numVersions; i++) {
+        cookie += xValues["Version"][i];
+        if (i != numVersions - 1) {
+            cookie += "-";
+        }
+    }
+    cookie += "_";
+
+    for (let i = 0; i < numProcesses; i++) {
+        cookie += xValues["Processes"][i].toString();
+        if (i != numProcesses - 1) {
+            cookie += "-";
+        }
+    }
+    cookie += "_";
+
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numVersions; ii++) {
+            cookie += yValues["Version vs Time"][i][ii] + "-";
+        }
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        for (let ii = 0; ii < numVersions; ii++) {
+            cookie += yValues["Version vs Pix Per Sec"][i][ii] + "-";
+        }
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numResolutions; ii++) {
+            cookie += yValues["Resolution vs Time"][i][ii] + "-";
+        }
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numResolutions; ii++) {
+            cookie += yValues["Pixels vs Time"][i][ii] + "-";
+        }
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        cookie += yValues["Resolution vs Pix Per Sec"][i] + "-";
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        cookie += yValues["Pixels vs Pix Per Sec"][i] + "-";
+    }
+    for (let i = 0; i < 4; i++) {
+        for (let ii = 0; ii < numProcesses; ii++) {
+            cookie += yValues["Processes vs Time"][i][ii] + "-";
+        }
+    }
+    for (let i = 0; i < numResolutions; i++) {
+        for (let ii = 0; ii < numProcesses; ii++) {
+            cookie += yValues["Processes vs Pix Per Sec"][i][ii];
+            if (i != numResolutions - 1 || ii != numProcesses - 1) {
+                cookie += "-";
+            }
+        }
+    }
+
+    document.cookie = "biomegen-graphs=" + cookie + "; path=/;";
 
 }
 
 // Creating Graphs
 
-let graph;
-
 // Version vs Time
 
-graph = document.getElementById("graph-version-time");
+let graph = document.getElementById("graph-version-time");
 
 new Chart(graph, {
     type: "line",

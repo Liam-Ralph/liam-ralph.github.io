@@ -1,7 +1,8 @@
-## Version 1.2.7 (December 2025) (not complete)
+## Version 1.2.7 (December 2025)
 
- - Remove standard deviation graphs from BiomeGen page.
- - Automatically check most efficient number of processes for BiomeGen page.
+ - Removed standard deviation graphs from BiomeGen page.
+ - Automated check for most efficient number of processes for BiomeGen page.
+ - Added a cookie for improved BiomeGen graphs loading speed.
 
 ## Version 1.2.6 (November 2025)
 
