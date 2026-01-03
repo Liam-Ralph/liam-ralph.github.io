@@ -1,3 +1,9 @@
+## Version 1.2.8 (January 2026)
+
+ - Added files for PwrStat GUI v1.2.0.
+ - Added script to set PwrStat GUI download links automatically.
+ - Updated some PwrStat GUI images.
+
 ## Version 1.2.7 (December 2025)
 
  - Removed standard deviation graphs from BiomeGen page.
