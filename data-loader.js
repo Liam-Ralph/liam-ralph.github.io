@@ -36,7 +36,7 @@ class License {
 class Project {
     constructor(name, tagline, license, releaseDate, filePaths) {
         this.name = name;
-        this.pathName = name.toLowerCase().replace(" ", "-").replaceAll("--", "-");
+        this.pathName = name.toLowerCase().replaceAll(" ", "-").replaceAll("--", "-");
         this.tagline = tagline;
         this.license = license;
         this.license.projects += 1;
@@ -102,7 +102,11 @@ async function loadData() {
     let blackLite = new Project(
         "BlackLite", "A simple, dark theme for Visual Studio Code", mit, "October 2025", []
     );
-    let projects = [biomeGen, pwrStatGUI, website, blackLite];
+    let discordTrackerBot = new Project(
+        "Discord Tracker Bot", "A simple Discord bot to ping a user and track their responses.",
+        mit, "February 2026", ["tracker_bot.py", "tracker_bot_cron.py", "tracker_bot_settings.py"]
+    )
+    let projects = [biomeGen, pwrStatGUI, website, blackLite, discordTrackerBot];
 
     // Attempting to Read Cookies
 
