@@ -122,10 +122,12 @@ async function loadData() {
             let project = projects[ii];
 
             project.version = cookieSections[i++];
-            
+
             if (cookieSections[i] == "") {
+                i += 2;
                 continue;
             }
+
             let projectLangExts = cookieSections[i++].split("-");
             let projectLangLines = cookieSections[i++].split("-");
 

@@ -1,3 +1,7 @@
+## Version 1.2.9 (February 2026)
+
+ - Added Discord Tracker Bot to projects.
+
 ## Version 1.2.8 (January 2026)
 
  - Added files for PwrStat GUI v1.2.0.
