@@ -18,13 +18,14 @@ for (let i in projects) {
 // Load Download Links
 
 document.getElementById("download-link-deb").href =
-    "/downloads/projects/pwrstat-gui/pwrstat-gui_" + version + ".deb";
-document.getElementById("download-link-dev-deb").href =
-    "/downloads/projects/pwrstat-gui/dev-package_" + version + "_debian.tar.gz";
+    "https://github.com/Liam-Ralph/pwrstat-gui/releases/download/v" +
+    version + "/pwrstat-gui_" + version + "_x86_64.deb";
 document.getElementById("download-link-rpm").href =
-    "/downloads/projects/pwrstat-gui/pwrstat-gui-" + version + "-.fc43.x86_64.rpm";
-document.getElementById("download-link-dev-fed").href =
-    "/downloads/projects/pwrstat-gui/dev-package_" + version + "_fedora.tar.gz";
+    "https://github.com/Liam-Ralph/pwrstat-gui/releases/download/v" +
+    version + "/pwrstat-gui_" + version + "_x86_64.rpm";
+document.getElementById("download-link-pacman").href =
+    "https://github.com/Liam-Ralph/pwrstat-gui/releases/download/v" +
+    version + "/pwrstat-gui_" + version + "_x86_64.pkg.tar.zst";
 
 // Log Script Time
 
