@@ -1,3 +1,9 @@
+## Version 1.2.9 (June 2026)
+
+ - Removed PwrStat GUI downloads, now links to GitHub releases.
+ - Updated developer packages link.
+ - Corrected spelling of GitHub from Github where applicable.
+
 ## Version 1.2.8 (January 2026)
 
  - Added files for PwrStat GUI v1.2.0.
