@@ -1,3 +1,7 @@
+## Version 1.2.10 (July 2026)
+
+ - Changed PwrStat GUI file paths in data loading.
+
 ## Version 1.2.9 (June 2026)
 
  - Removed PwrStat GUI downloads, now links to GitHub releases.

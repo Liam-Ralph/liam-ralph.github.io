@@ -64,7 +64,8 @@ async function loadData() {
     let c = new Language("C", "c", "#5050a0");
     // let cpp = new Language("C++", "cpp", "#202040");
     // let cSharp = new Language("C#", "cs", "#080820");
-    let languages = [python, html, css, javaScript, c];
+    let shell = new Language("Shell", "sh", "#808080", "#");
+    let languages = [python, html, css, javaScript, c, shell];
 
     // Licenses
 
@@ -81,7 +82,8 @@ async function loadData() {
         ["main.c", "autorun.c"]
     );
     let pwrStatGUI = new Project(
-        "PwrStat GUI", "An app for viewing CyberPower UPS info.", gpl3, "July 2025", ["main.py"]
+        "PwrStat GUI", "An app for viewing CyberPower UPS info.", gpl3, "July 2025",
+        ["src/main.py", "pkg/compile.sh", "pkg/install-dependencies.sh", "pkg/package.sh"]
     );
     let website = new Project(
         "Website", "My personal website and project showcase.", rightsReserved, "August 2025",
