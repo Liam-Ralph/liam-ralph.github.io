@@ -1,3 +1,8 @@
+## Version 1.2.11 (July 2026)
+
+ - Removed LinkedIn profile.
+ - Reduced size of elements cookie.
+
 ## Version 1.2.10 (July 2026)
 
  - Changed PwrStat GUI file paths in data loading.

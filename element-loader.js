@@ -11,8 +11,7 @@ let text;
 
 if (elementsCookie != "") {
 
-    text = elementsCookie.replaceAll("/n", "\n").replaceAll("?", " ")
-        .replaceAll("^", ",").replaceAll("%", ";").trim();
+    text = elementsCookie.replaceAll("?", " ").replaceAll("^", ",").replaceAll("%", ";").trim();
 
 } else {
 
@@ -21,11 +20,23 @@ if (elementsCookie != "") {
     const response = await fetch('/elements.html');
     text = await response.text();
 
+    // Removing Comments, Indents, and Empty Lines
+
+    while (true) {
+        const startIndex = text.indexOf("<!--")
+        if (startIndex == -1) break;
+        const endIndex = text.indexOf("-->", startIndex + 4);
+        if (endIndex == -1) break;
+        text = text.substring(0, startIndex) + text.substring(endIndex + 4);
+    }
+
+    text = text.replaceAll("    ", "").replaceAll("\n", "");
+
     // Saving Cookie
 
     document.cookie = 
-        "elements=" + text.replaceAll("    ", "").replaceAll("\n\n", "\n")
-        .replaceAll("\n", "/n").replaceAll(" ", "?").replaceAll(",", "^").replaceAll(";", "%") +
+        "elements=" +
+        text.replaceAll(" ", "?").replaceAll(",", "^").replaceAll(";", "%") +
         "; path=/;";
 
 }
