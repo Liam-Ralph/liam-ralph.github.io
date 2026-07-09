@@ -28,16 +28,26 @@ export function loadProjectHistory(projectName) {
     import http from "https://unpkg.com/isomorphic-git/https/web/index.js";
     window.fs = new LightningFS("fs");
     window.pfs = window.fs.promises;
-    window.dir = "/isomorphic-git"
+    window.dir = "/isomorphic-git/" + projectName;
     await pfs.mkdir(dir);
 
     // Cloning Repository
+
+    await git.clone({
+        fs,
+        http,
+        dir: "/isomorphic-git/" + projectName,
+        corsProxy: 'https://cors.isomorphic-git.org',
+        url: 'https://github.com/isomorphic-git/isomorphic-git',
+        ref: 'main',
+        singleBranch: true
+    });
 
     // Log Script Time
 
     const endTime = new Date();
     console.log(
-        (`Load Project History - ${projectName}: `).padEnd(60) + // script path
+        (`loadProjectHistory - ${projectName}: `).padEnd(60) + // script path
         (endTime - startTime).toString().padStart(4) + "ms" // time
     );
 
