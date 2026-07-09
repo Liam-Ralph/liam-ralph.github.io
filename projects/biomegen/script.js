@@ -42,7 +42,7 @@ let yValues = {
 
 // Attempting to Read Cookie
 
-import { readCookie } from "/cookie-reader.js";
+import { readCookie } from "/global-functions.js";
 let cookie = readCookie("biomegen-graphs");
 
 if (cookie != "") {

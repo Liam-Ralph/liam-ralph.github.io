@@ -377,7 +377,7 @@ const startTime = new Date();
 
 // Import Cookie Reader
 
-import { readCookie } from "./cookie-reader.js";
+import { readCookie } from "./global-functions.js";
 
 // Load Data
 
