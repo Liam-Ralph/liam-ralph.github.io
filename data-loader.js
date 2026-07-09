@@ -336,7 +336,7 @@ async function loadData() {
 
         }
 
-        document.cookie = "projects=" + cookie + "; path=/;";
+        document.cookie = `projects=${cookie}; path=/;`;
 
     }
 

@@ -286,7 +286,7 @@ if (cookie != "") {
         }
     }
 
-    document.cookie = "biomegen-graphs=" + cookie + "; path=/;";
+    document.cookie = `biomegen-graphs=${cookie}; path=/;`;
 
 }
 

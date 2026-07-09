@@ -19,13 +19,13 @@ for (let i in projects) {
 
 document.getElementById("download-link-deb").href =
     "https://github.com/Liam-Ralph/pwrstat-gui/releases/download/v" +
-    version + "/pwrstat-gui_" + version + "_x86_64.deb";
+    `${version}/pwrstat-gui_${version}_x86_64.deb`;
 document.getElementById("download-link-rpm").href =
     "https://github.com/Liam-Ralph/pwrstat-gui/releases/download/v" +
-    version + "/pwrstat-gui_" + version + "_x86_64.rpm";
+    `${version}/pwrstat-gui_${version}_x86_64.rpm`;
 document.getElementById("download-link-pacman").href =
     "https://github.com/Liam-Ralph/pwrstat-gui/releases/download/v" +
-    version + "/pwrstat-gui_" + version + "_x86_64.pkg.tar.zst";
+    `${version}/pwrstat-gui_${version}_x86_64.pkg.tar.zst`;
 
 // Log Script Time
 
