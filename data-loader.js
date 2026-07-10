@@ -58,7 +58,7 @@ async function loadData() {
 
     let python = new Language("Python", "py", "#0000AA", "#", ["\"\"\"", "\"\"\""]);
     // let java = new Language("Java", "java", "#AA0000");
-    let html = new Language("HTML", "html", "#DD4000", "None", ["<!--", "-->"]);
+    let html = new Language("HTML", "html", "#DD4000", "", ["<!--", "-->"]);
     let css = new Language("CSS", "css", "#600090");
     let javaScript = new Language("JavaScript", "js", "#DDAA00");
     let c = new Language("C", "c", "#5050a0");
@@ -207,7 +207,7 @@ async function loadData() {
 
                 // Remove Single-Line Comments
 
-                if (fileLanguage.shortComment != "None") {
+                if (fileLanguage.shortComment != "") {
 
                     let fileLinesList = fileText.split("\n");
 
@@ -378,7 +378,7 @@ const startTime = new Date();
 
 // Import Cookie Reader
 
-import { readCookie } from "./global-functions.js";
+import { readCookie } from "./globals.js";
 
 // Load Data
 

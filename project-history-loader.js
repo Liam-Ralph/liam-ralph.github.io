@@ -26,9 +26,9 @@ export function loadProjectHistory(projectName) {
 
     const startTime = new Date();
 
-    // Import Cookie Reader
+    // Import from Globals
 
-    import { readCookie } from "./global-functions.js";
+    import { languageDefs, readCookie } from "./globals.js";
 
     // Load isomorphic-get and Create Filesystem
 
@@ -52,24 +52,41 @@ export function loadProjectHistory(projectName) {
 
     // Read Commit History
 
-    const historyRaw = git.log({
+    const historyRaw = await git.log({
         fs,
         dir: dir
     }).split("\n\n");
     let commits = []
 
-    for (let i in Math.floor(historyRaw.length / 2)) {
+    for (let i = 0; i < Math.floor(historyRaw.length / 2); i++) {
 
         const commitInfo = historyRaw[i * 2].split("\n");
-        const mesgRaw = historyRaw[i * 2 + 1].split("\n");
-        let mesg = [];
-        for (let ii in mesgRaw) mesg.push[mesgRaw[ii].strip()];
 
         commits.push(new Commit(
             commitInfo[0].replace("commit ", ""),
             Date.parse(commitInfo[2].replace("Date:   ", "")),
-            mesg
+            historyRaw[i * 2 + 1].strip()
         ));
+
+    }
+
+    // Analyzing Commits
+
+    for (let i in commits) {
+
+        let commit = commits[i];
+
+        // Checkout Commit
+
+        await git.checkout({
+            fs,
+            dir: dir,
+            ref: commit.id
+        });
+
+        // Scan for Files
+
+        allFiles = pfs.readdir(dir, recursive = true);
 
     }
     
