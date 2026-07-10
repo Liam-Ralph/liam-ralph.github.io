@@ -701,5 +701,5 @@ new Chart(graph, {
 const endTime = new Date();
 console.log(
     (endTime - startTime).toString().padStart(5) + "ms " + // script time
-    ("/projects/biomegen/script.js: ") // script path
+    ("/projects/biomegen/script.js") // script path
 );

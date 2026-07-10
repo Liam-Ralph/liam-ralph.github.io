@@ -135,5 +135,5 @@ document.getElementById("projects-counter").textContent = projects.length + " Pr
 const endTime = new Date();
 console.log(
     (endTime - startTime).toString().padStart(5) + "ms " + // script time
-    ("/projects/script.js: ") // script path
+    ("/projects/script.js") // script path
 );

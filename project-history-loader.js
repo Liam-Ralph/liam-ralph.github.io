@@ -20,54 +20,64 @@ class Commit {
 
 // Project History Loader
 
-export function loadProjectHistory(projectName) {
+import { languageDefs, readCookie } from "/globals.js";
+import http from "https://unpkg.com/isomorphic-git/http/web/index.js";
+
+export async function loadProjectHistory(projectName) {
 
     // Start Time
 
     const startTime = new Date();
 
-    // Import from Globals
-
-    import { languageDefs, readCookie } from "./globals.js";
-
     // Load isomorphic-get and Create Filesystem
 
-    import http from "https://unpkg.com/isomorphic-git/https/web/index.js";
     window.fs = new LightningFS("fs");
     window.pfs = window.fs.promises;
     window.dir = "/isomorphic-git";
-    await pfs.mkdir(dir);
 
-    // Cloning Repository
+    let clone = true;
+    try {
+        const stat = await pfs.stat(dir);
+        clone = !stat.isDirectory()
+    } catch (error) {}
 
-    await git.clone({
-        fs,
-        http,
-        dir: dir,
-        corsProxy: 'https://cors.isomorphic-git.org',
-        url: 'https://github.com/isomorphic-git/isomorphic-git',
-        ref: 'main',
-        singleBranch: true
-    });
+    if (clone) {
+
+        await pfs.mkdir(dir);
+
+        // Cloning Repository
+
+        await git.clone({
+            fs,
+            http,
+            dir: dir,
+            corsProxy: 'https://cors.isomorphic-git.org',
+            url: 'https://github.com/isomorphic-git/isomorphic-git',
+            ref: 'main',
+            singleBranch: true
+        });
+
+    }
+
+    let gitDir = dir + projectName;
 
     // Read Commit History
 
-    const historyRaw = await git.log({
+    let commits = [];
+
+    const readCommitResults = await git.log({
         fs,
         dir: dir
-    }).split("\n\n");
-    let commits = []
+    });
 
-    for (let i = 0; i < Math.floor(historyRaw.length / 2); i++) {
-
-        const commitInfo = historyRaw[i * 2].split("\n");
-
+    for (let i in readCommitResults) {
+        const readCommitResult = readCommitResults[i];
+        const commit = readCommitResult.commit;
         commits.push(new Commit(
-            commitInfo[0].replace("commit ", ""),
-            Date.parse(commitInfo[2].replace("Date:   ", "")),
-            historyRaw[i * 2 + 1].strip()
+            readCommitResult.oid,
+            new Date(commit.author["timestamp"]),
+            commit.message
         ));
-
     }
 
     // Analyzing Commits
@@ -86,7 +96,11 @@ export function loadProjectHistory(projectName) {
 
         // Scan for Files
 
-        allFiles = pfs.readdir(dir, recursive = true);
+        allFiles = pfs.readdir(gitDir, recursive = true);
+        for (let i in allFiles) {
+            path = allFiles[i];
+
+        }
 
     }
     
@@ -95,7 +109,7 @@ export function loadProjectHistory(projectName) {
     const endTime = new Date();
     console.log(
         (endTime - startTime).toString().padStart(5) + "ms " + // script time
-        (`/loadProjectHistory(${projectName})`) // script path
+        (`loadProjectHistory(${projectName})`) // script path
     );
 
     return commits;

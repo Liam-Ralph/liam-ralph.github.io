@@ -21,5 +21,5 @@ document.getElementById("loc-counter").textContent = sum + " Lines of Code";
 const endTime = new Date();
 console.log(
     (endTime - startTime).toString().padStart(5) + "ms " + // script time
-    ("/about-me/script.js: ") // script path
+    ("/about-me/script.js") // script path
 );

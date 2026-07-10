@@ -378,7 +378,7 @@ const startTime = new Date();
 
 // Import Cookie Reader
 
-import { readCookie } from "./globals.js";
+import { readCookie } from "/globals.js";
 
 // Load Data
 
@@ -395,5 +395,5 @@ export { languages, projects, licenses };
 
 console.log(
     (new Date() - startTime).toString().padStart(5) + "ms " + // script time
-    ("/data-loader.js: ") // script path
+    ("/data-loader.js") // script path
 );

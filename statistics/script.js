@@ -299,6 +299,6 @@ for (let i in languagesByProjects) {
 
 const endTime = new Date();
 console.log(
-    ("/statistics/script.js: ").padEnd(35) + // script path
+    ("/statistics/script.js").padEnd(35) + // script path
     (endTime - startTime).toString().padStart(4) + "ms" // time
 );

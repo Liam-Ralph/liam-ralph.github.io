@@ -4,7 +4,7 @@ const startTime = new Date();
 
 // Find PwrStat GUI Version
 
-import { projects } from "/data-loader.js"
+import { projects } from "/data-loader.js";
 
 let version;
 for (let i in projects) {
@@ -27,10 +27,16 @@ document.getElementById("download-link-pacman").href =
     "https://github.com/Liam-Ralph/pwrstat-gui/releases/download/v" +
     `${version}/pwrstat-gui_${version}_x86_64.pkg.tar.zst`;
 
+// Project History Graph
+
+import { loadProjectHistory } from "/project-history-loader.js";
+
+const commits = await loadProjectHistory("pwrstat-gui");
+
 // Log Script Time
 
 const endTime = new Date();
 console.log(
     (endTime - startTime).toString().padStart(5) + "ms " + // script time
-    ("/projects/pwrstat-gui/script.js: ") // script path
+    ("/projects/pwrstat-gui/script.js") // script path
 );
