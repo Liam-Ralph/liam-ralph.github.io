@@ -394,6 +394,6 @@ export { languages, projects, licenses };
 // Log Script Time
 
 console.log(
-    ("/data-loader.js: ").padEnd(35) + // script path
-    (new Date() - startTime).toString().padStart(4) + "ms" // time
+    (new Date() - startTime).toString().padStart(5) + "ms " + // script time
+    ("/data-loader.js: ") // script path
 );

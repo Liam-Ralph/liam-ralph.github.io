@@ -77,8 +77,8 @@ export function loadProjectHistory(projectName) {
 
     const endTime = new Date();
     console.log(
-        (`/loadProjectHistory(${projectName})`).padEnd(60) + // script path
-        (endTime - startTime).toString().padStart(4) + "ms" // time
+        (endTime - startTime).toString().padStart(5) + "ms " + // script time
+        (`/loadProjectHistory(${projectName})`) // script path
     );
 
     return commits;

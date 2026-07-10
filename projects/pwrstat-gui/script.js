@@ -31,6 +31,6 @@ document.getElementById("download-link-pacman").href =
 
 const endTime = new Date();
 console.log(
-    ("/projects/pwrstat-gui/script.js: ").padEnd(35) + // script path
-    (endTime - startTime).toString().padStart(4) + "ms" // time
+    (endTime - startTime).toString().padStart(5) + "ms " + // script time
+    ("/projects/pwrstat-gui/script.js: ") // script path
 );
