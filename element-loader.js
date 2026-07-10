@@ -4,7 +4,7 @@ const startTime = new Date();
 
 // Attempting to Read Cookie
 
-import { readCookie } from "./cookie-reader.js";
+import { readCookie } from "./global-functions.js";
 
 const elementsCookie = readCookie("elements");
 let text;

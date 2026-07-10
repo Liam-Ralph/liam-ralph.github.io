@@ -9,13 +9,11 @@ class File {
 }
 
 class Commit {
-    constructor(id, mesg, filePaths) {
+    constructor(id, dateEpoch, mesg) {
         this.id = id;
+        this.date = new Date(dateEpoch);
         this.mesg = mesg;
         this.files = [];
-        for (let i in filePaths) {
-            this.files.push(new File(filesPaths[i]));
-        }
     }
 }
 
@@ -45,7 +43,7 @@ export function loadProjectHistory(projectName) {
     await git.clone({
         fs,
         http,
-        dir: "/isomorphic-git",
+        dir: dir,
         corsProxy: 'https://cors.isomorphic-git.org',
         url: 'https://github.com/isomorphic-git/isomorphic-git',
         ref: 'main',
@@ -54,14 +52,35 @@ export function loadProjectHistory(projectName) {
 
     // Read Commit History
 
-    historyRaw = git.log
+    const historyRaw = git.log({
+        fs,
+        dir: dir
+    }).split("\n\n");
+    let commits = []
+
+    for (let i in Math.floor(historyRaw.length / 2)) {
+
+        const commitInfo = historyRaw[i * 2].split("\n");
+        const mesgRaw = historyRaw[i * 2 + 1].split("\n");
+        let mesg = [];
+        for (let ii in mesgRaw) mesg.push[mesgRaw[ii].strip()];
+
+        commits.push(new Commit(
+            commitInfo[0].replace("commit ", ""),
+            Date.parse(commitInfo[2].replace("Date:   ", "")),
+            mesg
+        ));
+
+    }
     
     // Log Script Time
 
     const endTime = new Date();
     console.log(
-        (`/project-history-loader (${projectName}) `).padEnd(60) + // script path
+        (`/loadProjectHistory(${projectName})`).padEnd(60) + // script path
         (endTime - startTime).toString().padStart(4) + "ms" // time
     );
+
+    return commits;
 
 }
