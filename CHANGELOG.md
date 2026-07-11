@@ -1,3 +1,7 @@
+## Version 1.2.12 (July 2026)
+
+ - Refactored JavaScript scripts.
+
 ## Version 1.2.11 (July 2026)
 
  - Removed LinkedIn profile.
