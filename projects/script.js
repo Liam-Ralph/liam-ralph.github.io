@@ -21,7 +21,7 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
     let projectLogo = document.createElement("img");
     projectLogo.className = "project-logo";
-    projectLogo.src = "/images/projects/" + project.pathName + "/logo.png";
+    projectLogo.src = `/images/projects/${project.pathName}/logo.png`;
     projectLogo.alt = project.name + " Logo";
 
     projectBox.appendChild(projectLogo);
@@ -134,6 +134,6 @@ document.getElementById("projects-counter").textContent = projects.length + " Pr
 
 const endTime = new Date();
 console.log(
-    ("/projects/script.js: ").padEnd(35) + // script path
-    (endTime - startTime).toString().padStart(4) + "ms" // time
+    (endTime - startTime).toString().padStart(5) + "ms " + // script time
+    ("/projects/script.js") // script path
 );

@@ -4,7 +4,7 @@ const startTime = new Date();
 
 // Attempting to Read Cookie
 
-import { readCookie } from "./cookie-reader.js";
+import { readCookie } from "/cookie-reader.js";
 
 const elementsCookie = readCookie("elements");
 let text;
@@ -70,6 +70,6 @@ document.getElementById("first-header-version").textContent = "Version " + websi
 
 const endTime = new Date();
 console.log(
-    ("/element-loader.js: ").padEnd(35) + // script path
-    (endTime - startTime).toString().padStart(4) + "ms" // time
+    (endTime - startTime).toString().padStart(5) + "ms " + // script time
+    ("/element-loader.js") // script path
 );

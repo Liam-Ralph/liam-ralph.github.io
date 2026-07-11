@@ -58,7 +58,7 @@ async function loadData() {
 
     let python = new Language("Python", "py", "#0000AA", "#", ["\"\"\"", "\"\"\""]);
     // let java = new Language("Java", "java", "#AA0000");
-    let html = new Language("HTML", "html", "#DD4000", "None", ["<!--", "-->"]);
+    let html = new Language("HTML", "html", "#DD4000", "", ["<!--", "-->"]);
     let css = new Language("CSS", "css", "#600090");
     let javaScript = new Language("JavaScript", "js", "#DDAA00");
     let c = new Language("C", "c", "#5050a0");
@@ -207,7 +207,7 @@ async function loadData() {
 
                 // Remove Single-Line Comments
 
-                if (fileLanguage.shortComment != "None") {
+                if (fileLanguage.shortComment != "") {
 
                     let fileLinesList = fileText.split("\n");
 
@@ -336,7 +336,7 @@ async function loadData() {
 
         }
 
-        document.cookie = "projects=" + cookie + "; path=/;";
+        document.cookie = `projects=${cookie}; path=/;`;
 
     }
 
@@ -371,13 +371,14 @@ async function loadData() {
 
 }
 
+
 // Start Time
 
 const startTime = new Date();
 
 // Import Cookie Reader
 
-import { readCookie } from "./cookie-reader.js";
+import { readCookie } from "/cookie-reader.js";
 
 // Load Data
 
@@ -393,6 +394,6 @@ export { languages, projects, licenses };
 // Log Script Time
 
 console.log(
-    ("/data-loader.js: ").padEnd(35) + // script path
-    (new Date() - startTime).toString().padStart(4) + "ms" // time
+    (new Date() - startTime).toString().padStart(5) + "ms " + // script time
+    ("/data-loader.js") // script path
 );

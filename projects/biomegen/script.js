@@ -286,7 +286,7 @@ if (cookie != "") {
         }
     }
 
-    document.cookie = "biomegen-graphs=" + cookie + "; path=/;";
+    document.cookie = `biomegen-graphs=${cookie}; path=/;`;
 
 }
 
@@ -700,6 +700,6 @@ new Chart(graph, {
 
 const endTime = new Date();
 console.log(
-    ("/projects/biomegen/script.js: ").padEnd(35) + // script path
-    (endTime - startTime).toString().padStart(4) + "ms" // time
+    (endTime - startTime).toString().padStart(5) + "ms " + // script time
+    ("/projects/biomegen/script.js") // script path
 );
