@@ -59,7 +59,7 @@ async function loadData() {
     let python = new Language("Python", "py", "#0000AA", "#", ["\"\"\"", "\"\"\""]);
     // let java = new Language("Java", "java", "#AA0000");
     let html = new Language("HTML", "html", "#DD4000", "", ["<!--", "-->"]);
-    let css = new Language("CSS", "css", "#600090");
+    let css = new Language("CSS", "css", "#600090", "");
     let javaScript = new Language("JavaScript", "js", "#DDAA00");
     let c = new Language("C", "c", "#5050a0");
     // let cpp = new Language("C++", "cpp", "#202040");
@@ -89,7 +89,7 @@ async function loadData() {
         "Website", "My personal website and project showcase.", rightsReserved, "August 2025",
         [
             "index.html", "styles.css", "elements.html",
-            "data-loader.js", "element-loader.js",
+            "data-loader.js", "element-loader.js", "cookie-reader.js",
             "about-me/index.html", "about-me/styles.css", "about-me/script.js",
             "projects/index.html", "projects/styles.css", "projects/script.js",
             "projects/archived/index.html", "projects/archived/styles.css",
