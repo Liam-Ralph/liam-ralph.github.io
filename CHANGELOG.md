@@ -1,3 +1,7 @@
+## Version 1.2.13 (July 2026)
+
+ - Corrected Shell language statistics.
+
 ## Version 1.2.12 (July 2026)
 
  - Refactored JavaScript scripts.
