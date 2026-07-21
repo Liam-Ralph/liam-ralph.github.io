@@ -47,6 +47,18 @@ for (let i = 0; i < languagesByProjects.length - 1; i++) {
     }
 }
 
+let languagesByLines = languages.slice();
+
+for (let i = 0; i < languagesByLines.length - 1; i++) {
+    for (let ii = 0; ii < languagesByLines.length - i - 1; ii++) {
+        if (languagesByLines[ii].lines < languagesByLines[ii + 1].lines) {
+            const temp = languagesByLines[ii];
+            languagesByLines[ii] = languagesByLines[ii + 1];
+            languagesByLines[ii + 1] = temp;
+        }
+    }
+}
+
 let projectsByLines = projects.slice();
 
 for (let i = 0; i < projectsByLines.length - 1; i++) {
@@ -230,11 +242,11 @@ for (let i = projects.length - 1; i >= 0; i--) {
 // Languages Bar Chart 1
 
 barChart = document.getElementById("languages-bar-chart-1");
-maxWidth = (barChart.offsetWidth - 60) / languages[0].lines;
+maxWidth = (barChart.offsetWidth - 60) / languagesByLines[0].lines;
 
-for (let i in languages) {
+for (let i in languagesByLines) {
 
-    const language = languages[i];
+    const language = languagesByLines[i];
 
     let bar = document.createElement("div");
     bar.className = "chart-bar";
@@ -256,9 +268,9 @@ pieChart = document.createElement("div");
 pieChart.className = "large-pie";
 backgroundImage = "conic-gradient(";
 currentPct = 0;
-for (let i in languages) {
-    const langPct = Math.round(languages[i].lines / totLines * 100);
-    backgroundImage += languages[i].color + " " + currentPct + "% ";
+for (let i in languagesByLines) {
+    const langPct = Math.round(languagesByLines[i].lines / totLines * 100);
+    backgroundImage += languagesByLines[i].color + " " + currentPct + "% ";
     currentPct += langPct;
     backgroundImage += currentPct + "%";
     if (i != languages.length - 1) {

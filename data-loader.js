@@ -36,7 +36,7 @@ class License {
 class Project {
     constructor(name, tagline, license, releaseDate, filePaths) {
         this.name = name;
-        this.pathName = name.toLowerCase().replace(" ", "-").replaceAll("--", "-");
+        this.pathName = name.toLowerCase().replaceAll(" ", "-").replaceAll("--", "-");
         this.tagline = tagline;
         this.license = license;
         this.license.projects += 1;
@@ -62,10 +62,10 @@ async function loadData() {
     let css = new Language("CSS", ["css"], "#600090", "");
     let javaScript = new Language("JavaScript", ["js"], "#DDAA00");
     let c = new Language("C", ["c", "h"], "#5050a0");
-    // let cpp = new Language("C++", ["cpp", "hpp"], "#202040");
+    let cpp = new Language("C++", ["cpp", "hpp"], "#202040");
     // let cSharp = new Language("C#", ["cs"], "#080820");
     let shell = new Language("Shell", ["sh", "bash"], "#808080", "#", []);
-    let languages = [python, html, css, javaScript, c, shell];
+    let languages = [python, html, css, javaScript, c, cpp, shell];
 
     // Licenses
 
@@ -104,7 +104,16 @@ async function loadData() {
     let blackLite = new Project(
         "BlackLite", "A simple, dark theme for Visual Studio Code", mit, "October 2025", []
     );
-    let projects = [biomeGen, pwrStatGUI, website, blackLite];
+    let gitLoCHistory = new Project(
+        "Git LoC History", "An application for view a git repo's lines of code across its history.",
+        mit, "August 2026",
+        [
+            "src/git-loc-history.cpp", "src/git-loc-history-cli.cpp",
+            "src/create-loc-history.cpp", "src/create-loc-history.hpp",
+            "src/mainwindow.cpp", "src/mainwindow.h"
+        ]
+    )
+    let projects = [biomeGen, pwrStatGUI, website, blackLite, gitLoCHistory];
 
     // Attempting to Read Cookies
 
@@ -122,6 +131,7 @@ async function loadData() {
             project.version = cookieSections[i++];
             
             if (cookieSections[i] == "") {
+                i += 2;
                 continue;
             }
             let projectLangExts = cookieSections[i++].split("-");
@@ -337,33 +347,6 @@ async function loadData() {
         }
 
         document.cookie = `projects=${cookie}; path=/;`;
-
-    }
-
-    // Sort Languages
-
-    let numLangs = languages.length;
-
-    for (let i = 0; i < numLangs - 1; i++) {
-
-        let swapped = false;
-
-        for (let ii = 0; ii < numLangs - i - 1; ii++) {
-
-            if (languages[ii].lines < languages[ii + 1].lines) {
-
-                const temp = languages[ii];
-                languages[ii] = languages[ii + 1];
-                languages[ii + 1] = temp;
-
-                swapped = true;
-
-            }
-        }
-
-        if (!swapped) {
-            break;
-        }
 
     }
 
