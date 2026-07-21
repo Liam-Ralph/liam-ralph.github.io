@@ -56,15 +56,15 @@ async function loadData() {
 
     // Languages
 
-    let python = new Language("Python", "py", "#0000AA", "#", ["\"\"\"", "\"\"\""]);
-    // let java = new Language("Java", "java", "#AA0000");
-    let html = new Language("HTML", "html", "#DD4000", "", ["<!--", "-->"]);
-    let css = new Language("CSS", "css", "#600090", "");
-    let javaScript = new Language("JavaScript", "js", "#DDAA00");
-    let c = new Language("C", "c", "#5050a0");
-    // let cpp = new Language("C++", "cpp", "#202040");
-    // let cSharp = new Language("C#", "cs", "#080820");
-    let shell = new Language("Shell", "sh", "#808080", "#", []);
+    let python = new Language("Python", ["py"], "#0000AA", "#", ["\"\"\"", "\"\"\""]);
+    // let java = new Language("Java", ["java"], "#AA0000");
+    let html = new Language("HTML", ["html"], "#DD4000", "", ["<!--", "-->"]);
+    let css = new Language("CSS", ["css"], "#600090", "");
+    let javaScript = new Language("JavaScript", ["js"], "#DDAA00");
+    let c = new Language("C", ["c", "h"], "#5050a0");
+    // let cpp = new Language("C++", ["cpp", "hpp"], "#202040");
+    // let cSharp = new Language("C#", ["cs"], "#080820");
+    let shell = new Language("Shell", ["sh", "bash"], "#808080", "#", []);
     let languages = [python, html, css, javaScript, c, shell];
 
     // Licenses
@@ -134,7 +134,7 @@ async function loadData() {
                 let lang;
 
                 for (let iv in languages) {
-                    if (languages[iv].ext == langExt) {
+                    if (languages[iv].ext[0] == langExt) {
                         lang = languages[iv];
                         break;
                     }
@@ -200,7 +200,7 @@ async function loadData() {
 
                 let fileLanguage;
                 for (let iii in languages) {
-                    if (languages[iii].ext == project.filePaths[ii].split(".")[1]) {
+                    if (languages[iii].ext.includes(project.filePaths[ii].split(".")[1])) {
                         fileLanguage = languages[iii];
                     }
                 }
@@ -317,7 +317,7 @@ async function loadData() {
             cookie += project.version.trim() + "_";
 
             for (let ii = 0; ii < numLangs; ii++) {
-                cookie += project.languages[ii].ext;
+                cookie += project.languages[ii].ext[0];
                 if (ii != numLangs - 1) {
                     cookie += "-";
                 }
