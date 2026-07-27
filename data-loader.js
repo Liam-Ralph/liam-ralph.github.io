@@ -110,7 +110,9 @@ async function loadData() {
         [
             "src/git-loc-history.cpp", "src/git-loc-history-cli.cpp",
             "src/create-loc-history.cpp", "src/create-loc-history.hpp",
-            "src/mainwindow.cpp", "src/mainwindow.h"
+            "src/definitions.cpp", "src/definitions.hpp",
+            "src/mainwindow.cpp", "src/mainwindow.hpp",
+            "src/infowindow.cpp", "src/infowindow.hpp"
         ]
     )
     let projects = [biomeGen, pwrStatGUI, website, blackLite, gitLoCHistory];
