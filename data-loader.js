@@ -98,14 +98,16 @@ async function loadData() {
             "projects/pwrstat-gui/index.html", "projects/pwrstat-gui/script.js",
             "projects/website/index.html",
             "projects/blacklite/index.html",
+            "projects/git-loc-history/index.html",
             "statistics/index.html", "statistics/styles.css", "statistics/script.js"
         ]
     );
     let blackLite = new Project(
-        "BlackLite", "A simple, dark theme for Visual Studio Code", mit, "October 2025", []
+        "BlackLite", "A simple, dark theme for Visual Studio Code.", mit, "October 2025", []
     );
     let gitLoCHistory = new Project(
-        "Git LoC History", "An application for view a git repo's lines of code across its history.",
+        "Git LoC History",
+        "An application to view repo's lines of code per commits.",
         mit, "August 2026",
         [
             "src/git-loc-history.cpp", "src/git-loc-history-cli.cpp",
