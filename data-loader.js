@@ -107,14 +107,15 @@ async function loadData() {
     );
     let gitLoCHistory = new Project(
         "Git LoC History",
-        "An application to view repo's lines of code per commits.",
+        "An application to view repo's lines of code per commit.",
         mit, "August 2026",
         [
             "src/git-loc-history.cpp", "src/git-loc-history-cli.cpp",
             "src/create-loc-history.cpp", "src/create-loc-history.hpp",
             "src/definitions.cpp", "src/definitions.hpp",
             "src/mainwindow.cpp", "src/mainwindow.hpp",
-            "src/infowindow.cpp", "src/infowindow.hpp"
+            "src/infowindow.cpp", "src/infowindow.hpp",
+            "pkg/build.sh", "pkg/package.sh"
         ]
     )
     let projects = [biomeGen, pwrStatGUI, website, blackLite, gitLoCHistory];
