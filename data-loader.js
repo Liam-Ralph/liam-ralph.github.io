@@ -98,7 +98,7 @@ async function loadData() {
             "projects/pwrstat-gui/index.html", "projects/pwrstat-gui/script.js",
             "projects/website/index.html",
             "projects/blacklite/index.html",
-            "projects/git-loc-history/index.html",
+            "projects/git-loc-history/index.html", "projects/git-loc-history/script.js",
             "statistics/index.html", "statistics/styles.css", "statistics/script.js"
         ]
     );

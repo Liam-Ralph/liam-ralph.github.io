@@ -1,7 +1,7 @@
 # My Website
 ### Released August 2025
-### Version 1.2.13
-### Updated July 2026
+### Version 1.2.14
+### Updated August 2026
 
 <br/>
 

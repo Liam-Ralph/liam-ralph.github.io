@@ -1,3 +1,8 @@
+## Version 1.2.14 (August 2026)
+
+ - Added Git LoC History.
+ - Corrected remaining spellings of GitHub.
+
 ## Version 1.2.13 (July 2026)
 
  - Corrected Shell language statistics.
