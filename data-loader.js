@@ -99,6 +99,7 @@ async function loadData() {
             "projects/website/index.html",
             "projects/blacklite/index.html",
             "projects/git-loc-history/index.html", "projects/git-loc-history/script.js",
+            "projects/vm-manager/index.html",
             "statistics/index.html", "statistics/styles.css", "statistics/script.js"
         ]
     );
@@ -106,8 +107,7 @@ async function loadData() {
         "BlackLite", "A simple, dark theme for Visual Studio Code.", mit, "October 2025", []
     );
     let gitLoCHistory = new Project(
-        "Git LoC History",
-        "An application to view repo's lines of code per commit.",
+        "Git LoC History", "An application to view a repo's lines of code per commit.",
         mit, "August 2026",
         [
             "src/git-loc-history.cpp", "src/git-loc-history-cli.cpp",
@@ -118,7 +118,11 @@ async function loadData() {
             "pkg/build.sh", "pkg/package.sh"
         ]
     )
-    let projects = [biomeGen, pwrStatGUI, website, blackLite, gitLoCHistory];
+    let vmManager = new Project(
+        "VM Manager", "An application for managing copies of virtual machines.",
+        mit, "September 2026", ["src/vm-manager.py", "pkg/package.sh"]
+    )
+    let projects = [biomeGen, pwrStatGUI, website, blackLite, gitLoCHistory, vmManager];
 
     // Attempting to Read Cookies
 
@@ -176,12 +180,11 @@ async function loadData() {
             // Project URL Path Name
 
             let urlName;
-            if (project.name == "Website") {
+            if (project.name == "Website")
                 urlName = "/";
-            } else {
+            else
                 urlName = "https://raw.githubusercontent.com/Liam-Ralph/" + project.pathName +
                     "/refs/heads/main/";
-            }
 
             // Finding Project Version
 
@@ -197,9 +200,8 @@ async function loadData() {
             // Fetch File Contents
 
             let urls = [];
-            for (let ii in project.filePaths) {
+            for (let ii in project.filePaths)
                 urls.push(urlName + project.filePaths[ii]);
-            }
             const promises = urls.map(file => fetch(file).then(r => r.text()));
             const fileTexts = await Promise.all(promises);
 
@@ -217,6 +219,7 @@ async function loadData() {
                 for (let iii in languages) {
                     if (languages[iii].ext.includes(project.filePaths[ii].split(".")[1])) {
                         fileLanguage = languages[iii];
+                        break;
                     }
                 }
 
@@ -247,9 +250,8 @@ async function loadData() {
                     while (true) {
 
                         const startIndex = result.indexOf(fileLanguage.longComment[0]);
-                        if (startIndex == -1) {
+                        if (startIndex == -1)
                             break;
-                        }
 
                         const searchStart = startIndex + fileLanguage.longComment[0].length;
                         const endIndex = result.indexOf(fileLanguage.longComment[1], searchStart);
@@ -271,9 +273,8 @@ async function loadData() {
 
                 fileText = fileText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-                while (fileText.includes("\n\n")) {
+                while (fileText.includes("\n\n"))
                     fileText = fileText.replace("\n\n", "\n");
-                }
                 fileText = fileText.trim();
 
                 const fileLines = fileText.split("\n").length;
@@ -283,9 +284,8 @@ async function loadData() {
                 fileLanguage.lines += fileLines;
                 project.lines += fileLines;
 
-                if (!fileLanguage.projects.includes(project)) {
+                if (!fileLanguage.projects.includes(project))
                     fileLanguage.projects.push(project);
-                }
                 if (!project.languages.includes(fileLanguage)) {
                     project.languages.push(fileLanguage);
                     project.linesList.push(0);
@@ -321,9 +321,8 @@ async function loadData() {
 
                 }
 
-                if (!swapped) {
+                if (!swapped)
                     break;
-                }
 
             }
 
@@ -333,17 +332,15 @@ async function loadData() {
 
             for (let ii = 0; ii < numLangs; ii++) {
                 cookie += project.languages[ii].ext[0];
-                if (ii != numLangs - 1) {
+                if (ii != numLangs - 1)
                     cookie += "-";
-                }
             }
             cookie += "_";
 
             for (let ii = 0; ii < numLangs; ii++) {
                 cookie += project.linesList[ii].toString();
-                if (ii != numLangs - 1) {
+                if (ii != numLangs - 1)
                     cookie += "-";
-                }
             }
             if (i != projects.length - 1) {
                 cookie += "_";
