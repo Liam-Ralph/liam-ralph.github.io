@@ -128,6 +128,9 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
 }
 
+if (pinnedProjectNames.length === 0)
+    document.getElementById("title-pinned").remove()
+
 document.getElementById("projects-counter").textContent = projects.length + " Projects";
 
 // Log Script Time
