@@ -20,6 +20,9 @@ for (let i in projects) {
 document.getElementById("download-link-deb").href =
     "https://github.com/Liam-Ralph/git-loc-history/releases/download/v" +
     `${version}/git-loc-history_${version}_x86_64.deb`;
+document.getElementById("download-link-deb-lts").href =
+    "https://github.com/Liam-Ralph/git-loc-history/releases/download/v" +
+    `${version}/git-loc-history-lts_${version}_x86_64.deb`;
 document.getElementById("download-link-rpm").href =
     "https://github.com/Liam-Ralph/git-loc-history/releases/download/v" +
     `${version}/git-loc-history_${version}_x86_64.rpm`;
