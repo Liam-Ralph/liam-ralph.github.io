@@ -114,6 +114,7 @@ async function loadData() {
             "src/create-loc-history.cpp", "src/create-loc-history.hpp",
             "src/definitions.cpp", "src/definitions.hpp",
             "src/mainwindow.cpp", "src/mainwindow.hpp",
+            "src/worker.cpp", "src/worker.hpp",
             "src/infowindow.cpp", "src/infowindow.hpp",
             "pkg/build.sh", "pkg/package.sh"
         ]

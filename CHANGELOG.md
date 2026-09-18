@@ -1,7 +1,11 @@
-## Version 1.2.15 (September 2026)
+## Version 1.2.16 (September 2026)
 
  - Added VM Manager.
  - Added hiding of pinned projects section when empty.
+
+## Version 1.2.15 (September 2026)
+
+ - Updated Git LoC History code paths and download links for v1.1.1.
 
 ## Version 1.2.14 (August 2026)
 
