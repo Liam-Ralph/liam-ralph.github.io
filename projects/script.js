@@ -128,8 +128,10 @@ for (let i = projects.length - 1; i >= 0; i--) {
 
 }
 
-if (pinnedProjectNames.length === 0)
-    document.getElementById("title-pinned").remove()
+if (pinnedProjectNames.length === 0) {
+    document.getElementById("title-pinned").remove();
+    document.getElementById("page-nav-link-recent").remove();
+}
 
 document.getElementById("projects-counter").textContent = projects.length + " Projects";
 
