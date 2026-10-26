@@ -97,14 +97,10 @@ async function loadData() {
             "projects/biomegen/script.js",
             "projects/pwrstat-gui/index.html", "projects/pwrstat-gui/script.js",
             "projects/website/index.html",
-            "projects/blacklite/index.html",
             "projects/git-loc-history/index.html", "projects/git-loc-history/script.js",
             "projects/vm-manager/index.html",
             "statistics/index.html", "statistics/styles.css", "statistics/script.js"
         ]
-    );
-    let blackLite = new Project(
-        "BlackLite", "A simple, dark theme for Visual Studio Code.", mit, "October 2025", []
     );
     let gitLoCHistory = new Project(
         "Git LoC History", "An application to view a repo's lines of code per commit.",
@@ -121,10 +117,10 @@ async function loadData() {
     )
     let vmManager = new Project(
         "VM Manager", "An application for managing copies of virtual machines.",
-        mit, "September 2026",
+        mit, "November 2026",
         ["src/vm-manager.py", "src/get-machines.py", "src/get-vm-files.py", "pkg/package.sh"]
     )
-    let projects = [biomeGen, pwrStatGUI, website, blackLite, gitLoCHistory, vmManager];
+    let projects = [biomeGen, pwrStatGUI, website, gitLoCHistory, vmManager];
 
     // Attempting to Read Cookies
 
