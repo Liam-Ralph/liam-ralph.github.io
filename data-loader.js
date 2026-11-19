@@ -121,7 +121,7 @@ async function loadData() {
     )
     let vmManager = new Project(
         "VM Manager", "An application for managing copies of virtual machines.",
-        mit, "September 2026",
+        mit, "December 2026",
         ["src/vm-manager.py", "src/get-machines.py", "src/get-vm-files.py", "pkg/package.sh"]
     )
     let projects = [biomeGen, pwrStatGUI, website, blackLite, gitLoCHistory, vmManager];
