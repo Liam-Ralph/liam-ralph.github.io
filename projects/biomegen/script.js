@@ -138,16 +138,17 @@ if (cookie != "") {
 
     const newestVersion = testResults[testResults.length - 1].version;
 
-    let bestProcesses = {1920: 8, 2560: 8, 3840: 8, 7680: 8, 10000: 8};
-    let result8 = 0;
-    for (let i in testResults) {
+    let bestProcesses = {1920: 8, 2560: 8, 3840: 8, 7680: 8, 10000: 16};
+    let bestMean = testResults[testResults.length - 1].mean;
+    for (let i = testResults.length - 2; i >= 0; i--) {
         let result = testResults[i];
         if (result.version == newestVersion) {
-            if (result.processes == 8) {
-                result8 = result.mean;
-            } else if (result.processes == 16 && result.mean < result8) {
+            if (result.mean < bestMean) {
+                bestMean = result.mean;
                 bestProcesses[result.width] = 16;
             }
+        } else {
+            break;
         }
     }
 
