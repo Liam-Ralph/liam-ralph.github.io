@@ -1,7 +1,11 @@
-## Version 1.2.16 (September 2026)
+## Version 1.2.17 (December 2026)
 
  - Added VM Manager.
  - Added hiding of pinned projects section when empty.
+ 
+## Version 1.2.16 (November 2026)
+
+ - Updated for BiomeGen v4.0.0.
 
 ## Version 1.2.15 (September 2026)
 
