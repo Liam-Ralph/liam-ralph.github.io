@@ -1,3 +1,7 @@
+## Version 1.2.16 (November 2026)
+
+ - Updated for BiomeGen v4.0.0.
+
 ## Version 1.2.15 (September 2026)
 
  - Updated Git LoC History code paths and download links for v1.1.1.
